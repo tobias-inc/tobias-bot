@@ -33,5 +33,10 @@
         "changedSuccessfully": "O prefixo foi alterado para **`{{prefix}}`**"
       }
     }
+  },
+  "daily": {
+    "commandDescription": "Reivindica sua recompensa diária.",
+    "alreadyClaimedDescription": "Você já reivindicou sua recompensa diária. Você pode pegar novamente em **{{time}}**.",
+    "claimedSuccessfully": "Você recebeu **$t(commons:currencyWithCount, { 'count': {{count}} })** como sua recompensa diária!"
   }
 }

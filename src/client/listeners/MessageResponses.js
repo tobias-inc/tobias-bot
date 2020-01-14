@@ -28,11 +28,6 @@ module.exports = class MessageResponses extends Listener {
     const language = await this.client.modules.language.retrieveValue(guildId, 'language');
     const usedPrefix = getPrefix(message, [prefix, `<@!${this.client.user.id}>`, `<@${this.client.user.id}>`]);
 
-    if (!emited && message.guild) {
-      const user = new SocialUtils.userWrapper(message.author, message.channel, language);
-      this.socialUtils.upsert(user);
-    }
-
     if (usedPrefix && (message.content.length > usedPrefix.length)) {
       const fullCmd = message.content.substring(usedPrefix.length).split(/[ \t]+/).filter(a => !spacePrefix || a)
       const args = fullCmd.slice(1);
@@ -51,10 +46,15 @@ module.exports = class MessageResponses extends Listener {
         })
 
         context.setFixedT(this.client.language.lang(language))
-        return command
+        await command
           ._run(context, args)
           .catch((e) => this.client.console(true, (e.stack || e), 'CommandRun', command.name))
       }
+    }
+
+    if (!emited && message.guild) {
+      const user = new SocialUtils.userWrapper(message.author, message.channel, language);
+      return this.socialUtils.upsert(user);
     }
   }
 }

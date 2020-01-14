@@ -12,5 +12,6 @@
     "subcmd": "Subcomandos",
     "versions": "Versões"
   },
-  "levelup": "Parabéns {{username}}, você acaba de passar para o level **{{level}}**!"
+  "levelup": "Parabéns {{username}}, você acaba de passar para o level **{{level}}**!",
+  "currencyWithCount": "{{count}} pockets"
 }
