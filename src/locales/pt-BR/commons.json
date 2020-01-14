@@ -1,0 +1,16 @@
+{
+  "usage": "Uso",
+  "enabled": "habilitado",
+  "disabled": "desabilitado",
+  "none": "Nenhum",
+  "channelTypes": {
+    "text": "Texto",
+    "category": "Categoria",
+    "voice": "Voz"
+  },
+  "texts": {
+    "subcmd": "Subcomandos",
+    "versions": "Versões"
+  },
+  "levelup": "Parabéns {{username}}, você acaba de passar para o level **{{level}}**!"
+}

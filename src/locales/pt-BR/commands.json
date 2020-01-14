@@ -1,0 +1,37 @@
+{
+  "eval": {
+    "commandDescription": "Avalia uma string JS.",
+    "commandUsage": "<texto>"
+  },
+  "reload": {
+    "error": "Ocorreu um erro ao recarregar o comando:\n**{{error}}**",
+    "sucess": "O comando **`{{command}}`** foi recarregado com sucesso!",
+    "noCommand": "Por favor insira o `nome` ou uma `aliase` do comando a ser recarregado!"
+  },
+  "reloadlocales": {
+    "error": "Ocorreu um erro ao recarregar o sistema: **{{error}}**",
+    "sucess": "O sistema foi recarregado com **sucesso**!"
+  },
+  "config": {
+    "commandDescription": "Altera a configuração atual do servidor.",
+    "commandUsage": "[configuração a ser alterada]",
+    "subcommands": {
+      "language": {
+        "commandDescription": " Altera o idioma atual do servidor.",
+        "commandUsage": "<código do idioma>",
+        "missingTranslation": "Algumas traduções podem estar faltando",
+        "info": "**Para alterar o idioma do servidor**:",
+        "noCode": "Você tem que me dar um código de idioma!",
+        "availableLanguages": "Idiomas disponíveis",
+        "changedSuccessfully": "Idioma alterado para **{{lang}}**"
+      },
+      "prefix": {
+        "commandDescription": "Altera o prefixo do servidor atual.",
+        "commandUsage": "<novo prefixo>",
+        "info": "**Para alterar o prefixo do servidor**:",
+        "noPrefix": "Você tem que me dar um prefixo!",
+        "changedSuccessfully": "O prefixo foi alterado para **`{{prefix}}`**"
+      }
+    }
+  }
+}

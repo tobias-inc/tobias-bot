@@ -1,0 +1,34 @@
+{
+  "language": {
+    "brazil": "pt-BR",
+    "india": "en-US",
+    "hongkong": "en-US",
+    "japan": "en-US",
+    "russia": "en-US",
+    "singapore": "en-US",
+    "southafrica": "en-US",
+    "sydney": "en-US",
+    "eu-central": "en-US",
+    "eu-west": "en-US",
+    "us-central": "en-US",
+    "us-east": "en-US",
+    "us-south": "en-US",
+    "us-west": "en-US"
+  },
+  "replaces": {
+    "brazil": "🇧🇷 Brazil",
+    "india": "🇮🇳 India",
+    "hongkong": "🇭🇰 Hong Kong",
+    "japan": "🇯🇵 Japan",
+    "russia": "🇷🇺 Russia",
+    "singapore": "🇸🇬 Singapure",
+    "southafrica": "🇿🇦 South Africa",
+    "sydney": "🇦🇺 Sydney",
+    "eu-central": "🇪🇺 Central Europe",
+    "eu-west": "🇺🇸 Western Europe",
+    "us-central": "🇺🇸 Us Central",
+    "us-east": "🇺🇸 Us East",
+    "us-south": "🇺🇸 South South",
+    "us-west": "🇺🇸 Us West"
+  }
+}
