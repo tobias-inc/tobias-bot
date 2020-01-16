@@ -18,6 +18,7 @@ module.exports = {
   // Utils 
 
   Utils: require("./utils"),
+  Color: require("./utils/Color.js"),
   Queue: require("./utils/Queue.js"),
   Constants: require("./utils/Constants.js"),
   FileUtils: require("./utils/FileUtils.js"),
