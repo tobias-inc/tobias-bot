@@ -1,5 +1,5 @@
-const { User, Channel, Attachment } = require("discord.js");
-const { CanvasTemplates, Utils, Queue } = require("../../");
+const { User } = require("discord.js");
+const { Utils, Queue } = require("../../");
 
 class UserWrapper {
   constructor(user, channel, language) {
@@ -22,20 +22,34 @@ module.exports = class SocialUtils {
     this.database = client.database && client.database.users;
     this.social = this.client.controllers && this.client.controllers.social;
 
-    this.queue = new Queue({ globalFunction: this.setGlobalXp.bind(this) });
+    this.queue = new Queue({
+      globalFunction: this.setGlobalXp.bind(this),
+      delay: 500,
+      randomKey: false
+    })
   }
 
   upsert(user) {
     if (!this.social) return;
-    return this.queue.add([user]);
+
+    for (let k of this.queue.keys()) {
+      if (this.queue.has(k)) return 'has in queue';
+    }
+
+    return this.queue.add({ key: user.id, params: [user] });
   }
 
   async setGlobalXp(user) {
-    const xp = Math.floor(Math.random() * 5) + 5;
-
     if (user instanceof UserWrapper) {
-      const { economy: { level, xp: balance } } = await this.social.retrieveProfile(user.id);
-      const nextLevel = (balance + xp) > Utils.XPtoNextLevel(level);
+      const { economy } = await this.social.retrieveProfile(user.id, 'economy');
+      const { level, levels, xp: balance } = economy;
+
+      const xp = Math.floor(((Math.random() * 5) + 1) + (level / 5) * (level / 10));
+
+      const perXP = levels.pop();
+      const realXp = perXP.level > 1 ? balance - Utils.XPtoNextLevel(level - 1) : balance;
+
+      const nextLevel = realXp >= perXP.maxXp;
 
       return this.database.update(user.id, {
         $inc: {
@@ -44,26 +58,8 @@ module.exports = class SocialUtils {
             'economy.level': nextLevel && 1
           })
         }
-      }).then(() => nextLevel && this.sendUpdatedLevel(user, level + 1))
+      }).then(() => nextLevel && this.client.emit('userLevelUp', user, { ...economy, level: level + 1 }))
     }
-  }
-
-  async sendUpdatedLevel(user, level) {
-    try {
-      if (user.channel instanceof Channel) {
-        const t = this.client.language.lang(user.language);
-        const updateImage = await CanvasTemplates.levelUpdated(user.user, { level })
-
-        user.channel.send(
-          t('commons:levelup', { level, username: user.username }),
-          new Attachment(updateImage, `levelup-${user.id}.jpg`)
-        ).catch(() => { })
-      }
-    } catch (e) {
-      this.client.console(true, (e.stack || e), this.constructor.name);
-    }
-
-    return true
   }
 }
 
