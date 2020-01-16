@@ -37,6 +37,23 @@
   "daily": {
     "commandDescription": "Reivindica sua recompensa diária.",
     "alreadyClaimedDescription": "Você já reivindicou sua recompensa diária. Você pode pegar novamente em **{{time}}**.",
-    "claimedSuccessfully": "Você recebeu **$t(commons:currencyWithCount, { 'count': {{count}} })** como sua recompensa diária!"
+    "claimedSuccessfully": "Você recebeu **$t(commons:economy.currencyWithCount, { 'count': {{count}} })** como sua recompensa diária!"
+  },
+  "rep": {
+    "commandDescription": "Da um ponto de reputação para um usuário.",
+    "commandUsage": "<usuário>",
+    "alreadyDonateDescription": "Voçê já deu seu ponto de reputação diário. Aguarde **{{time}}** para dar novamente.",
+    "claimedSuccessfully": "Voçê deu **1** ponto de reputação para **{{tag}}**!"
+  },
+  "background": {
+    "commandDescription": "Altera o plano de fundo do perfil do usuário",
+    "commandUsage": "<imagem | url>",
+    "updateBackgroundSucess": "O plano de fundo de seu perfil foi alterado com sucesso!",
+    "updateBackgroundError": "Por favor insira uma imagem válida."
+  },
+  "favcolor": {
+    "commandDescription": "Define a cor do seu perfil.",
+    "commandUsage": "<#hexadecimal>",
+    "changedSuccessfully": "A cor de seu perfil foi alterada para **{{hexadecimal}}**."
   }
 }

@@ -20,7 +20,8 @@ module.exports = class UserRepository extends MongoRepository {
         levels: [{ level: 1, maxXp: Utils.XPtoNextLevel(1) }],
         favColor: process.env.FAV_COLOR,
         personalText: 'Nothing inserted...',
-        background: 'src/assets/img/jpg/default-background.jpg'
+        background: 'src/assets/img/jpg/default-background.jpg',
+        badges: []
       },
       ...(super.parse(entity) || {})
     }

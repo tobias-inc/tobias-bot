@@ -65,6 +65,20 @@ module.exports = class SocialController extends Controller {
     return this._users.findOne(_user, 'economy').then(doc => doc.economy.xp);
   }
 
+  setFavoriteColor(_user, favColor) {
+    return this._users.update(_user, { 'economy.favColor': favColor })
+  }
+
+  async setBackground(_user, image) {
+    const { data: { error, link } } = await this.client.apis.imgur.postImage(image);
+
+    if (error) throw new Error('URL_INVALID');
+
+    await this._users.update(_user, { 'economy.background': link });
+
+    return { image: link }
+  }
+
   getRank(_user) {
     return this._users
       .findAll(['type', 'economy.xp'], { sort: { 'economy.xp': -1 } })

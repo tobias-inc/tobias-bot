@@ -4,14 +4,16 @@ module.exports = class Rep extends Command {
   constructor(client, path) {
     super(client, path, {
       name: 'rep',
-      category: 'economy',
+      category: 'social',
       utils: {
         requirements: { databaseOnly: true },
         parameters: [{
           type: 'user',
           full: true,
           required: true,
-          acceptSelf: true
+          acceptSelf: true,
+          showUsage: false,
+          missingError: 'errors:invalidUser'
         }]
       }
     })

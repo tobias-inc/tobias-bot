@@ -4,5 +4,7 @@ module.exports = {
   string: require("./StringParameter.js"),
   user: require("./UserParameter.js"),
   guild: require("./GuildParameter.js"),
-  member: require("./MemberParameter.js")
+  member: require("./MemberParameter.js"),
+  image: require("./ImageParameter.js"),
+  color: require("./ColorParameter.js"),
 }

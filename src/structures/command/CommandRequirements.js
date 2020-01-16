@@ -16,20 +16,25 @@ module.exports = class CommandRequirements {
 
       errors: {
         databaseOnly: 'errors:databaseOnly',
-        runescapeOnly: 'errors:runescapeOnly',
         devOnly: 'errors:developerOnly',
         guildOnly: 'errors:guildOnly',
         cooldown: 'errors:cooldown',
+        api: {
+          one: 'errors:apiOnlyOne',
+          multiple: 'errors:apiOnlyOneMultiple'
+        },
         ...(options.errors || {})
       }
     }
   }
 
   static handle({ t, author, channel, client, command, guild, member }, options) {
-    const opts = this.parseOptions(options)
+    const opts = this.parseOptions(options);
 
-    if (opts.databaseOnly && !client.database) {
-      throw new CommandError(t(opts.errors.databaseOnly))
+    if (command.cooldownFeedback) {
+      if (command.cooldown.has(author.id)) {
+        throw new CommandError(t(opts.errors.cooldown))
+      }
     }
 
     if (opts.devOnly && !PermissionUtils.isDeveloper(client, author)) {
@@ -38,6 +43,15 @@ module.exports = class CommandRequirements {
 
     if (opts.guildOnly && !guild) {
       throw new CommandError(t(opts.errors.guildOnly))
+    }
+
+    if (opts.databaseOnly && !client.database) {
+      throw new CommandError(t(opts.errors.databaseOnly))
+    }
+
+    if (opts.apis && opts.apis.some(api => !client.apis[api])) {
+      const count = opts.apis.filter(api => !client.apis[api]).length;
+      throw new CommandError(t((count > 1 ? opts.errors.api.multiple : opts.errors.api.one), { count }))
     }
 
     if (opts.permissions && opts.permissions.length > 0) {
@@ -53,36 +67,6 @@ module.exports = class CommandRequirements {
         const permission = opts.botPermissions.map(p => t(`permissions:${p}`)).map(p => `**"${p}"**`).join(', ')
         const sentence = opts.botPermissions.length >= 1 ? 'errors:botMissingOnePermission' : 'errors:botMissingMultiplePermissions'
         throw new CommandError(t(sentence, { permission }))
-      }
-    }
-
-    if (opts.runescape) {
-      if (!client.runescape) throw new CommandError(t(opts.errors.runescapeOnly))
-      if (opts.runescape.apis && !(client.runescape.getApi(opts.runescape.apis))) {
-        const apis = client.runescape.getApi(opts.runescape.apis, true).map(api => `**"${api}"**`)
-        const sentence = apis.length >= 1 ? 'errors:missingOneRuneScapeApi' : 'errors:missinMultipleRuneScapeApi'
-        throw new CommandError(t(sentence, { apis: apis.join(', ') }))
-      }
-
-      const parseMethods = { rs: client.runescape.rs.viewMethods, osrs: client.runescape.osrs.viewMethods }
-      if (
-        opts.runescape.methods &&
-        opts.runescape.methods
-          .map(method => parseMethods[method.api][method.type])
-          .filter(v => !v).length
-      ) {
-        const methods = opts.runescape.methods
-          .map(method => parseMethods[method.api][method.type] ? false : method)
-          .filter(v => v)
-          .map(m => `**"${m.api.toUpperCase()}:${capitalize(m.method)}"**`)
-        const sentence = methods.length >= 1 ? 'errors:missingOneRuneScapeMethod' : 'errors:missinMultipleRuneScapeMethod'
-        throw new CommandError(t(sentence, { apis: apis.join(', ') }))
-      }
-    }
-
-    if (command.cooldownFeedback) {
-      if (command.cooldown.has(author.id)) {
-        throw new CommandError(t(opts.errors.cooldown))
       }
     }
   }

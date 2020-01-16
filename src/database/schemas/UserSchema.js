@@ -15,6 +15,11 @@ const LevelSchema = new Schema({
   maxXp: { type: Number, required: true }
 })
 
+const BadgeSchema = new Schema({
+  role: { type: String, required: true },
+  source: { type: String, required: true }
+})
+
 const EconomySchema = new Schema({
   by: { type: Date, required: true },
   lastDaily: { type: Number, default: 0 },
@@ -27,7 +32,8 @@ const EconomySchema = new Schema({
   levels: [LevelSchema],
   favColor: { type: String, default: Constants.FAV_COLOR },
   personalText: { type: String, default: 'Nothing inserted...' },
-  background: { type: String, default: Constants.DEFAULT_BACKGROUND }
+  background: { type: String, default: Constants.DEFAULT_BACKGROUND },
+  badges: [BadgeSchema]
 })
 
 const VipSchema = new Schema({

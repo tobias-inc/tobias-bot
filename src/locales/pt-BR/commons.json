@@ -20,6 +20,7 @@
     "level": "LEVEL",
     "leveluped": "SUBIU DE LEVEL!",
     "lvl": "LVL",
-    "rank": "RANK"
+    "rank": "RANK",
+    "personalText": "Texto Pessoal"
   }
 }

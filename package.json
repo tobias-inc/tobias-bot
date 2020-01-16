@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon --exec node -r dotenv/config NODE_ENV=development index.js"
+    "dev": "nodemon --exec node -r dotenv/config index.js "
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "cross-env": "^6.0.3",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
+    "easy-youtube-info": "^1.0.2",
     "events": "^3.1.0",
     "fs": "0.0.1-security",
     "i18next": "^19.0.3",
@@ -25,6 +26,7 @@
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
     "mongoose": "^5.8.7",
+    "node-fetch": "^2.6.0",
     "request": "^2.88.0",
     "transform-props": "^1.0.1"
   }

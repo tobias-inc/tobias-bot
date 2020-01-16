@@ -22,8 +22,17 @@ module.exports = class WrappersLoader extends Loader {
   validateApi({ file, required }) {
     if (required.prototype instanceof Wrapper) {
       const api = new required();
+
+      if (!api.envVars.every(variable => {
+        if (!process.env[variable]) this.client.console(
+          true, `failed to load - Required environment variable "${variable}" is not set.`,
+          this.name, api.name
+        )
+        return !!process.env[variable]
+      })) return false
+
       this.apis[api.name] = api
-      this.client.console(false, 'Wrapper was successfully loaded!', this.name, api.displayName);
+      this.client.console(false, 'Wrapper was successfully loaded!', this.name, api.name);
     } else {
       this.client.console(true, 'Not Wrapper!', this.name, file);
     }

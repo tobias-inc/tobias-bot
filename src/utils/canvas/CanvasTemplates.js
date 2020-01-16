@@ -3,7 +3,6 @@ const { createCanvas, Image } = require("canvas");
 const CanvasUtils = require("./CanvasUtils.js");
 const Constants = require("../Constants.js");
 const Color = require("../Color.js");
-const Utils = require("../");
 
 module.exports = class CanvasTemplates {
   static async levelUpdated(user, t, { level, background }) {
@@ -71,7 +70,11 @@ module.exports = class CanvasTemplates {
     return canvas.toBuffer()
   }
 
-  static async profile(user, t, { background, pocket, level, rep, xp, favColor, levels }, rank) {
+  static async profile(user, t, {
+    profile: { background, pocket, level, rep, xp, favColor, personalText },
+    currentXp: { current, next },
+    rank
+  }) {
     const WIDTH = 800;
     const HEIGHT = 700;
 
@@ -96,19 +99,19 @@ module.exports = class CanvasTemplates {
     const LOGO_X = 50;
     const LOGO_Y = 100;
 
-    ctx.drawBlurredImage(backgroundImage, 5, 0, 0, WIDTH, HEIGHT);
+    ctx.drawImage(backgroundImage, 0, 0, WIDTH, HEIGHT);
     ctx.drawImage(Source, 0, 0, WIDTH, HEIGHT);
 
     ctx.fillStyle = FAV_COLOR;
     ctx.roundFill(LOGO_X, LOGO_Y, LOGO_SIZE + LOGO_BORDER, LOGO_SIZE + LOGO_BORDER);
     ctx.roundImage(avatarImage, LOGO_X + (LOGO_BORDER / 2), LOGO_Y + (LOGO_BORDER / 2), LOGO_SIZE, LOGO_SIZE);
 
-    const REP_WIDTH = 283.5;
+    const REP_WIDTH = 284.5;
     const REP_HEIGHT = 80;
-    const REP_X = 20;
+    const REP_X = 18.5;
     const REP_Y = 335;
 
-    ctx.fillStyle = FAV_COLOR_RGBA;
+    ctx.fillStyle = FAV_COLOR_RGBA.replace('0.5', '0.3');
     ctx.fillRect(REP_X, REP_Y, REP_WIDTH, REP_HEIGHT)
 
     const BAR_WIDTH = 390;
@@ -116,17 +119,14 @@ module.exports = class CanvasTemplates {
     const BAR_X = 340;
     const BAR_Y = 334;
 
-    const perXP = levels.pop();
-    const realXp = perXP.level > 1 ? xp - Utils.XPtoNextLevel(level - 1) : xp;
-
-    const BAR = BAR_WIDTH / (perXP.maxXp / realXp);
+    const BAR = BAR_WIDTH / (next / current);
 
     ctx.fillStyle = FAV_COLOR_RGBA// 'rgba(255, 255, 255, .8)';
     ctx.fillRect(BAR_X + 10, BAR_Y + 10, BAR > 10 ? BAR : 10, 40);
 
     // Texts
 
-    const normalFont = (size = '36px') => `${size} Lemon Milk Light`;
+    const normalFont = (size = '36px') => `${size} Montserrat`;
     const italicFont = (size = '36px') => `italic ${size} Montserrat'`;
     const bolderFont = (size = '36px') => `${size} Montserrat ExtraBold`;
     const bolderItalicFont = (size = '36px') => `italic ${size} Montserrat ExtraBold`;
@@ -140,24 +140,21 @@ module.exports = class CanvasTemplates {
     ctx.write(user.username, WIDTH - USERNAME_X, USERNAME_Y, bolderItalicFont(), 8);
     ctx.write(user.discriminator, TAG_X, TAG_Y, bolderItalicFont(), 8)
 
-    const XP_TEXT = `XP: ${realXp} / ${perXP.maxXp}`;
+    const XP_TEXT = `XP: ${current} / ${next}`;
 
     const XPTextMeasure = CanvasUtils.measureText(ctx, normalFont(), XP_TEXT);
     const XPTextAlign = CanvasUtils.resolveAlign(BAR_X / 2, BAR_Y, XPTextMeasure.width, XPTextMeasure.height, 9);
 
-    ctx.fillStyle = '#000';
     ctx.write(XP_TEXT, BAR_X + (XPTextAlign.x * 1.5), BAR_Y + (BAR_HEIGHT / 3) - 6, normalFont(), 1);
 
     const REP_TEXT = `+${rep}`;
     const REPTextMeasure = CanvasUtils.measureText(ctx, bolderFont, REP_TEXT);
 
-    ctx.fillStyle = '#FFF';
     ctx.write(REP_TEXT, (REP_WIDTH + (REP_X * 2) + REPTextMeasure.width) / 2, REP_Y + (REP_HEIGHT / 2), bolderFont(), 4)
 
     const PROFILE_INFO_TITLE_X = 480;
     const PROFILE_INFO_X = 630;
 
-    ctx.fillStyle = '#000';
     ctx.write(t('commons:economy.totalXp'), PROFILE_INFO_TITLE_X, 440, bolderFont('24px'))
     ctx.write(t('commons:economy.pockets'), PROFILE_INFO_TITLE_X, 485, bolderFont('24px'))
     ctx.write(t('commons:economy.rank'), PROFILE_INFO_TITLE_X, 530, bolderFont('24px'))
@@ -167,10 +164,18 @@ module.exports = class CanvasTemplates {
     ctx.write(pocket, PROFILE_INFO_X, 485, bolderItalicFont('32px'));
     ctx.write(rank, PROFILE_INFO_X, 530, bolderItalicFont('32px'));
 
+    ctx.fillStyle = '#FFF';
+
+    const LINE_MAX_X = 748;
+    const LINE_X = 340;
+    const LINE_Y = 545;
+
+    const PersonalTextMeasure = CanvasUtils.measureText(ctx, bolderFont, t('commons:economy.personalText'));
+    const PERSONAL_LABEL = ctx.write(t('commons:economy.personalText'), LINE_MAX_X - (PersonalTextMeasure.width / 3), LINE_Y + 10, bolderItalicFont('22px'), 2)
+
     const LEVEL_X = 310;
     const LEVEL_Y = 450;
 
-    ctx.fillStyle = '#FFF';
     const LEVEL_LABEL = ctx.write(t('commons:economy.level'), LEVEL_X, LEVEL_Y, bolderFont('40px'));
 
     const LEVEL_TEXT = level;
@@ -178,6 +183,16 @@ module.exports = class CanvasTemplates {
 
     ctx.fillStyle = FAV_COLOR;
     ctx.write(LEVEL_TEXT, (LEVEL_LABEL.width + (LEVEL_X * 2) + LevelNumberTextMeasure.width) / 2, LEVEL_LABEL.bottomY + 40, bolderFont('60px'), 4)
+    ctx.writeParagraph(
+      personalText,
+      bolderFont('24px'),
+      LINE_X,
+      PERSONAL_LABEL.bottomY + 10,
+      LINE_MAX_X,
+      canvas.height - 25,
+      10,
+      1
+    )
 
     return canvas.toBuffer()
   }
