@@ -51,6 +51,22 @@ module.exports = class CanvasUtils {
     registerFont('src/assets/fonts/RobotoItalic.ttf', { family: 'Roboto', style: 'italic' })
     registerFont('src/assets/fonts/RobotoBlack.ttf', { family: 'Roboto Black' })
     registerFont('src/assets/fonts/RobotoBlack-Italic.ttf', { family: 'Roboto Black', style: 'italic' })
+    registerFont('src/assets/fonts/Montserrat-Thin.otf', { family: 'Montserrat Thin' })
+    registerFont('src/assets/fonts/Montserrat-ThinItalic.otf', { family: 'Montserrat Thin', style: 'italic' })
+    registerFont('src/assets/fonts/Montserrat-Light.otf', { family: 'Montserrat Light' })
+    registerFont('src/assets/fonts/Montserrat-LightItalic.otf', { family: 'Montserrat Light', style: 'italic' })
+    registerFont('src/assets/fonts/Montserrat-Regular.otf', { family: 'Montserrat' })
+    registerFont('src/assets/fonts/Montserrat-Italic.otf', { family: 'Montserrat', style: 'italic' })
+    registerFont('src/assets/fonts/Montserrat-Medium.otf', { family: 'Montserrat Medium' })
+    registerFont('src/assets/fonts/Montserrat-MediumItalic.otf', { family: 'Montserrat Medium', style: 'italic' })
+    registerFont('src/assets/fonts/Montserrat-SemiBold.otf', { family: 'Montserrat SemiBold' })
+    registerFont('src/assets/fonts/Montserrat-SemiBoldItalic.otf', { family: 'Montserrat SemiBold', style: 'italic' })
+    registerFont('src/assets/fonts/Montserrat-Bold.otf', { family: 'Montserrat', weight: 'bold' })
+    registerFont('src/assets/fonts/Montserrat-BoldItalic.otf', { family: 'Montserrat', style: 'italic', weight: 'bold' })
+    registerFont('src/assets/fonts/Montserrat-ExtraBold.otf', { family: 'Montserrat ExtraBold' })
+    registerFont('src/assets/fonts/Montserrat-ExtraBoldItalic.otf', { family: 'Montserrat ExtraBold', style: 'italic' })
+    registerFont('src/assets/fonts/Montserrat-Black.otf', { family: 'Montserrat Black' })
+    registerFont('src/assets/fonts/Montserrat-BlackItalic.otf', { family: 'Montserrat Black', style: 'italic' })
 
     Image.from = function (url, localFile = false) {
       return loadImage(url)
@@ -77,6 +93,15 @@ module.exports = class CanvasUtils {
     Context2d.prototype.roundImage = function (img, x, y, w, h, r) {
       this.drawImage(this.roundImageCanvas(img, w, h, r), x, y, w, h)
       return this
+    }
+
+    Context2d.prototype.roundFill = function (x, y, w, h, r = w * 0.5) {
+      this.beginPath()
+      this.arc((x + (w / 2)), y + (h / 2), r, 0, Math.PI * 2, true)
+      this.closePath()
+      this.fill()
+
+      return this;
     }
 
     Context2d.prototype.roundImageCanvas = function (img, w = img.width, h = img.height, r = w * 0.5) {
@@ -131,7 +156,7 @@ module.exports = class CanvasUtils {
       return this
     }
 
-    Context2d.prototype.write = function (text, x, y, font = '12px "Montserrat"', align = ALIGN.BOTTOM_LEFT) {
+    Context2d.prototype.write = function (text, x, y, font = '12px "Bebas Neue"', align = ALIGN.BOTTOM_LEFT) {
       this.font = font
       const { width, height } = self.measureText(this, font, text)
       const { x: realX, y: realY } = self.resolveAlign(x, y, width, height, align)
