@@ -1,7 +1,14 @@
 const client = require('./src/TobiasClient.js');
 
 const clientConfig = {
-  clientConfig: true
+  canvasLoaded: true,
+  disabledEvents: ["TYPING_START", "TYPING_STOP", "USER_NOTE_UPDATE"],
+  disableEveryone: true,
+  restTimeOffset: 2000,
+  retryLimit: 20,
+  messageCacheMaxSize: 2024,
+  messageCacheLifetime: 1680,
+  messageSweepInterval: 1680,
 }
 
 try {
