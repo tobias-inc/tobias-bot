@@ -3,7 +3,7 @@ const { CommandContext, Listener } = require("../../");
 module.exports = class WebSocketResponses extends Listener {
   constructor(client) {
     super(client)
-    this.events = ['ready', 'error']
+    this.events = ['ready', 'error', 'debug']
   }
 
   onReady() {
@@ -17,7 +17,11 @@ module.exports = class WebSocketResponses extends Listener {
   }
 
   onError(err) {
-    this.client.console(true, (err.stack || err), 'WebSocket Error')
+    this.client.console(true, (err.error || err), 'WebSocket Error')
     process.exit(1)
+  }
+
+  onDebug(debug) {
+    this.client.console(false, debug, 'CLIENT', 'DEBUG')
   }
 }
