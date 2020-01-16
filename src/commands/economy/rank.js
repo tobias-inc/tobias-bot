@@ -18,12 +18,14 @@ module.exports = class Rank extends Command {
   }
 
   async run({ t, author, channel }, user = author) {
-    const { economy: { level, xp } } = await this.client.controllers.social.retrieveProfile(user.id, 'economy');
+    const { economy: { levels, level, xp } } = await this.client.controllers.social.retrieveProfile(user.id, 'economy');
+    const perXP = levels.pop();
+    const realXp = perXP.level > 1 ? xp - Utils.XPtoNextLevel(level - 1) : xp;
 
     channel.send(new ClientEmbed(author, { footer: author, thumbnail: user.displayAvatarURL })
       .setAuthor(this.client.user.username, this.client.user.displayAvatarURL)
-      .addField('**XP**', `**${xp.toLocaleString()}/${Utils.XPtoNextLevel(level).toLocaleString()}**`)
-      .addField('**LEVEL**', `**${level}**`)
+      .addField('**XP**', `**${realXp}/ ${perXP.maxXp}**`)
+      .addField('**LEVEL**', `** ${level}** `)
     )
   }
 }

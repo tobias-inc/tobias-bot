@@ -1,4 +1,11 @@
-const client = require('./src/TobiasClient.js');
+if (process.env.NODE_ENV !== 'development') require('dotenv').config()
+
+try {
+  require("./src/utils/canvas/CanvasUtils.js").initializeHelpers()
+} catch (e) {
+  console.log(e)
+  clientConfig.canvasLoaded = false
+}
 
 const clientConfig = {
   canvasLoaded: true,
@@ -11,11 +18,6 @@ const clientConfig = {
   messageSweepInterval: 1680,
 }
 
-try {
-  require("./src/utils/canvas/CanvasUtils.js").initializeHelpers()
-} catch (e) {
-  console.log(e)
-  clientConfig.canvasLoaded = false
-}
+const client = require('./src/TobiasClient.js');
 
 module.exports = new client(clientConfig).login()
