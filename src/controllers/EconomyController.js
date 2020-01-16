@@ -38,7 +38,7 @@ class BonusController extends Controller {
 
     const collectedMoney = Math.ceil((Math.random() * (300 - 150)) + 150);
     await this._users.update(
-      _user, { $inc: { 'economy.pocket': collectedMoney }, 'economy.lastDaily': Date.now() }
+      _user, { $inc: { 'economy.pocket': collectedMoney, 'economy.xp': 25 }, 'economy.lastDaily': Date.now() }
     );
 
     return { collectedMoney }
