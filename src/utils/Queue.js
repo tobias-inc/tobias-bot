@@ -9,24 +9,32 @@ const getRandomKey = () => {
 }
 
 module.exports = class Queue extends EventEmitter {
-  constructor(options) {
+  constructor(options = {}) {
     super()
 
-    this.queue = new Map()
+    Object.defineProperty(this, 'queue', {
+      value: new Map()
+    })
 
-    if (options.globalFunction)
+    this.queueDelay = typeof options.delay === 'number' && options.delay || 500;
+    this.randomKey = options.randomKey;
+
+    if (options.globalFunction) {
       this.globalFunction = options.globalFunction;
-    else
-      return;
 
-    this.on('added', (key, params) => {
-      if (this.queue.size === 1) this.execute(key, params)
-    })
+      this.on('added', (key, params) => {
+        if (this.queue.size === 1) this.execute(key, params)
+      })
 
-    this.on('deleted', () => {
-      const newValue = this.queue.size && this.first();
-      if (newValue) this.execute(newValue.key, newValue.value)
-    })
+      this.on('deleted', () => {
+        const newValue = this.queue.size && this.first();
+        if (newValue) this.execute(newValue.key, newValue.value)
+      })
+    }
+  }
+
+  keys() {
+    return this.queue.keys()
   }
 
   first() {
@@ -34,11 +42,10 @@ module.exports = class Queue extends EventEmitter {
     return { value: this.queue.get(key), key };
   }
 
-  add(params) {
-    if (!params) return;
+  add({ params, key: identify } = {}) {
+    if (!params || (!this.randomKey && !identify)) return;
 
-    const key = getRandomKey();
-
+    const key = this.randomKey && !identify ? getRandomKey() : identify;
     this.queue.set(key, params);
     return this.emit('added', key, params);
   }
@@ -59,7 +66,7 @@ module.exports = class Queue extends EventEmitter {
       .globalFunction(...parameters)
       .then(r => r);
 
-    setTimeout(() => this.remove(key), 500);
+    setTimeout(() => this.remove(key), this.queueDelay);
     return result
   }
 }
