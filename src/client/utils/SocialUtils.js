@@ -41,15 +41,10 @@ module.exports = class SocialUtils {
 
   async setGlobalXp(user) {
     if (user instanceof UserWrapper) {
-      const { economy } = await this.social.retrieveProfile(user.id, 'economy');
-      const { level, levels, xp: balance } = economy;
+      const { current, next, level } = await this.social.currentXp(user.id);
 
       const xp = Math.floor(((Math.random() * 5) + 1) + (level / 5) * (level / 10));
-
-      const perXP = levels.pop();
-      const realXp = perXP.level > 1 ? balance - Utils.XPtoNextLevel(level - 1) : balance;
-
-      const nextLevel = realXp >= perXP.maxXp;
+      const nextLevel = current >= next;
 
       return this.database.update(user.id, {
         $inc: {

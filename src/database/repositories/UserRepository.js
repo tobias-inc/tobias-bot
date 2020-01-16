@@ -11,6 +11,7 @@ module.exports = class UserRepository extends MongoRepository {
       blacklisted: false,
       economy: {
         lastDaily: 0,
+        lastRep: 0,
         xp: 0,
         rep: 0,
         bank: 0,

@@ -29,8 +29,7 @@ class BonusController extends Controller {
   }
 
   async claimDaily(_user) {
-    const user = await this._users.findOne(_user, 'economy');
-    const { economy: { lastDaily } } = user;
+    const { economy: { lastDaily } } = await this._users.findOne(_user, 'economy');
 
     if (this.checkClaim(lastDaily)) {
       throw new BonusCooldownError(lastDaily, this.formatClaimTime(lastDaily));
@@ -41,12 +40,6 @@ class BonusController extends Controller {
       _user, { $inc: { 'economy.pocket': collectedMoney, 'economy.xp': 25 }, 'economy.lastDaily': Date.now() }
     );
 
-    return { collectedMoney }
-  }
-
-  async claimDBLBonus(_user) {
-    const collectedMoney = 250;
-    await this._users.update(_user, { $inc: { 'economy.pocket': collectedMoney } })
     return { collectedMoney }
   }
 }

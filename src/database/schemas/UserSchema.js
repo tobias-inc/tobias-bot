@@ -18,6 +18,7 @@ const LevelSchema = new Schema({
 const EconomySchema = new Schema({
   by: { type: Date, required: true },
   lastDaily: { type: Number, default: 0 },
+  lastRep: { type: Number, default: 0 },
   xp: { type: Number, default: 0 },
   rep: { type: Number, default: 0 },
   bank: { type: Number, default: 0 },

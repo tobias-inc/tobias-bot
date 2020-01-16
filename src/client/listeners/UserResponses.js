@@ -28,7 +28,7 @@ module.exports = class UserResponses extends Listener {
       if (channel instanceof Channel) {
         const { systemsDisabled } = await this.module.findOne(channel.guild.id, 'systemsDisabled');
 
-        if (systemsDisabled && systemsDisabled.some(system => system.name.toUpperCase() === 'LEVEL_UP')) return;
+        if (systemsDisabled.some(system => system.name.toUpperCase() === 'LEVEL_UP')) return;
 
         const t = this.client.language.lang(user.language);
         const updateImage = await CanvasTemplates.levelUpdated(user.user, t, userDocument)
