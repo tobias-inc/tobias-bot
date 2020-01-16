@@ -9,6 +9,10 @@ const CommandsChannelSchema = new Schema({
   channelID: { type: String, required: true }
 })
 
+const SystemsDisabledSchema = new Schema({
+  name: { type: String, required: true }
+})
+
 module.exports = {
   name: 'guilds',
   style: 'Guild',
@@ -18,6 +22,7 @@ module.exports = {
     prefix: String,
     language: String,
     commandsChannel: [CommandsChannelSchema],
+    systemsDisabled: [SystemsDisabledSchema],
     modules: {
       type: Map,
       of: ModuleSchema

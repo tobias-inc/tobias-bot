@@ -9,6 +9,8 @@ module.exports = class GuildRepository extends MongoRepository {
     return {
       prefix: process.env.PREFIX,
       language: 'pt-BR',
+      commandsChannel: [],
+      systemsDisabled: [],
       modules: new Map(),
       ...(super.parse(entity) || {})
     }
