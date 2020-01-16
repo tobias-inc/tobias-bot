@@ -1,5 +1,8 @@
 const { Schema } = require("mongoose");
 
+const Utils = require("../../utils");
+const Constants = require("../../utils/Constants.js");
+
 const vipTypes = ['dbl', 'bpd'];
 
 const BlacklistedSchema = new Schema({
@@ -7,24 +10,43 @@ const BlacklistedSchema = new Schema({
   blacklister: { type: String, required: true }
 })
 
+const LevelSchema = new Schema({
+  level: { type: Number, required: true },
+  maxXp: { type: Number, required: true }
+})
+
 const EconomySchema = new Schema({
-  by: {
-    type: Date,
-    required: true
-  },
+  by: { type: Date, required: true },
   lastDaily: { type: Number, default: 0 },
   xp: { type: Number, default: 0 },
+  rep: { type: Number, default: 0 },
   bank: { type: Number, default: 0 },
   pocket: { type: Number, default: 0 },
   level: { type: Number, default: 1 },
-  favColor: { type: String, default: process.env.FAV_COLOR },
-  personalText: { type: String, default: 'Nothing inserted...' }
+  levels: [LevelSchema],
+  favColor: { type: String, default: Constants.FAV_COLOR },
+  personalText: { type: String, default: 'Nothing inserted...' },
+  background: { type: String, default: Constants.DEFAULT_BACKGROUND }
 })
 
 const VipSchema = new Schema({
   type: { type: String, required: true },
   date: { type: Number, default: Date.now() }
 })
+
+const UserSchema = new Schema({
+  _id: String,
+  blacklisted: BlacklistedSchema,
+  economy: EconomySchema,
+  vip: [VipSchema],
+})
+
+module.exports = {
+  name: 'users',
+  style: 'Users',
+  repositorie: require("../repositories/UserRepository.js"),
+  model: UserSchema
+}
 
 VipSchema.pre('save', function (next) {
   if (!vipTypes
@@ -34,15 +56,3 @@ VipSchema.pre('save', function (next) {
   this.type = this.type.toUpperCase()
   return next()
 })
-
-module.exports = {
-  name: 'users',
-  style: 'Users',
-  repositorie: require("../repositories/UserRepository.js"),
-  model: new Schema({
-    _id: String,
-    blacklisted: BlacklistedSchema,
-    economy: EconomySchema,
-    vip: [VipSchema],
-  })
-}
