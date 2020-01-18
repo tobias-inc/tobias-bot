@@ -6,6 +6,7 @@ module.exports = class Eval extends Command {
     super(client, path, {
       name: 'play',
       category: 'music',
+      aliases: ['p', 'tocar'],
       utils: {
         requirements: { guildOnly: true, sameVoiceChannelOnly: true, voiceChannelOnly: true, playerManagerOnly: true },
         parameters: [{
@@ -56,11 +57,12 @@ module.exports = class Eval extends Command {
 
   playlistFeedback({ t, channel }, playlist) {
     const duration = `\`(${playlist.formattedDuration})\``
+    const loadTime = `\`[${playlist.loadTime}]\``
     const count = playlist.size
     const playlistName = `[${playlist.title}](${playlist.uri})`
     channel.send(new ClientEmbed()
       .setThumbnail(playlist.artwork)
-      .setDescription(` ${t('music:addedFromPlaylist', { count, playlistName, duration })}`)
+      .setDescription(` ${t('music:addedFromPlaylist', { count, playlistName, duration, loadTime })}`)
     )
   }
 
@@ -81,7 +83,7 @@ module.exports = class Eval extends Command {
 
     song.once('stop', u => send(` ${t('music:queueIsEmpty')}`, u) && deleteMessage())
     song.once('abruptStop', () => send(` ${t('music:leftDueToInactivity')}`))
-    song.on('end', () => deleteMessage()) // send(`${t('music:hasEnded', { songName })}`)
+    song.on('end', () => deleteMessage())
 
     if (startFeedback) {
       song.on('start', async () => {
