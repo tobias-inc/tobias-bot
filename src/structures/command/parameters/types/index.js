@@ -7,4 +7,5 @@ module.exports = {
   member: require("./MemberParameter.js"),
   image: require("./ImageParameter.js"),
   color: require("./ColorParameter.js"),
+  number: require("./NumberParameter.js")
 }

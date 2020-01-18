@@ -16,7 +16,7 @@ module.exports = {
   Listener: require("./structures/Listener.js"),
   ClientEmbed: require("./structures/ClientEmbed.js"),
 
-  // Utils 
+  // Utils
 
   Utils: require("./utils"),
   Color: require("./utils/Color.js"),
