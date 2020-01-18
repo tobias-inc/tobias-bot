@@ -72,5 +72,15 @@
     "invalidVolumeParameter": "Você precisa me dar um número válido!",
     "notPlaying": "O volume não pode ser ajustado enquanto não estiver sendo reproduzido nada!",
     "volumeSet": "Volume definido como {{volume}}%"
+  },
+  "skip": {
+    "commandDescription": "Pula a para a próxima música."
+  },
+  "pause": {
+    "commandDescription": "Pausa a música que está sendo tocada."
+  },
+  "queue": {
+    "commandDescription": "Mostra a lista de reprodução.",
+    "noSize": "Não há nenhuma música após a atual!"
   }
 }
