@@ -32,5 +32,10 @@ module.exports = {
   // Canvas
 
   CanvasUtils: require("./utils/canvas/CanvasUtils.js"),
-  CanvasTemplates: require("./utils/canvas/CanvasTemplates.js")
+  CanvasTemplates: require("./utils/canvas/CanvasTemplates.js"),
+
+  // Others
+
+  Status: require("./utils/json/Status.json"),
+  RegionsLang: require("./utils/json/RegionsLang.json")
 }

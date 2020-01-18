@@ -1,6 +1,8 @@
 const Song = require("../structures/Song.js");
 const Playlist = require("../structures/Playlist.js");
 
+const PLAYLIST_URI = 'https://www.youtube.com/playlist?list=';
+
 const YOUTUBE_TRACK_REGEX = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
 const YOUTUBE_PLAYLIST_REGEX = /https?:\/\/(www.youtube.com|youtube.com)\/playlist\?list=((\w|-){34})/;
 
@@ -25,5 +27,10 @@ module.exports = {
       const [, , id] = YOUTUBE_PLAYLIST_REGEX.exec(insert);
       return id
     }
+  },
+
+  PlaylistURI: (uri) => {
+    const ID = module.exports.Identify(uri);
+    return `${PLAYLIST_URI}${ID}`
   }
 }

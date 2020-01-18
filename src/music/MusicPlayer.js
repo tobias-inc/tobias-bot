@@ -3,7 +3,7 @@ const fetch = require("node-fetch");
 
 const GuildPlayer = require("./structures/GuildPlayer.js");
 
-const { Playlist, Song } = require("./sources");
+const { Playlist, Song, PlaylistURI } = require("./sources");
 
 const DEFAULT_JOIN_OPTIONS = { selfdeaf: true }
 
@@ -59,7 +59,7 @@ module.exports = class MusicPlayer extends PlayerManager {
 
       switch (loadType) {
         case 'PLAYLIST_LOADED':
-          playlistInfo.uri = search;
+          playlistInfo.uri = PlaylistURI(search);
           return new Playlist(tracks, playlistInfo, requestedBy)
         default:
           return new Song(tracks[0], requestedBy)

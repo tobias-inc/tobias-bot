@@ -24,7 +24,7 @@ module.exports = class GuildPlayer extends Player {
       this.manager.leave(this.id)
     })
 
-    this.on('error', this.manager.client.console.bind(this, true))
+    this.on('error', console.log)
   }
 
   get nextSong() {

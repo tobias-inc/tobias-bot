@@ -1,5 +1,5 @@
 const moment = require("moment");
-const Song = require("./Song.js");
+const Song = require("../sources/Song.js");
 
 module.exports = class PlaylistQueue {
   constructor(songs = [], playlistInfo = {}, requestedBy) {
