@@ -36,6 +36,8 @@ module.exports = class MusicPlayer extends PlayerManager {
 
   async fetchTracks(identifier) {
     const params = new URLSearchParams({ identifier });
+    const startedLoadingAt = Date.now();
+
     const result = await fetch(`http://${this.REST_ADDRESS}/loadtracks?${params.toString()}`, {
       headers: {
         Authorization: this.REST_PASSWORD
@@ -48,11 +50,11 @@ module.exports = class MusicPlayer extends PlayerManager {
     if (!result) return false;
     if (['LOAD_FAILED', 'NO_MATCHES'].includes(result.loadType) || !result.tracks.length) return null;
 
-    return result
+    return [result, startedLoadingAt]
   }
 
   async loadIdentifier(search, requestedBy) {
-    const songs = await this.fetchTracks(search);
+    const [songs, startedAt] = await this.fetchTracks(search);
 
     if (songs) {
       const { tracks, loadType, playlistInfo } = songs;
@@ -60,7 +62,7 @@ module.exports = class MusicPlayer extends PlayerManager {
       switch (loadType) {
         case 'PLAYLIST_LOADED':
           playlistInfo.uri = PlaylistURI(search);
-          return new Playlist(tracks, playlistInfo, requestedBy)
+          return new Playlist(tracks, playlistInfo, requestedBy, { startedAt, finishedAt: Date.now() })
         default:
           return new Song(tracks[0], requestedBy)
       }
