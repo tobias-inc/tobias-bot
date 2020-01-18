@@ -89,7 +89,7 @@ module.exports = class SocialController extends Controller {
   }
 
   async currentXp(_user) {
-    const { economy: { xp, levels, level } } = await this.retrieveProfile(_user);
+    const { economy: { xp, levels, level } } = await this._users.findOne(_user);
     const current = levels.length > 1
       ? xp - levels
         .slice(0, levels.length - 1)

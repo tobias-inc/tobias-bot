@@ -1,24 +1,33 @@
 const CommandError = require("./CommandError.js");
 const PermissionUtils = require('../../utils/PermissionUtils.js');
 
-const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
-
 module.exports = class CommandRequirements {
   static parseOptions(options = {}) {
     return {
       permissions: options.permissions,
       botPermissions: options.botPermissions,
+
       guildOnly: !!options.guildOnly,
       databaseOnly: !!options.databaseOnly,
       devOnly: !!options.devOnly,
-      runescape: options.runescape,
+
+      sameVoiceChannelOnly: !!options.sameVoiceChannelOnly,
+      voiceChannelOnly: !!options.voiceChannelOnly,
+      guildPlaying: !!options.guildPlaying,
+      playerManagerOnly: !!options.guildPlaying || !!options.playerManagerOnly,
+
+      canvasOnly: options.canvasOnly,
       apis: options.apis || [],
+      envVars: options.envVars || [],
 
       errors: {
         databaseOnly: 'errors:databaseOnly',
         devOnly: 'errors:developerOnly',
         guildOnly: 'errors:guildOnly',
         cooldown: 'errors:cooldown',
+        sameVoiceChannelOnly: 'errors:sameVoiceChannelOnly',
+        voiceChannelOnly: 'errors:voiceChannelOnly',
+        guildPlaying: 'errors:notPlaying',
         api: {
           one: 'errors:apiOnlyOne',
           multiple: 'errors:apiOnlyOneMultiple'
@@ -28,10 +37,10 @@ module.exports = class CommandRequirements {
     }
   }
 
-  static handle({ t, author, channel, client, command, guild, member }, options) {
+  static handle({ t, author, channel, client, command, guild, voiceChannel, member }, options) {
     const opts = this.parseOptions(options);
 
-    if (command.cooldownFeedback) {
+    if (command.cooldownFeedback && !PermissionUtils.isDeveloper(client, author)) {
       if (command.cooldown.has(author.id)) {
         throw new CommandError(t(opts.errors.cooldown))
       }
@@ -68,6 +77,23 @@ module.exports = class CommandRequirements {
         const sentence = opts.botPermissions.length >= 1 ? 'errors:botMissingOnePermission' : 'errors:botMissingMultiplePermissions'
         throw new CommandError(t(sentence, { permission }))
       }
+    }
+
+    if (opts.playerManagerOnly && !client.playerManager) {
+      throw new CommandError(t(opts.errors.playerManagerOnly))
+    }
+
+    if (opts.sameVoiceChannelOnly && guild.me.voiceChannelID && (!voiceChannel || guild.me.voiceChannelID !== voiceChannel.id)) {
+      throw new CommandError(t(opts.errors.sameVoiceChannelOnly))
+    }
+
+    if (opts.voiceChannelOnly && !voiceChannel) {
+      throw new CommandError(t(opts.errors.voiceChannelOnly))
+    }
+
+    const guildPlayer = client.playerManager && client.playerManager.get(guild.id)
+    if (opts.guildPlaying && (!guildPlayer || !guildPlayer.playing)) {
+      throw new CommandError(t(opts.errors.guildPlaying))
     }
   }
 }

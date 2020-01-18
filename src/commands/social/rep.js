@@ -6,7 +6,7 @@ module.exports = class Rep extends Command {
       name: 'rep',
       category: 'social',
       utils: {
-        requirements: { databaseOnly: true },
+        requirements: { guildOnly: true, databaseOnly: true },
         parameters: [{
           type: 'user',
           full: true,
@@ -26,7 +26,7 @@ module.exports = class Rep extends Command {
       const { reps } = await this.client.controllers.social.rep.donationRep(user.id);
       embed.setDescription(t('commands:rep.claimedSuccessfully', { tag: user.tag }))
     } catch (e) {
-    console.log(e)
+      console.log(e)
       embed.setColor(Constants.ERROR_COLOR)
       switch (e.message) {
         case 'ALREADY_DONATE':

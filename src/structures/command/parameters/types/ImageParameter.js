@@ -5,8 +5,7 @@ const URL_REGEX = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0
 module.exports = class MemberParameter extends UserParameter {
   static parseOptions(options = {}) {
     return {
-      ...super.parseOptions(options),
-
+      ...super.parseOptions(options)
     }
   }
 

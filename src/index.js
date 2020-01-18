@@ -25,6 +25,10 @@ module.exports = {
   FileUtils: require("./utils/FileUtils.js"),
   Prototype: require("./utils/Prototype.js"),
 
+  // Music
+
+  MusicPlayer: require("./music/MusicPlayer.js"),
+
   // Canvas
 
   CanvasUtils: require("./utils/canvas/CanvasUtils.js"),

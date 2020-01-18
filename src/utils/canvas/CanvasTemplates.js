@@ -5,7 +5,7 @@ const Constants = require("../Constants.js");
 const Color = require("../Color.js");
 
 module.exports = class CanvasTemplates {
-  static async levelUpdated(user, t, { level, background }) {
+  static async levelUpdated(user, t, { level, background, favColor }) {
     const WIDTH = 150;
     const HEIGHT = 150;
 
@@ -15,20 +15,18 @@ module.exports = class CanvasTemplates {
     const IMAGE_ASSETS = Promise.all([
       Image.from(user.displayAvatarURL),
       Image.from(background),
-      Image.from('src/assets/img/jpg/levelup-brands-background.jpg')
     ])
 
-    const [avatarImage, backgroundImage, levelBackground] = await IMAGE_ASSETS;
+    const [avatarImage, backgroundImage] = await IMAGE_ASSETS;
 
     // Layout
 
     ctx.drawImage(backgroundImage, 0, 0, WIDTH, HEIGHT);
-    ctx.drawBlurredImage(levelBackground, 4, 0, HEIGHT - 60, WIDTH, 60);
 
     ctx.fillStyle = 'rgba(250, 250, 250, .5)';
     ctx.fillRect(0, HEIGHT - 60, WIDTH, 60)
 
-    ctx.fillStyle = Constants.FAV_COLOR;
+    ctx.fillStyle = favColor;
     ctx.fillRect(0, (HEIGHT - 60) - 2, WIDTH, 4);
 
     // Logo
@@ -45,10 +43,10 @@ module.exports = class CanvasTemplates {
     const blockSizeInsert = 5;
 
     const textLevelUpedMeasure = CanvasUtils.measureText(ctx, '22px Bebas Neue', 'SUBIU DE NIVEL');
-    const blockAlign = CanvasUtils.resolveAlign(WIDTH / 2, 100, textLevelUpedMeasure.width + blockSizeInsert, textLevelUpedMeasure.height + blockSizeInsert, 2);
+    const blockAlign = CanvasUtils.resolveAlign(WIDTH / 2, 100, textLevelUpedMeasure.width + (blockSizeInsert * 3), textLevelUpedMeasure.height + blockSizeInsert, 2);
 
     ctx.fillStyle = 'rgba(0, 0, 0, .3)';
-    ctx.fillRect(blockAlign.x, (blockAlign.y - textLevelUpedMeasure.height) - (blockSizeInsert * 1.5), textLevelUpedMeasure.width + blockSizeInsert, textLevelUpedMeasure.height + blockSizeInsert)
+    ctx.fillRect(blockAlign.x, (blockAlign.y - textLevelUpedMeasure.height) - (blockSizeInsert * 1.5), textLevelUpedMeasure.width + (blockSizeInsert * 3), textLevelUpedMeasure.height + blockSizeInsert)
 
     ctx.fillStyle = '#FFF';
     ctx.write(t('commons:economy.leveluped'), WIDTH / 2, 100, '22px Bebas Neue', 2);
@@ -64,7 +62,7 @@ module.exports = class CanvasTemplates {
     ctx.fillStyle = '#000';
     const levelBrand = ctx.write(t('commons:economy.lvl'), ((WIDTH - textLevelNumberMeasure.width) - space.width) / 2, 125, font, 2);
 
-    ctx.fillStyle = '#1500ff';
+    ctx.fillStyle = favColor;
     ctx.fillText(level, levelBrand.leftX + textLevelBrandMeasure.width + space.width, levelBrand.bottomY)
 
     return canvas.toBuffer()
@@ -141,14 +139,12 @@ module.exports = class CanvasTemplates {
     ctx.write(user.discriminator, TAG_X, TAG_Y, bolderItalicFont(), 8)
 
     const XP_TEXT = `XP: ${current} / ${next}`;
+    const XPTextMeasure = CanvasUtils.measureText(ctx, normalFont('22px'), XP_TEXT);
 
-    const XPTextMeasure = CanvasUtils.measureText(ctx, normalFont(), XP_TEXT);
-    const XPTextAlign = CanvasUtils.resolveAlign(BAR_X / 2, BAR_Y, XPTextMeasure.width, XPTextMeasure.height, 9);
-
-    ctx.write(XP_TEXT, BAR_X + (XPTextAlign.x * 1.5), BAR_Y + (BAR_HEIGHT / 3) - 6, normalFont(), 1);
+    ctx.write(XP_TEXT, (416 + (BAR_X * 2) + XPTextMeasure.width) / 2, BAR_Y + (XPTextMeasure.height * 1.5), normalFont('22px'), 4);
 
     const REP_TEXT = `+${rep}`;
-    const REPTextMeasure = CanvasUtils.measureText(ctx, bolderFont, REP_TEXT);
+    const REPTextMeasure = CanvasUtils.measureText(ctx, bolderFont(), REP_TEXT);
 
     ctx.write(REP_TEXT, (REP_WIDTH + (REP_X * 2) + REPTextMeasure.width) / 2, REP_Y + (REP_HEIGHT / 2), bolderFont(), 4)
 
@@ -170,8 +166,8 @@ module.exports = class CanvasTemplates {
     const LINE_X = 340;
     const LINE_Y = 545;
 
-    const PersonalTextMeasure = CanvasUtils.measureText(ctx, bolderFont, t('commons:economy.personalText'));
-    const PERSONAL_LABEL = ctx.write(t('commons:economy.personalText'), LINE_MAX_X - (PersonalTextMeasure.width / 3), LINE_Y + 10, bolderItalicFont('22px'), 2)
+    const PersonalTextMeasure = CanvasUtils.measureText(ctx, bolderItalicFont('22px'), t('commons:economy.personalText'));
+    const PERSONAL_LABEL = ctx.write(t('commons:economy.personalText'), LINE_MAX_X - (PersonalTextMeasure.width / 2), LINE_Y + 10, bolderItalicFont('22px'), 2)
 
     const LEVEL_X = 310;
     const LEVEL_Y = 450;
@@ -179,7 +175,7 @@ module.exports = class CanvasTemplates {
     const LEVEL_LABEL = ctx.write(t('commons:economy.level'), LEVEL_X, LEVEL_Y, bolderFont('40px'));
 
     const LEVEL_TEXT = level;
-    const LevelNumberTextMeasure = CanvasUtils.measureText(ctx, bolderFont, LEVEL_TEXT);
+    const LevelNumberTextMeasure = CanvasUtils.measureText(ctx, bolderFont(), LEVEL_TEXT);
 
     ctx.fillStyle = FAV_COLOR;
     ctx.write(LEVEL_TEXT, (LEVEL_LABEL.width + (LEVEL_X * 2) + LevelNumberTextMeasure.width) / 2, LEVEL_LABEL.bottomY + 40, bolderFont('60px'), 4)

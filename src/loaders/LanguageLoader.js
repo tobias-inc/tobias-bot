@@ -30,7 +30,7 @@ module.exports = class ClientLanguage extends Loader {
     return i18next
       .use(translationBackend)
       .init({
-        ns: ['commands', 'errors', 'permissions', 'commons', 'categories', 'regions'],
+        ns: ['commands', 'errors', 'permissions', 'commons', 'categories', 'regions', 'music'],
         preload: await readdirSync(dirPath),
         fallbackLng: this.language.rootDir,
         backend: {

@@ -6,6 +6,7 @@ module.exports = class CommandContext {
     this.member = options.message.member
     this.guild = options.message.guild
     this.channel = options.message.channel
+    this.voiceChannel = options.message.member && options.message.member.voiceChannel
 
     this.language = options.language
     this.prefix = options.prefix

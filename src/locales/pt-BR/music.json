@@ -1,0 +1,22 @@
+{
+  "songNotFound": "Nenhum resultado foi encontrado!",
+  "hasEnded": "**{{- songName}}** terminou!",
+  "nowPlaying": "Tocando Agora",
+  "queue": "Lista de reprodução",
+  "addedBy": "adicionado por {{- user}}",
+  "addedByCapitalize": "Adicionado por {{- user}}",
+  "queueIsEmpty": "A lista de reprodução acabou!",
+  "live": "LIVE",
+  "views": "Visualizações",
+  "viewers": "Visualizadores",
+  "likes": "Likes",
+  "dislikes": "Dislikes",
+  "played": "Played",
+  "startedPlaying": "Começando a tocar **{{- songName}}**",
+  "addedToTheQueue": "**{{- songName}}** foi adicionado à fila.",
+  "andMore": "e mais {{missing}}...",
+  "noneAfterCurrent": "Não há músicas após a atual.",
+  "wasSkipped": "{{- songName}} foi pulado!",
+  "addedFromPlaylist": "**{{count}}** música de **{{- playlistName}}** foram adicionadas a fila! {duration}}",
+  "addedFromPlaylist_plural": "**{{count}}** músicas de **{{- playlistName}}** foram adicionadas a fila! {{duration}}"
+}

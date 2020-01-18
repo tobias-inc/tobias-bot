@@ -55,5 +55,10 @@
     "commandDescription": "Define a cor do seu perfil.",
     "commandUsage": "<#hexadecimal>",
     "changedSuccessfully": "A cor de seu perfil foi alterada para **{{hexadecimal}}**."
+  },
+  "play": {
+    "commandDescription": "Toca música em um canal de voz.",
+    "commandUsage": "<link  [playlist | song] | nome>",
+    "noTrackIdentifier": "Por favor insira a música que deseja reproduzir!"
   }
 }
