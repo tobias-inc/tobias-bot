@@ -1,6 +1,6 @@
 const { Command } = require("../../");
 
-module.exports = class Eval extends Command {
+module.exports = class Pause extends Command {
   constructor(client, path) {
     super(client, path, {
       name: 'pause',

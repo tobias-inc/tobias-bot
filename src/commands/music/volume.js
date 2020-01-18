@@ -2,7 +2,7 @@ const { Command, ClientEmbed } = require("../../");
 
 const MAX_VOLUME = 150;
 
-module.exports = class Eval extends Command {
+module.exports = class Volume extends Command {
   constructor(client, path) {
     super(client, path, {
       name: 'volume',

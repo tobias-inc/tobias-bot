@@ -1,7 +1,7 @@
 const { Command, CommandError, Constants, ClientEmbed } = require("../../");
 const { Test, Identify } = require("../../music/sources");
 
-module.exports = class Eval extends Command {
+module.exports = class Play extends Command {
   constructor(client, path) {
     super(client, path, {
       name: 'play',

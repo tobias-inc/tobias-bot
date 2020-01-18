@@ -1,6 +1,6 @@
 const { Command, ClientEmbed } = require("../../");
 
-module.exports = class Eval extends Command {
+module.exports = class Stop extends Command {
   constructor(client, path) {
     super(client, path, {
       name: 'stop',
