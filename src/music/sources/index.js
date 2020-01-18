@@ -29,8 +29,7 @@ module.exports = {
     }
   },
 
-  PlaylistURI: (uri) => {
-    const ID = module.exports.Identify(uri);
-    return `${PLAYLIST_URI}${ID}`
+  PlaylistURI: (id) => {
+    return `${PLAYLIST_URI}${id}`
   }
 }
