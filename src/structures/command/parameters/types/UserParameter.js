@@ -10,9 +10,10 @@ module.exports = class UserParameter extends Parameter {
     return {
       ...super.parseOptions(options),
       acceptBot: !!options.acceptBot,
+      acceptSelf: !!options.acceptSelf,
+      fetchAll: !!options.fetchAll,
       acceptUser: defVal(options, 'acceptUser', true),
       acceptDeveloper: defVal(options, 'acceptDeveloper', true),
-      acceptSelf: !!options.acceptSelf,
       errors: {
         invalidUser: 'errors:invalidUser',
         acceptSelf: 'errors:sameUser',
@@ -31,7 +32,7 @@ module.exports = class UserParameter extends Parameter {
     const id = regexResult && regexResult[1]
     const findMember = guild.members.find(m => m.user.username.toLowerCase().includes(arg.toLowerCase()) || m.displayName.toLowerCase().includes(arg.toLowerCase()))
 
-    const user = client.users.get(id) || (!!findMember && findMember.user)
+    const user = client.users.get(id) || (!!findMember && findMember.user) || id && this.fetchAll && client.fetchUser(id);
     if (!user) throw new CommandError(t(this.errors.invalidUser))
     if (!this.acceptSelf && user.id === author.id) throw new CommandError(t(this.errors.acceptSelf))
     if (!this.acceptBot && user.bot) throw new CommandError(t(this.errors.acceptBot))
