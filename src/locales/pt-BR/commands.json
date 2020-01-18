@@ -60,5 +60,17 @@
     "commandDescription": "Toca música em um canal de voz.",
     "commandUsage": "<link  [playlist | song] | nome>",
     "noTrackIdentifier": "Por favor insira a música que deseja reproduzir!"
+  },
+  "stop": {
+    "commandDescription": "Para a reprodução da música.",
+    "stopped": "A reprodução foi interrompida, saindo do canal de voz..."
+  },
+  "volume": {
+    "commandDescription": "Ajusta o volume da reprodução da música.",
+    "commandUsage": "<0-150>",
+    "missingVolumeParameter": "Você precisa me fornecer um nível de volume!",
+    "invalidVolumeParameter": "Você precisa me dar um número válido!",
+    "notPlaying": "O volume não pode ser ajustado enquanto não estiver sendo reproduzido nada!",
+    "volumeSet": "Volume definido como {{volume}}%"
   }
 }
