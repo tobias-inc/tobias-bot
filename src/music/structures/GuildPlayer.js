@@ -5,7 +5,7 @@ module.exports = class GuildPlayer extends Player {
   constructor(options) {
     super(options)
 
-    this._volume = 80
+    this._volume = 50
     this._loop = false
     this._bassboost = false
 
@@ -53,10 +53,12 @@ module.exports = class GuildPlayer extends Player {
       return false
     }
 
-    super.play(song.track, options)
     this.playingSong = song
-    this.volume(this._volume)
     song.emit('start')
+
+    super.play(song.track, options)
+    this.volume(this._volume)
+    this.graveEqualizer()
     return true
   }
 
@@ -94,16 +96,16 @@ module.exports = class GuildPlayer extends Player {
   }
 
   clearQueue() {
-    return this.queue.splice(0)
+    return this.queue.purge()
   }
 
   shuffleQueue() {
-    this.queue = this.queue.sort(() => Math.random() > 0.5 ? -1 : 1)
+    return this.queue.shuffle()
   }
 
   removeFromQueue(index) {
     if (index < 0 || index >= this.queue.length) throw new Error('INDEX_OUT_OF_BOUNDS')
-    return this.queue.splice(index, 1)[0]
+    return this.queue.remove(index)
   }
 
   jumpToIndex(index, ignoreLoop = false) {
@@ -122,6 +124,22 @@ module.exports = class GuildPlayer extends Player {
     super.volume(volume)
   }
 
+  graveEqualizer() {
+    this.volume(80)
+    return this.setEQ([
+      { band: 0, gain: 0.5 },
+      { band: 1, gain: 0 },
+      { band: 2, gain: 0 },
+      { band: 3, gain: 0.2 },
+      { band: 4, gain: 0.4 },
+      { band: 5, gain: 0.2 }
+    ])
+  }
+
+  loop(loop = true) {
+    this._loop = !!loop
+  }
+
   bassboost(state = true) {
     this._bassboost = state
     if (state) {
@@ -134,10 +152,6 @@ module.exports = class GuildPlayer extends Player {
     if (this._previousVolume !== null) this.volume(this._previousVolume)
     this.setEQ(Array(6).fill(0).map((n, i) => ({ band: i, gain: 0 })))
     return false
-  }
-
-  loop(loop = true) {
-    this._loop = !!loop
   }
 
   setEQ(bands) {
