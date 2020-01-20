@@ -42,5 +42,6 @@
   "needSmallerString": "Você precisa me fornecer uma frase menor que {{number}} caracteres.",
   "invalidURL": "Você precisa me fornecer um URL válido!",
   "invalidImageLink": "Você precisa me fornecer um link de imagem válido.",
-  "imageParsingError": "Ocorreu um erro ao analisar a imagem."
+  "imageParsingError": "Ocorreu um erro ao analisar a imagem.",
+  "musicReproducion": "Ocorreu um erro na reprodução. A lista será resetada!"
 }

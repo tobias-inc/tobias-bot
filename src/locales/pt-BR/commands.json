@@ -71,7 +71,7 @@
     "missingVolumeParameter": "Você precisa me fornecer um nível de volume!",
     "invalidVolumeParameter": "Você precisa me dar um número válido!",
     "notPlaying": "O volume não pode ser ajustado enquanto não estiver sendo reproduzido nada!",
-    "volumeSet": "Volume definido como {{volume}}%"
+    "volumeSet": "Volume definido em **{{volume}}%**"
   },
   "skip": {
     "commandDescription": "Pula a para a próxima música."
