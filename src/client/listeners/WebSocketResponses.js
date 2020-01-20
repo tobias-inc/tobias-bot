@@ -31,12 +31,6 @@ module.exports = class WebSocketResponses extends Listener {
   }
 
   async onReady() {
-    const updateStatus = () => {
-      const presenceType = PRESENCE_TYPES.sort(() => Math.random() > 0.5 ? -1 : 1)[0];
-      const presence = Status[presenceType][Math.floor(Math.random() * Status[presenceType].length)];
-      this.client.user.setPresence(parseStatus(presenceType, this.replaceInformations(presence)))
-    }
-
     try {
       const nodes = JSON.parse(process.env.LAVALINK_NODES);
       if (!Array.isArray(nodes)) throw new Error('PARSE_ERROR')
@@ -49,7 +43,11 @@ module.exports = class WebSocketResponses extends Listener {
       this.client.console(true, 'PFailed to establish Lavalink connection - Failed to parse LAVALINK_NODES environment variable', 'Ready', 'Music')
     }
 
-    updateStatus()
+    const updateStatus = () => {
+      const presenceType = PRESENCE_TYPES.sort(() => Math.random() > 0.5 ? -1 : 1)[0];
+      const presence = Status[presenceType][Math.floor(Math.random() * Status[presenceType].length)];
+      this.client.user.setPresence(parseStatus(presenceType, this.replaceInformations(presence)))
+    }
     setInterval(updateStatus, PRESENCE_INTERVAL)
   }
 
