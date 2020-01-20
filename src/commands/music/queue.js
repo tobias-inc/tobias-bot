@@ -5,7 +5,6 @@ module.exports = class Queue extends Command {
     super(client, path, {
       name: 'queue',
       category: 'music',
-      aliases: ['q'],
       utils: {
         requirements: { guildOnly: true, guildPlaying: true }
       }
@@ -21,7 +20,7 @@ module.exports = class Queue extends Command {
         .setDescription([
           guildPlayer.queue
             .slice(0, 10)
-            .map((song, index) => `**\`${index + 1}.\` [${song.title}](${song.uri})**`)
+            .map((s, i) => `**\`${i + 1}.\` [${s.title}](${s.uri}) \`(${s.addedFormat})\`** ${s.requestedBy.toString()}`)
             .join('\n'),
           more
         ].filter(m => m).join('\n'))
