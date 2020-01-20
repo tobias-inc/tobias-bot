@@ -27,7 +27,7 @@ module.exports = {
 
   // Music
 
-  MusicPlayer: require("./music/MusicPlayer.js"),
+  PlayerManager: require("./music/PlayerManager.js"),
 
   // Canvas
 
