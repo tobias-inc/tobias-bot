@@ -68,11 +68,9 @@ module.exports = class SwitchbladePlayerManager extends PlayerManager {
   }
 
   async loadTracks(identifier, requestedBy) {
-    const startedLoadingAt = Date.now();
+    requestedBy.startedLoadingAt = Date.now()
+
     const songs = await this.fetchTracks(identifier);
-
-    if (typeof requestedBy.startedLoadingAt !== 'number') requestedBy.startedLoadingAt = startedLoadingAt;
-
     if (songs && Object.getPrototypeOf(songs) === SongSource) {
       return SongSearchResult.from(songs.provide(this, identifier, requestedBy), false)
     }
