@@ -1,5 +1,5 @@
 const { Command, CommandError, Constants, ClientEmbed } = require("../../");
-const { Test, Identify } = require("../../music/sources");
+const { Song, Playlist } = require('../../music/structures')
 
 module.exports = class Play extends Command {
   constructor(client, path) {
@@ -16,7 +16,7 @@ module.exports = class Play extends Command {
     })
   }
 
-  async run({ channel, t, author, voiceChannel }, identifier) {
+  async run({ channel, flags, t, author, voiceChannel }, identifier) {
     const embed = new ClientEmbed(author);
 
     if (!voiceChannel.joinable && !voiceChannel.connection) {
@@ -25,11 +25,15 @@ module.exports = class Play extends Command {
 
     const playerManager = this.client.playerManager;
     try {
-      const search = Identify(identifier) || `ytsearch:${identifier.replace(/<?>?/g, '')}`;
-      const result = await playerManager.loadIdentifier(search, author);
+      const specificSearch = flags['soundcloud'] || flags['youtube']
 
-      if (result && Test(result)) {
-        return this.loadSongs({ t, channel, voiceChannel }, result, Test(result), playerManager)
+      let { result, tryAgain } = await playerManager.loadTracks(identifier.replace(/<?>?/g, ''), author)
+      if (tryAgain && !result && !specificSearch) {
+        result = (await playerManager.loadTracks(`ytsearch:${identifier.replace(/<?>?/g, '')}`, author)).result
+      }
+
+      if (result) {
+        this.loadSongs({ t, channel, voiceChannel }, result, playerManager).then(() => channel.stopTyping())
       } else {
         throw new CommandError(t('music:songNotFound'))
       }
@@ -41,28 +45,31 @@ module.exports = class Play extends Command {
     }
   }
 
-  loadSongs({ t, channel, voiceChannel }, res, identifier, playerManager) {
-    switch (identifier) {
-      case 'Playlist':
-        this.playlistFeedback({ t, channel }, res, t)
-        return Promise.all(res.songs.map(song => {
-          this.songFeedback({ t, channel }, song, false, true)
-          return playerManager.play(song, voiceChannel)
-        }))
-      case 'Song':
-        this.songFeedback({ t, channel }, res, true, true)
-        return playerManager.play(res, voiceChannel)
+  loadSongs({ t, channel, voiceChannel }, res, playerManager) {
+    if (res instanceof Song) {
+      this.songFeedback({ t, channel }, res, true, true)
+      return playerManager.play(res, voiceChannel)
+    } else if (res instanceof Playlist) {
+      this.playlistFeedback({ t, channel }, res, t)
+      return Promise.all(res.songs.map(song => {
+        this.songFeedback({ t, channel }, song, false, true)
+        return playerManager.play(song, voiceChannel)
+      }))
     }
+    return Promise.reject(new Error('Invalid song instance.'))
   }
 
   playlistFeedback({ t, channel }, playlist) {
     const duration = `\`(${playlist.formattedDuration})\``
-    const loadTime = `\`[${playlist.loadTime}]\``
+    const loadTime = playlist.loadTime
     const count = playlist.size
     const playlistName = `[${playlist.title}](${playlist.uri})`
+
     channel.send(new ClientEmbed()
       .setThumbnail(playlist.artwork)
-      .setDescription(` ${t('music:addedFromPlaylist', { count, playlistName, duration, loadTime })}`)
+      .setDescription(`${t(count > 1 ? 'music:addedFromPlaylist_plural' : 'music:addedFromPlaylist', {
+        count, playlistName, duration, loadTime
+      })}`)
     )
   }
 
@@ -84,6 +91,8 @@ module.exports = class Play extends Command {
     song.once('stop', u => send(` ${t('music:queueIsEmpty')}`, u) && deleteMessage())
     song.once('abruptStop', () => send(` ${t('music:leftDueToInactivity')}`))
     song.on('end', () => deleteMessage())
+
+    song.once('error', () => channel.send(bEmbed(t('errors:musicReproducion')).setColor(Constants.ERROR_COLOR)).then(() => song.emit('end')))
 
     if (startFeedback) {
       song.on('start', async () => {
