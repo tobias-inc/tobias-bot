@@ -18,5 +18,5 @@
   "noneAfterCurrent": "Não há músicas após a atual.",
   "wasSkipped": "{{- songName}} foi pulado!",
   "addedFromPlaylist": "**{{count}}** música de **{{- playlistName}}** foi adicionada a fila! {{duration}}.\n*(carregado em **{{loadTime}}**)*",
-  "addedFromPlaylist_plural": "**{{count}}** músicas de **{{- playlistName}}** foram adicionadas a fila! {{duration}}.\n*(carregados em **{{loadTime}}**)*"
+  "addedFromPlaylist_plural": "**{{count}}** músicas de **{{- playlistName}}** foram adicionadas a fila! {{duration}}.\n*(carregado em **{{loadTime}}**)*"
 }
