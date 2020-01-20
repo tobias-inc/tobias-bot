@@ -51,6 +51,7 @@ module.exports = class GuildPlayer extends Player {
     super.play(song.track, options)
     this.playingSong = song
     this.volume(this._volume)
+    this.graveEqualizer()
     song.emit('start')
     return true
   }
@@ -153,6 +154,17 @@ module.exports = class GuildPlayer extends Player {
 
   loop(loop = true) {
     this._loop = !!loop
+  }
+
+  graveEqualizer() {
+    return this.setEQ([
+      { band: 0, gain: 0 },
+      { band: 1, gain: 0 },
+      { band: 2, gain: 0 },
+      { band: 3, gain: 0 },
+      { band: 4, gain: 0.1 },
+      { band: 5, gain: 0.1 }
+    ])
   }
 
   // Helpers
