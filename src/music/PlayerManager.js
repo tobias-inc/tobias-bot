@@ -63,6 +63,7 @@ module.exports = class SwitchbladePlayerManager extends PlayerManager {
 
     const songs = res.tracks
     songs.searchResult = res.loadType === 'SEARCH_RESULT'
+    songs.playlistInfo = res.playlistInfo
     return songs
   }
 
@@ -98,6 +99,7 @@ module.exports = class SwitchbladePlayerManager extends PlayerManager {
         }
       } else {
         const pInfo = MusicUtils.getPlaylistInfo(identifier)
+        pInfo.playlistInfo = songs.playlistInfo
         switch (pInfo.source) {
           case 'youtube':
             return searchResult.setResult(new YoutubePlaylist(pInfo, songs, requestedBy, this.client.apis.youtube).loadInfo())

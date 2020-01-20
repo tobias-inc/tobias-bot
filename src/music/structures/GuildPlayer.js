@@ -2,6 +2,8 @@ const { Collection } = require("discord.js");
 const { Player } = require("discord.js-lavalink");
 const moment = require("moment");
 
+const Queue = require("./Queue.js");
+
 module.exports = class GuildPlayer extends Player {
   constructor(options = {}) {
     super(options)
@@ -24,14 +26,17 @@ module.exports = class GuildPlayer extends Player {
       return this.stop()
     })
 
-    this.queue = []
-    this._volume = 25
+    this._volume = 70
     this._loop = false
 
     this._previousVolume = null
     this._bassboost = false
 
     this._listening = new Collection()
+
+    Object.defineProperty(this, 'queue', {
+      value: new Queue()
+    })
   }
 
   event(message) {
@@ -57,7 +62,7 @@ module.exports = class GuildPlayer extends Player {
   }
 
   stop() {
-    this.queue = []
+    this.queue.purge()
     this._listening.clear()
     this.emit('stop')
     super.stop()
@@ -100,16 +105,16 @@ module.exports = class GuildPlayer extends Player {
   }
 
   clearQueue() {
-    return this.queue.splice(0)
+    return this.queue.purge()
   }
 
   shuffleQueue() {
-    this.queue = this.queue.sort(() => Math.random() > 0.5 ? -1 : 1)
+    return this.queue.shuffle()
   }
 
   removeFromQueue(index) {
     if (index < 0 || index >= this.queue.length) throw new Error('INDEX_OUT_OF_BOUNDS')
-    return this.queue.splice(index, 1)[0]
+    return this.queue.remove(index)
   }
 
   jumpToIndex(index, ignoreLoop = false) {
