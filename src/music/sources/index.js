@@ -1,35 +1,28 @@
-const Song = require("../structures/Song.js");
-const Playlist = require("../structures/Playlist.js");
-
-const PLAYLIST_URI = 'https://www.youtube.com/playlist?list=';
-
-const YOUTUBE_TRACK_REGEX = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-const YOUTUBE_PLAYLIST_REGEX = /https?:\/\/(www.youtube.com|youtube.com)\/playlist\?list=((\w|-){34})/;
-
 module.exports = {
-  Song: require("./Song.js"),
-  Playlist: require("./Playlist.js"),
+  Songs: {
+    // HTTP
 
-  Test: (source) => {
-    if (source instanceof Song) return 'Song';
-    if (source instanceof Playlist) return 'Playlist';
+    HTTPSong: require("./http/HTTPSong.js"),
 
-    return false
+    // Mixer
+
+    MixerSong: require("./mixer/MixerSong.js"),
+
+    // SoundCloud
+
+    SoundcloudSong: require("./soundcloud/SoundcloudSong.js"),
+
+    // Twitch
+    
+    TwitchSong: require("./twitch/TwitchSong.js"),
+
+    // YouTube
+
+    YoutubePlaylist: require("./youtube/YoutubePlaylist.js"),
+    YoutubeSong: require("./youtube/YoutubeSong.js")
   },
-
-  Identify: (insert) => {
-    if (YOUTUBE_TRACK_REGEX.exec(insert)) {
-      const [, , id] = YOUTUBE_TRACK_REGEX.exec(insert);
-      return id
-    }
-
-    if (YOUTUBE_PLAYLIST_REGEX.exec(insert)) {
-      const [, , id] = YOUTUBE_PLAYLIST_REGEX.exec(insert);
-      return id
-    }
-  },
-
-  PlaylistURI: (id) => {
-    return `${PLAYLIST_URI}${id}`
+  Sources: {
+    DeezerSongSource: require("./deezer/DeezerSongSource.js"),
+    SpotifySongSource: require("./spotify/SpotifySongSource.js")
   }
 }
