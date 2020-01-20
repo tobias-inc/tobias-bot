@@ -1,8 +1,8 @@
-const { Module } = require("../");
 const Joi = require("@hapi/joi");
+const { Module, Constants } = require("../");
 
-const MIN_PREFIX_SIZE = 1
-const MAX_PREFIX_SIZE = 3
+const MIN_PREFIX_SIZE = 1;
+const MAX_PREFIX_SIZE = 3;
 
 module.exports = class PrefixModule extends Module {
   constructor(client) {
@@ -11,7 +11,7 @@ module.exports = class PrefixModule extends Module {
 
     this.toggleable = false
     this.defaultValues = {
-      prefix: process.env.PREFIX,
+      prefix: Constants.DEFAULT_PREFIX,
       spacePrefix: true
     }
 

@@ -1,5 +1,5 @@
-const { Module } = require("../");
 const Joi = require("@hapi/joi");
+const { Module, Constants } = require("../");
 
 module.exports = class LanguageModule extends Module {
   constructor(client) {
@@ -7,7 +7,7 @@ module.exports = class LanguageModule extends Module {
     this.displayName = 'Language'
 
     this.toggleable = false
-    this.defaultValues = { language: 'pt-BR' }
+    this.defaultValues = { language: Constants.DEFAULT_LANGUAGE }
 
     this.specialInput = {
       language: {
