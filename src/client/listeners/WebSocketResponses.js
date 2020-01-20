@@ -1,4 +1,4 @@
-const { MusicPlayer, Status, Listener } = require("../../");
+const { PlayerManager, Status, Listener } = require("../../");
 
 const PRESENCE_TYPES = Object.keys(Status);
 const PRESENCE_INTERVAL = 60 * 1000;
@@ -31,15 +31,16 @@ module.exports = class WebSocketResponses extends Listener {
   }
 
   async onReady() {
-    const readyStatus = await this.client.user.setPresence({
-      game: { name: 'Ready', type: 'PLAYING' },
-      status: 'idle'
-    })
+    const updateStatus = () => {
+      const presenceType = PRESENCE_TYPES.sort(() => Math.random() > 0.5 ? -1 : 1)[0];
+      const presence = Status[presenceType][Math.floor(Math.random() * Status[presenceType].length)];
+      this.client.user.setPresence(parseStatus(presenceType, this.replaceInformations(presence)))
+    }
 
     try {
       const nodes = JSON.parse(process.env.LAVALINK_NODES);
       if (!Array.isArray(nodes)) throw new Error('PARSE_ERROR')
-      this.client.playerManager = new MusicPlayer(this.client, nodes, {
+      this.client.playerManager = new PlayerManager(this.client, nodes, {
         user: this.client.user.id,
         shards: 1
       })
@@ -48,16 +49,8 @@ module.exports = class WebSocketResponses extends Listener {
       this.client.console(true, 'PFailed to establish Lavalink connection - Failed to parse LAVALINK_NODES environment variable', 'Ready', 'Music')
     }
 
-    const updateStatus = () => {
-      const presenceType = PRESENCE_TYPES.sort(() => Math.random() > 0.5 ? -1 : 1)[0];
-      const presence = Status[presenceType][Math.floor(Math.random() * Status[presenceType].length)];
-      this.client.user.setPresence(parseStatus(presenceType, this.replaceInformations(presence)))
-    }
-
     updateStatus()
     setInterval(updateStatus, PRESENCE_INTERVAL)
-
-    return readyStatus
   }
 
   onError(err) {
