@@ -7,13 +7,13 @@ module.exports = class Playlist extends EventEmitter {
   constructor(data = {}, songs = [], requestedBy) {
     super()
 
+    this.startedAt = requestedBy.startedLoadingAt
+    this.finishedAt = requestedBy.finishedAt || Date.now()
+
     this.identifier = data.identifier
     this.source = data.source
     this.requestedBy = requestedBy
     this.songs = songs
-
-    this.startedAt = requestedBy.startedLoadingAt
-    this.finishedAt = requestedBy.finishedAt || Date.now()
   }
 
   loadInfo() {

@@ -49,6 +49,7 @@ module.exports = class WebSocketResponses extends Listener {
       this.client.user.setPresence(parseStatus(presenceType, this.replaceInformations(presence)))
     }
     setInterval(updateStatus, PRESENCE_INTERVAL)
+    return updateStatus()
   }
 
   onError(err) {
