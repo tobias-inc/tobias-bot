@@ -13,7 +13,7 @@ module.exports = class Playlist extends EventEmitter {
     this.songs = songs
 
     this.startedAt = requestedBy.startedLoadingAt
-    this.finishedAt = Date.now()
+    this.finishedAt = requestedBy.finishedAt || Date.now()
   }
 
   loadInfo() {
