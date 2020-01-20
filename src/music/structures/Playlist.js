@@ -12,7 +12,7 @@ module.exports = class Playlist extends EventEmitter {
     this.requestedBy = requestedBy
     this.songs = songs
 
-    this.loadTime = moment.duration(requestedBy.startedLoadingAt - Date.now()).format('m [minutes] s [seconds]', {
+    this.loadTime = moment.duration(Date.now() - requestedBy.startedLoadingAt).format('m [minutes] s [seconds]', {
       trim: true,
       precision: 2
     })
