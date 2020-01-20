@@ -58,6 +58,10 @@ module.exports = class CommandRequirements {
       throw new CommandError(t(opts.errors.databaseOnly))
     }
 
+    if (opts.playerManagerOnly && !client.playerManager) {
+      throw new CommandError(t(opts.errors.playerManagerOnly))
+    }
+
     if (opts.apis && opts.apis.some(api => !client.apis[api])) {
       const count = opts.apis.filter(api => !client.apis[api]).length;
       throw new CommandError(t((count > 1 ? opts.errors.api.multiple : opts.errors.api.one), { count }))
@@ -79,8 +83,9 @@ module.exports = class CommandRequirements {
       }
     }
 
-    if (opts.playerManagerOnly && !client.playerManager) {
-      throw new CommandError(t(opts.errors.playerManagerOnly))
+    const guildPlayer = client.playerManager && client.playerManager.get(guild.id)
+    if (opts.guildPlaying && (!guildPlayer || !guildPlayer.playing)) {
+      throw new CommandError(t(opts.errors.guildPlaying))
     }
 
     if (opts.sameVoiceChannelOnly && guild.me.voiceChannelID && (!voiceChannel || guild.me.voiceChannelID !== voiceChannel.id)) {
@@ -89,11 +94,6 @@ module.exports = class CommandRequirements {
 
     if (opts.voiceChannelOnly && !voiceChannel) {
       throw new CommandError(t(opts.errors.voiceChannelOnly))
-    }
-
-    const guildPlayer = client.playerManager && client.playerManager.get(guild.id)
-    if (opts.guildPlaying && (!guildPlayer || !guildPlayer.playing)) {
-      throw new CommandError(t(opts.errors.guildPlaying))
     }
   }
 }

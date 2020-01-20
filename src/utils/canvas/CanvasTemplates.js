@@ -42,25 +42,25 @@ module.exports = class CanvasTemplates {
 
     const blockSizeInsert = 5;
 
-    const textLevelUpedMeasure = CanvasUtils.measureText(ctx, '22px Bebas Neue', 'SUBIU DE NIVEL');
+    const textLevelUpedMeasure = CanvasUtils.measureText(ctx, '22px Bebas Neue', t('economy:leveluped'));
     const blockAlign = CanvasUtils.resolveAlign(WIDTH / 2, 100, textLevelUpedMeasure.width + (blockSizeInsert * 3), textLevelUpedMeasure.height + blockSizeInsert, 2);
 
     ctx.fillStyle = 'rgba(0, 0, 0, .3)';
     ctx.fillRect(blockAlign.x, (blockAlign.y - textLevelUpedMeasure.height) - (blockSizeInsert * 1.5), textLevelUpedMeasure.width + (blockSizeInsert * 3), textLevelUpedMeasure.height + blockSizeInsert)
 
     ctx.fillStyle = '#FFF';
-    ctx.write(t('commons:economy.leveluped'), WIDTH / 2, 100, '22px Bebas Neue', 2);
+    ctx.write(t('economy:leveluped'), WIDTH / 2, 100, '22px Bebas Neue', 2);
 
     //
 
     const font = 'italic 22px Lemon Milk Bold';
 
     const space = CanvasUtils.measureText(ctx, font, ' ');
-    const textLevelBrandMeasure = CanvasUtils.measureText(ctx, font, t('commons:economy.lvl'));
+    const textLevelBrandMeasure = CanvasUtils.measureText(ctx, font, t('economy:lvl'));
     const textLevelNumberMeasure = CanvasUtils.measureText(ctx, font, level);
 
     ctx.fillStyle = '#000';
-    const levelBrand = ctx.write(t('commons:economy.lvl'), ((WIDTH - textLevelNumberMeasure.width) - space.width) / 2, 125, font, 2);
+    const levelBrand = ctx.write(t('economy:lvl'), ((WIDTH - textLevelNumberMeasure.width) - space.width) / 2, 125, font, 2);
 
     ctx.fillStyle = favColor;
     ctx.fillText(level, levelBrand.leftX + textLevelBrandMeasure.width + space.width, levelBrand.bottomY)
@@ -80,7 +80,7 @@ module.exports = class CanvasTemplates {
     const ctx = canvas.getContext('2d');
 
     const IMAGE_ASSETS = Promise.all([
-      Image.from('src/assets/img/png/profile.png'),
+      Image.from(Constants.PROFILE_IMAGE),
       Image.from(background),
       Image.from(user.displayAvatarURL),
     ])
@@ -151,9 +151,9 @@ module.exports = class CanvasTemplates {
     const PROFILE_INFO_TITLE_X = 480;
     const PROFILE_INFO_X = 630;
 
-    ctx.write(t('commons:economy.totalXp'), PROFILE_INFO_TITLE_X, 440, bolderFont('24px'))
-    ctx.write(t('commons:economy.pockets'), PROFILE_INFO_TITLE_X, 485, bolderFont('24px'))
-    ctx.write(t('commons:economy.rank'), PROFILE_INFO_TITLE_X, 530, bolderFont('24px'))
+    ctx.write(t('economy:totalXp'), PROFILE_INFO_TITLE_X, 440, bolderFont('24px'))
+    ctx.write(t('economy:pockets'), PROFILE_INFO_TITLE_X, 485, bolderFont('24px'))
+    ctx.write(t('economy:rank'), PROFILE_INFO_TITLE_X, 530, bolderFont('24px'))
 
     ctx.fillStyle = FAV_COLOR;
     ctx.write(xp, PROFILE_INFO_X, 440, bolderItalicFont('32px'));
@@ -166,13 +166,13 @@ module.exports = class CanvasTemplates {
     const LINE_X = 340;
     const LINE_Y = 545;
 
-    const PersonalTextMeasure = CanvasUtils.measureText(ctx, bolderItalicFont('22px'), t('commons:economy.personalText'));
-    const PERSONAL_LABEL = ctx.write(t('commons:economy.personalText'), LINE_MAX_X - (PersonalTextMeasure.width / 2), LINE_Y + 10, bolderItalicFont('22px'), 2)
+    const PersonalTextMeasure = CanvasUtils.measureText(ctx, bolderItalicFont('22px'), t('economy:personalText'));
+    const PERSONAL_LABEL = ctx.write(t('economy:personalText'), LINE_MAX_X - (PersonalTextMeasure.width / 2), LINE_Y + 10, bolderItalicFont('22px'), 2)
 
     const LEVEL_X = 310;
     const LEVEL_Y = 450;
 
-    const LEVEL_LABEL = ctx.write(t('commons:economy.level'), LEVEL_X, LEVEL_Y, bolderFont('40px'));
+    const LEVEL_LABEL = ctx.write(t('economy:level'), LEVEL_X, LEVEL_Y, bolderFont('40px'));
 
     const LEVEL_TEXT = level;
     const LevelNumberTextMeasure = CanvasUtils.measureText(ctx, bolderFont(), LEVEL_TEXT);

@@ -10,6 +10,7 @@ module.exports = class Rank extends Command {
         parameters: [{
           type: 'user',
           full: true,
+          fetchAll: true,
           required: false,
           acceptSelf: true
         }]
