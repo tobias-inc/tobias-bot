@@ -1,16 +1,36 @@
+const { EventEmitter } = require("events");
 const moment = require("moment");
-const Song = require("../sources/Song.js");
 
-module.exports = class PlaylistQueue {
-  constructor(songs = [], playlistInfo = {}, requestedBy) {
-    this.title = playlistInfo.name
-    this.uri = playlistInfo.uri
-    this.size = songs.length
+const Song = require('./Song.js')
 
-    this.playlistSelectedTrack = playlistInfo.selectedTrack
+module.exports = class Playlist extends EventEmitter {
+  constructor(data = {}, songs = [], requestedBy) {
+    super()
 
-    this.songs = songs.map(song => new Song(song, requestedBy))
-    this.addedBy = requestedBy
+    this.identifier = data.identifier
+    this.source = data.source
+    this.requestedBy = requestedBy
+    this.songs = songs
+
+    this.startedAt = requestedBy.startedLoadingAt
+    this.finishedAt = requestedBy.finishedAt || Date.now()
+  }
+
+  loadInfo() {
+    this.songs = this.songs.map(s => new Song(s, this.requestedBy))
+    return this
+  }
+
+  get size() {
+    return this.songs.length
+  }
+
+  get loadTime() {
+    const response = this.finishedAt - this.startedAt;
+    return moment.duration(response).format(response > 200 ? 's [seconds]' : 'S [milissegundos]', {
+      trim: true,
+      precision: response > 200 ? 2 : 0
+    })
   }
 
   get length() {

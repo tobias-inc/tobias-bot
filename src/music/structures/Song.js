@@ -1,37 +1,47 @@
 const { EventEmitter } = require("events");
 const moment = require("moment");
 
-module.exports = class SongQueue extends EventEmitter {
-  constructor(song = {}, requestedBy) {
+const DEFAULT_THUMBNAIL_URL = 'https://i.ytimg.com/vi/{id}/maxresdefault.jpg';
+
+module.exports = class Song extends EventEmitter {
+  constructor(data = {}, requestedBy) {
     super()
 
-    this.track = song.track
-    this.silent = song.silent || false
+    this.title = data.info.title
+    this.author = data.info.author
+    this.uri = data.info.uri
 
-    this.title = song.info.title
-    this.author = song.info.author
-    this.uri = song.info.uri
-
-    this.identifier = song.info.identifier
-    this.isSeekable = song.info.isSeekable
-    this.isStream = song.info.isStream
-    this.position = song.info.position
-    this.ms = song.info.length
+    this.identifier = data.info.identifier
+    this.isSeekable = data.info.isSeekable
+    this.isStream = data.info.isStream
+    this.position = data.info.position
+    this.ms = data.info.length
 
     this.addedAt = Date.now()
     this.startedAt = null
     this.message = null
 
-    Object.defineProperty(this, 'requestedBy', { get: () => requestedBy })
+    this.artwork = DEFAULT_THUMBNAIL_URL.replace('{id}', this.identifier)
 
-    this.on('start', () => this.handleStart())
+    Object.defineProperty(this, 'requestedBy', { get: () => requestedBy || data.requestedBy })
+    Object.defineProperty(this, 'track', { get: () => data.track })
+
     this.on('stop', () => this.removeAllListeners())
     this.on('removed', () => this.deleteMessage())
+    this.on('start', () => this.handleStart())
   }
 
   get formattedDuration() {
-    if (this.isStream) return 0
+    if (this.isStream) return ''
     return moment.duration(this.ms).format('hh:mm:ss', { stopTrim: 'm' })
+  }
+
+  get backgroundImage() {
+    return this.artwork
+  }
+
+  loadInfo() {
+    return this
   }
 
   handleStart() {
@@ -44,7 +54,7 @@ module.exports = class SongQueue extends EventEmitter {
   }
 
   async deleteMessage() {
-    if (this.message) try {
+    try {
       await this.message.delete()
     } catch (e) { }
     return true
