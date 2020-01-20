@@ -29,7 +29,7 @@ module.exports = class Playlist extends EventEmitter {
     const response = this.finishedAt - this.startedAt;
     return moment.duration(response).format(response > 200 ? 's [seconds]' : 'S [milissegundos]', {
       trim: true,
-      precision: response > 200 ? 2 : 0
+      precision: 2
     })
   }
 
