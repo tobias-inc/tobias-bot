@@ -1,4 +1,5 @@
 const MongoRepository = require("../MongoRepository.js");
+const Constants = require("../../utils/Constants.js");
 
 module.exports = class GuildRepository extends MongoRepository {
   constructor(mongoose, model, style) {
@@ -7,8 +8,8 @@ module.exports = class GuildRepository extends MongoRepository {
 
   parse(entity) {
     return {
-      prefix: process.env.PREFIX,
-      language: 'pt-BR',
+      prefix: Constants.DEFAULT_PREFIX,
+      language: Constants.DEFAULT_LANGUAGE,
       commandsChannel: [],
       systemsDisabled: [],
       modules: new Map(),

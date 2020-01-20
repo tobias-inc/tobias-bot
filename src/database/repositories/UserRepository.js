@@ -1,4 +1,5 @@
 const MongoRepository = require("../MongoRepository.js");
+const Constants = require("../../utils/Constants.js");
 const Utils = require("../../utils");
 
 module.exports = class UserRepository extends MongoRepository {
@@ -18,9 +19,9 @@ module.exports = class UserRepository extends MongoRepository {
         pocket: 0,
         level: 1,
         levels: [{ level: 1, maxXp: Utils.XPtoNextLevel(1) }],
-        favColor: process.env.FAV_COLOR,
-        personalText: 'Nothing inserted...',
-        background: 'src/assets/img/jpg/default-background.jpg',
+        favColor: Constants.FAV_COLOR,
+        personalText: Constants.DEFAULT_PERSONAL_TEXT,
+        background: Constants.DEFAULT_BACKGROUND,
         badges: []
       },
       ...(super.parse(entity) || {})
