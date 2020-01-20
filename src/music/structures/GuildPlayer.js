@@ -1,19 +1,13 @@
+const { Collection } = require("discord.js");
 const { Player } = require("discord.js-lavalink");
-const Queue = require("./Queue.js");
+const moment = require("moment");
 
 module.exports = class GuildPlayer extends Player {
-  constructor(options) {
+  constructor(options = {}) {
     super(options)
 
-    this._volume = 50
-    this._loop = false
-    this._bassboost = false
-
-    Object.defineProperty(this, 'queue', {
-      value: new Queue()
-    })
-
     this.on('end', ({ reason }) => {
+      this.scrobbleSong(this.playingSong)
       if (reason === 'REPLACED') return
       this.playingSong.emit('end')
       if (reason !== 'STOPPED') this.next()
@@ -24,19 +18,20 @@ module.exports = class GuildPlayer extends Player {
       this.manager.leave(this.id)
     })
 
-    this.on('error', console.log)
-  }
+    this.on('error', (e) => {
+      console.log(e)
+      this.playingSong.emit('error')
+      return this.stop()
+    })
 
-  get nextSong() {
-    return this.queue[0]
-  }
+    this.queue = []
+    this._volume = 25
+    this._loop = false
 
-  get bassboosted() {
-    return this._bassboost
-  }
+    this._previousVolume = null
+    this._bassboost = false
 
-  get looping() {
-    return this._loop
+    this._listening = new Collection()
   }
 
   event(message) {
@@ -49,17 +44,47 @@ module.exports = class GuildPlayer extends Player {
 
   play(song, forcePlay = false, options = {}) {
     if (this.playing && !forcePlay) {
-      this.queueTrack(song);
+      this.queueTrack(song)
       return false
     }
 
-    this.playingSong = song
-    song.emit('start')
-
     super.play(song.track, options)
+    this.playingSong = song
     this.volume(this._volume)
-    this.graveEqualizer()
+    song.emit('start')
     return true
+  }
+
+  stop() {
+    this.queue = []
+    this._listening.clear()
+    this.emit('stop')
+    super.stop()
+  }
+
+  leaveOnEmpty(user) {
+    this.playingSong.emit('abruptStop', user)
+    this.stop()
+  }
+
+  next(user) {
+    if (this._loop) this.queueTrack(this.playingSong, true)
+    const nextSong = this.queue.shift()
+    if (nextSong) {
+      this.play(nextSong, true)
+      this.updateListening()
+      this.updateNowPlaying()
+      return nextSong
+    } else {
+      super.stop()
+      this.playingSong.emit('stop', user)
+      this.emit('stop', user)
+    }
+  }
+
+  // Queue
+  get nextSong() {
+    return this.queue[0]
   }
 
   queueTrack(song, silent = false) {
@@ -73,39 +98,17 @@ module.exports = class GuildPlayer extends Player {
     return songs
   }
 
-  stop() {
-    this.queue.purge()
-    this.emit('stop')
-    super.stop()
-  }
-
-  next(user) {
-    if (this._loop) this.queueTrack(this.playingSong, true)
-    const nextSong = this.queue.shift()
-    if (nextSong) {
-      this.playingSong.emit('removed')
-      this.play(nextSong, true)
-      return true
-    } else {
-      super.stop()
-      this.playingSong.emit('stop', user)
-      this.emit('stop', user)
-    }
-
-    return false
-  }
-
   clearQueue() {
-    return this.queue.purge()
+    return this.queue.splice(0)
   }
 
   shuffleQueue() {
-    return this.queue.shuffle()
+    this.queue = this.queue.sort(() => Math.random() > 0.5 ? -1 : 1)
   }
 
   removeFromQueue(index) {
     if (index < 0 || index >= this.queue.length) throw new Error('INDEX_OUT_OF_BOUNDS')
-    return this.queue.remove(index)
+    return this.queue.splice(index, 1)[0]
   }
 
   jumpToIndex(index, ignoreLoop = false) {
@@ -119,25 +122,15 @@ module.exports = class GuildPlayer extends Player {
     return song
   }
 
+  // Volume
+
   volume(volume = 50) {
     this._volume = volume
     super.volume(volume)
   }
 
-  graveEqualizer() {
-    this.volume(80)
-    return this.setEQ([
-      { band: 0, gain: 0.5 },
-      { band: 1, gain: 0 },
-      { band: 2, gain: 0 },
-      { band: 3, gain: 0.2 },
-      { band: 4, gain: 0.4 },
-      { band: 5, gain: 0.2 }
-    ])
-  }
-
-  loop(loop = true) {
-    this._loop = !!loop
+  get bassboosted() {
+    return this._bassboost
   }
 
   bassboost(state = true) {
@@ -154,12 +147,111 @@ module.exports = class GuildPlayer extends Player {
     return false
   }
 
+  get looping() {
+    return this._loop
+  }
+
+  loop(loop = true) {
+    this._loop = !!loop
+  }
+
+  // Helpers
+
+  get formattedElapsed() {
+    if (!this.playingSong || this.playingSong.isStream) return ''
+    return moment.duration(this.state.position).format('hh:mm:ss', { stopTrim: 'm' })
+  }
+
+  get voiceChannel() {
+    return this.client.channels.get(this.channel)
+  }
+
+  // Internal
+
   setEQ(bands) {
     this.node.send({
       op: 'equalizer',
       guildId: this.id,
       bands
     })
-    return true
+    return this
+  }
+
+  // Voice Update
+
+  async updateVoiceState(oldMember, newMember) {
+    const switchId = newMember.guild.me.user.id
+    if (newMember.user.bot && newMember.user.id !== switchId) return
+    const { voiceChannel: oldChannel } = oldMember
+    const { voiceChannel: newChannel } = newMember
+    const isSwitch = newMember.user.id === switchId
+    if (newMember.user.bot && !isSwitch) return
+    // Voice join
+    if (!oldChannel && newChannel) {
+      if (isSwitch) this.handleSwitchJoin(newChannel.members)
+      else if (newChannel.members.has(switchId)) this.handleNewJoin(newMember.user.id)
+      else return
+    }
+    // Voice leave
+    if (oldChannel && !newChannel) {
+      if (isSwitch) oldChannel.members.filter(m => !m.user.bot).forEach(m => this._listening.delete(m.user.id))
+      if (oldChannel.members.size === 1 && oldChannel.members.has(switchId)) this.leaveOnEmpty(newMember.user.id)
+      else if (oldChannel.members.has(switchId)) this._listening.delete(newMember.user.id)
+      else return
+    }
+    if (oldChannel && newChannel) {
+      // Voice channel change
+      if (oldChannel.id === newChannel.id) return
+      if (isSwitch) this.handleSwitchJoin(newChannel.members)
+      else if (!oldChannel.equals(newChannel)) {
+        if (newChannel.members.has(switchId)) this.handleNewJoin(newMember.user.id)
+        if (oldChannel.members.has(switchId)) this._listening.delete(newMember.user.id)
+      }
+    }
+  }
+
+  async handleNewJoin(user, isSwitch = false) {
+    const connections = await this.client.controllers.connection.getConnections(user)
+    const lastfm = connections.find(c => c.name === 'lastfm')
+    if (!lastfm) return
+    this._listening.set(user, { join: new Date(), scrobblePercent: lastfm.config.percent })
+    if (!isSwitch) this.client.apis.lastfm.updateNowPlaying(this.playingSong, lastfm.tokens.sk)
+  }
+
+  async handleSwitchJoin(members) {
+    await Promise.all(members.filter(m => !m.user.bot).map(async ({ id }) => (this.handleNewJoin(id, true))))
+    this.updateNowPlaying()
+  }
+
+  updateListening() {
+    this._listening.forEach(({ scrobblePercent }, k) => this._listening.set(k, { join: new Date(), scrobblePercent }))
+  }
+  // Last.fm
+  async getAbleToScrobble() {
+    if (this.playingSong.isSteam) return []
+    const map = this._listening.map(async (s, u) => {
+      const connections = await this.client.controllers.connection.getConnections(u)
+      const user = { id: u, config: s }
+      return { user, lastfm: connections.find(c => c.name === 'lastfm') }
+    })
+    const promise = await Promise.all(map)
+      .then(conns => conns.filter(({ lastfm }) => lastfm ? lastfm.config.scrobbling : false))
+    return promise
+  }
+
+  async updateNowPlaying() {
+    const ableToUpdate = await this.getAbleToScrobble()
+    ableToUpdate.forEach(({ lastfm }) => this.client.apis.lastfm.updateNowPlaying(this.playingSong, lastfm.tokens.sk))
+  }
+
+  async scrobbleSong(song) {
+    const ableToScrobble = await this.getAbleToScrobble()
+    const canScrobble2 = ableToScrobble.map(o => ({
+      ...o,
+      listenedPercent: (100 * (new Date() - o.user.config.join)) / song.length
+    }))
+    canScrobble2.filter(p => p.listenedPercent >= p.user.config.scrobblePercent).forEach(({ lastfm, user }) => {
+      this.client.apis.lastfm.scrobbleSong(song, user.config.join, lastfm.tokens.sk)
+    })
   }
 }
