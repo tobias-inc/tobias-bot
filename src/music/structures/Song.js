@@ -36,6 +36,10 @@ module.exports = class Song extends EventEmitter {
     return moment.duration(this.ms).format('hh:mm:ss', { stopTrim: 'm' })
   }
 
+  get addedFormat() {
+    return moment(this.addedAt).calendar()
+  }
+
   get backgroundImage() {
     return this.artwork
   }

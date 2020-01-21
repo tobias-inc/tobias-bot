@@ -8,7 +8,6 @@ module.exports = class Playlist extends EventEmitter {
     super()
 
     const response = Date.now() - requestedBy.startedLoadingAt;
-    console.log(response)
     this.loadTime = moment
       .duration(response).format(response >= 60000 ? 'm [minutes]' : 's [seconds]', {
         precision: response <= 100 ? 3 : response >= 60000 ? 1 : 2
