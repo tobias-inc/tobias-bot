@@ -16,6 +16,7 @@ module.exports = {
   GITHUB_COLOR: '#FAFAFA',
   MIXER_COLOR: '#1FBAED',
   SOUNDCLOUD_COLOR: '#FF5500',
+  HTTP_COLOR: '#6485b0',
   DEFAULT_COLOR: '#43cea2',
 
   // Assets
@@ -25,8 +26,16 @@ module.exports = {
   // Player 
 
   DEFAULT_PLAYER_BACKGROUND: 'src/assets/img/jpg/default-background.jpg',
+  PLAYER_SOURCES_BACKGROUND: {
+    soundcloud: 'src/assets/img/jpg/music_sources/soundcloud.jpg',
+    youtube: 'src/assets/img/jpg/music_sources/youtube.jpg',
+    mixer: 'src/assets/img/jpg/music_sources/mixer.jpg',
+    twitch: 'src/assets/img/jpg/music_sources/twitch.jpg',
+    deezer: 'src/assets/img/jpg/music_sources/deezer.jpg',
+    http: 'src/assets/img/jpg/music_sources/http.jpg'
+  },
 
-  // Economy
+  // EconomyF
 
   DEFAULT_BACKGROUND: 'src/assets/img/jpg/default-background.jpg',
   DEFAULT_PERSONAL_TEXT: 'Nothing inserted...',
