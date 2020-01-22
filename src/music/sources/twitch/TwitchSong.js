@@ -7,6 +7,7 @@ module.exports = class TwitchSong extends Song {
     super(data, requestedBy)
     this._Twitch = Twitch
     this.color = Constants.TWITCH_COLOR
+    this.source = 'twitch'
   }
 
   async loadInfo() {

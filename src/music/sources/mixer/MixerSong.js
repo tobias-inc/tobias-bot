@@ -6,6 +6,7 @@ module.exports = class MixerSong extends Song {
     super(data, requestedBy)
     this._Mixer = Mixer
     this.color = Constants.MIXER_COLOR
+    this.source = 'mixer'
   }
 
   async loadInfo () {
