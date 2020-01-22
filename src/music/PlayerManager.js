@@ -64,6 +64,7 @@ module.exports = class SwitchbladePlayerManager extends PlayerManager {
     const songs = res.tracks
     songs.searchResult = res.loadType === 'SEARCH_RESULT'
     songs.playlistInfo = res.playlistInfo
+    if (songs.playlistInfo) songs.playlistInfo.url = identifier
     return songs
   }
 
@@ -100,7 +101,7 @@ module.exports = class SwitchbladePlayerManager extends PlayerManager {
         pInfo.playlistInfo = songs.playlistInfo
         switch (pInfo.source) {
           case 'youtube':
-            return searchResult.setResult(new YoutubePlaylist(pInfo, songs, requestedBy, this.client.apis.youtube).loadInfo())
+            return searchResult.setResult(new YoutubePlaylist(pInfo, songs, requestedBy).loadInfo())
           default:
             return searchResult.setResult(new Playlist(pInfo, songs, requestedBy).loadInfo())
         }
