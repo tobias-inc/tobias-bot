@@ -98,9 +98,10 @@ module.exports = class Command {
       const embed = error.embed || new ClientEmbed(author)
         .setTitle(error.message)
         .setDescription(error.showUsage ? usage : '')
-      return channel.send(embed.setColor(Constants.ERROR_COLOR))
+      channel.send(embed.setColor(Constants.ERROR_COLOR))
     }
     this.client.console(true, (error.stack || error), this.name)
+    return channel.stopTyping()
   }
 
   usage(t, prefix, noUsage = true, onlyCommand = false) {
