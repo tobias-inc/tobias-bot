@@ -38,7 +38,7 @@ module.exports = class Play extends Command {
         throw new CommandError(t('music:songNotFound'))
       }
     } catch (e) {
-      console.log(e)
+      console.log(e.stack)
       if (e instanceof CommandError) throw e
 
       return channel.send(embed.setColor(Constants.ERROR_COLOR).setTitle(t('errors:generic')))
@@ -62,14 +62,21 @@ module.exports = class Play extends Command {
   playlistFeedback({ t, channel }, playlist) {
     const duration = `\`(${playlist.formattedDuration})\``
     const loadTime = playlist.loadTime
-    const count = playlist.size
+    const count = Number(playlist.size)
     const playlistName = `[${playlist.title}](${playlist.uri})`
+
+    const timeResponses = t('commons:timeResponses', { returnObjects: true });
 
     channel.send(new ClientEmbed()
       .setThumbnail(playlist.artwork)
-      .setDescription(`${t(count > 1 ? 'music:addedFromPlaylist_plural' : 'music:addedFromPlaylist', {
-        count, playlistName, duration, loadTime
-      })}`)
+      .setDescription(t('music:addedFromPlaylist_plural', {
+        count, playlistName, duration, loadTime: loadTime.allReplaces(
+          timeResponses.obj(obj => {
+            const [[k, v]] = Object.entries(obj)
+            return [k, v]
+          })
+        )
+      }))
     )
   }
 
