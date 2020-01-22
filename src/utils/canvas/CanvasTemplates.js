@@ -1,3 +1,4 @@
+const moment = require("moment");
 const { createCanvas, Image } = require("canvas");
 
 const CanvasUtils = require("./CanvasUtils.js");
@@ -189,6 +190,113 @@ module.exports = class CanvasTemplates {
       10,
       1
     )
+
+    return canvas.toBuffer()
+  }
+
+  static async nowPlaying(t, { state: { position } }, {
+    color, artwork, isStream, title, author, ms: length
+  }) {
+    const WIDTH = 800;
+    const HEIGHT = 300;
+
+    const canvas = createCanvas(WIDTH, HEIGHT);
+    const ctx = canvas.getContext('2d');
+
+    const IMAGE_ASSETS = Promise.all([
+      Image.from(artwork || Constants.DEFAULT_PLAYER_BACKGROUND)
+    ])
+
+    const FAV_COLOR = new Color(color).rgb();
+    const FAV_COLOR_RGBA = new Color(color).setAlpha(.4).rgba(false);
+
+    // Draw
+
+    const [backgroundImage] = await IMAGE_ASSETS;
+
+    const THUMBNAIL_WIDTH = Math.trunc(WIDTH / 3)
+    let THUMBNAIL_HEIGHT = HEIGHT
+
+    const FULL_WIDTH = (WIDTH - THUMBNAIL_WIDTH)
+
+    // Bar 
+
+    const BAR_WIDTH = 320;
+    const BAR_HEIGHT = 10;
+    const BAR_X = THUMBNAIL_WIDTH + (FULL_WIDTH - BAR_WIDTH) / 2;
+    const BAR_Y = 270;
+
+    const BAR = isStream ? BAR_WIDTH : BAR_WIDTH / (length / position);
+
+    ctx.fillStyle = FAV_COLOR_RGBA
+    ctx.roundRect(BAR_X, BAR_Y, BAR_WIDTH, BAR_HEIGHT, 5, true);
+    ctx.fillStyle = FAV_COLOR
+    ctx.roundRect(BAR_X, BAR_Y, BAR > 10 ? BAR : 10, BAR_HEIGHT, 5, true);
+
+    // Bar Text
+
+    const formatTime = (t) => moment.duration(t).format('hh:mm:ss', { stopTrim: 'm' })
+    const TIME_FONT = '16px "Montserrat ExtraBold"'
+
+    const LEFT_X = BAR_X - 10
+    const RIGHT_X = (BAR_X + (FULL_WIDTH - (BAR_WIDTH / 2))) + 10
+    const TIME_Y = BAR_Y + (BAR_HEIGHT / 2)
+
+    ctx.fillStyle = '#FFF'
+    ctx.write(formatTime(position), LEFT_X, TIME_Y, TIME_FONT, 4)
+
+    if (!isStream) {
+      ctx.write(formatTime(length), RIGHT_X, TIME_Y, TIME_FONT, 4)
+    } else {
+      const LIVE_CIRCLE_RADIUS = 5
+      const LIVE_TEXT = t('music:live').toUpperCase()
+      const live = ctx.write(LIVE_TEXT, RIGHT_X, TIME_Y, TIME_FONT, 4)
+      ctx.fillStyle = '#FF0000'
+      ctx.circle(live.leftX - LIVE_CIRCLE_RADIUS * 2, live.centerY, LIVE_CIRCLE_RADIUS, 0, Math.PI * 2, true)
+      ctx.fillStyle = '#FFFFFF'
+    }
+
+    const LEFT_TEXT_MARGIN = THUMBNAIL_WIDTH + 20
+
+    // Title
+    let titleLength = title.length
+    title = titleLength > 50 ? `${title.split(' ').slice(0, 5).join(' ')}...` : title
+    const TITLE_FONT = 'italic 34px "Montserrat Black"'
+    const titleY = ctx.printAt(title, LEFT_TEXT_MARGIN, 40, 35, (WIDTH - THUMBNAIL_WIDTH) - 20, TITLE_FONT)
+
+    // Author
+    const AUTHOR_FONT = 'italic 22px Montserrat'
+    ctx.printAt(author, LEFT_TEXT_MARGIN, Number(titleY) + 10, 30, (WIDTH - THUMBNAIL_WIDTH) - 20, AUTHOR_FONT)
+
+    // Thumbnail 
+
+    ctx.drawBlurredImage(backgroundImage, 20, 0, 0, THUMBNAIL_WIDTH, HEIGHT)
+    THUMBNAIL_HEIGHT = backgroundImage.height * (THUMBNAIL_WIDTH / backgroundImage.width)
+    ctx.drawImage(backgroundImage, 0, HEIGHT * 0.5 - THUMBNAIL_HEIGHT * 0.5, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT)
+
+    // Background
+
+    ctx.globalCompositeOperation = 'destination-over'
+
+    const realColor = new Color('#000')
+    const gradientColor = (a) => realColor.setAlpha(a).rgba(true)
+
+    const grd = ctx.createLinearGradient(0, 0, 0, HEIGHT)
+    grd.addColorStop(0, gradientColor(0))
+    grd.addColorStop(1, gradientColor(0.9))
+    ctx.fillStyle = grd
+    ctx.fillRect(THUMBNAIL_WIDTH, 0, WIDTH - THUMBNAIL_WIDTH, HEIGHT)
+
+    const bgWidth = WIDTH - THUMBNAIL_WIDTH
+    const bgHeight = (bgWidth / backgroundImage.width) * backgroundImage.height
+    const bgY = -((bgHeight - HEIGHT) / 2)
+    ctx.drawBlurredImage(backgroundImage, 2, THUMBNAIL_WIDTH, bgY, bgWidth, bgHeight)
+
+    // Texts 
+
+    ctx.fillStyle = '#FFFFFF'
+    ctx.globalCompositeOperation = 'destination-in'
+    ctx.roundRect(0, 0, WIDTH, HEIGHT, 10, true)
 
     return canvas.toBuffer()
   }

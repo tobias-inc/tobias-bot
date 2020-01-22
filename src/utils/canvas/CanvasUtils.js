@@ -74,20 +74,66 @@ module.exports = class CanvasUtils {
 
     Image.buffer = (url, localFile = false) => localFile ? FileUtils.readFile(url) : URLtoBuffer(url);
 
-    Context2d.prototype.printAt = function (text, x, y, lineHeight, fitWidth) {
-      fitWidth = fitWidth || 0;
+    // Context2d.prototype.printAt = function (text, x, y, lineHeight, fitWidth, font = '16px "Montserrat"') {
+    //   fitWidth = fitWidth || 0;
 
-      if (fitWidth <= 0) return this.fillText(text, x, y);
+    //   this.font = font
 
-      for (let idx = 1; idx <= text.length; idx++) {
-        let str = text.substr(0, idx);
-        if (this.measureText(str).width > fitWidth) {
-          this.fillText(text.substr(0, idx - 1), x, y);
-          this.printAt(text.substr(idx - 1), x, y + lineHeight, lineHeight, fitWidth);
-          return;
+    //   if (fitWidth <= 0) return this.fillText(text, x, y);
+
+    //   for (let idx = 1; idx <= text.length; idx++) {
+    //     let str = text.substr(0, idx);
+    //     if (this.measureText(str).width > fitWidth) {
+    //       this.fillText(text.substr(0, idx - 1), x, y);
+    //       this.printAt(text.substr(idx - 1), x, y + lineHeight, lineHeight, fitWidth, font);
+    //       return;
+    //     }
+    //   }
+    //   this.fillText(text, x, y);
+    // }
+
+    Context2d.prototype.printAt = function (text, x, y, lineHeight, fitWidth = x + y, font = '16px "Montserrat"') {
+      const words = text.split(' ')
+      const wordsRenders = []
+
+      let inX = x
+      let inHeight = y
+      let completeWidth = fitWidth * 1.5
+      for (let word of words) {
+        const { width, height } = self.measureText(this, font, `${word} `)
+
+        if ((inX + width) > completeWidth) {
+          inHeight += lineHeight
+          inX = x
+          wordsRenders.push({
+            [word]: {
+              x: inX,
+              y: inHeight,
+              width,
+              height
+            }
+          })
+        } else {
+          wordsRenders.push({
+            [word]: {
+              x: inX,
+              y: inHeight,
+              width,
+              height
+            }
+          })
         }
+        inX = inX + width
       }
-      this.fillText(text, x, y);
+
+      wordsRenders.map(word => {
+        const [[text, v]] = Object.entries(word)
+        const { x, y } = v
+        this.fillText(text, x, y)
+      })
+
+      const lastWord = wordsRenders.slice(-1)[0][words.slice(-1)[0]]
+      return lastWord.y + lastWord.height
     }
 
     Context2d.prototype.roundImage = function (img, x, y, w, h, r) {
