@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "@hapi/joi": "^17.0.2",
+    "body-parser": "^1.19.0",
     "canvas": "^2.6.1",
     "cross-env": "^6.0.3",
     "discord.js": "^11.5.1",
@@ -19,6 +20,7 @@
     "dotenv": "^8.2.0",
     "easy-youtube-info": "^1.0.2",
     "events": "^3.1.0",
+    "express": "^4.17.1",
     "fs": "0.0.1-security",
     "i18next": "^19.0.3",
     "i18next-node-fs-backend": "^2.1.3",
