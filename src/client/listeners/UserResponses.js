@@ -35,8 +35,8 @@ module.exports = class UserResponses extends Listener {
 
         channel
           .send(
-            t('commons:economy.levelup', { level, username: user.username }),
-            new Attachment(updateImage, `levelup-${user.id}.jpg`)
+            t('economy:levelup', { level, username: user.username }),
+            new Attachment(updateImage, 'levelup.jpg')
           )
           .catch(() => null)
 
@@ -46,6 +46,6 @@ module.exports = class UserResponses extends Listener {
       this.client.console(true, (e.stack || e), this.constructor.name);
     }
 
-    return true
+    return false
   }
 }
