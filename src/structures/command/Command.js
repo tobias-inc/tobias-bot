@@ -99,8 +99,9 @@ module.exports = class Command {
         .setTitle(error.message)
         .setDescription(error.showUsage ? usage : '')
       channel.send(embed.setColor(Constants.ERROR_COLOR))
+    } else {
+      this.client.console(true, (error.stack || error), this.name)
     }
-    this.client.console(true, (error.stack || error), this.name)
     return channel.stopTyping()
   }
 
