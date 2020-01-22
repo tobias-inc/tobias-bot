@@ -1,5 +1,5 @@
 const { Attachment } = require("discord.js");
-const { Command } = require("../../");
+const { Command, CanvasTemplates } = require("../../");
 
 module.exports = class Queue extends Command {
   constructor(client, path) {
@@ -8,15 +8,12 @@ module.exports = class Queue extends Command {
       category: 'music',
       aliases: ['np'],
       utils: {
-        requirements: { guildOnly: true, guildPlaying: true }
+        requirements: { guildOnly: true, guildPlaying: true, canvasOnly: true }
       }
     })
   }
 
-  async run({ t, author, channel, guild }) {
-    delete require.cache[require.resolve('../../utils/canvas/CanvasTemplates.js')];
-    const CanvasTemplates = require('../../utils/canvas/CanvasTemplates.js');
-
+  async run({ t, channel, guild }) {
     const guildPlayer = this.client.playerManager.get(guild.id);
     const song = guildPlayer.playingSong
 
