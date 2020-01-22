@@ -11,7 +11,7 @@ module.exports = class CommandController extends ClientRouter {
     const t = this.client.language.lang('pt-BR')
 
     router.get('/', (req, res) => {
-      const commands = this.client.commands.map(command => command.asJSON())
+      const commands = this.client.commands.map(command => command.asJSON(t))
       return res.json({ commands })
     })
 
