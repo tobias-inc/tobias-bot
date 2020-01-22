@@ -7,7 +7,7 @@ const getPrefix = (m, p) => p.find(pr => m.content.startsWith(pr));
 module.exports = class MessageResponses extends Listener {
   constructor(client) {
     super(client)
-    this.events = ['message', 'messageUpdate']
+    this.events = ['message', 'messageUpdate', 'voiceStateUpdate']
 
     this.socialUtils = new SocialUtils(client);
   }
@@ -56,5 +56,12 @@ module.exports = class MessageResponses extends Listener {
       const user = new SocialUtils.userWrapper(message.author, message.channel, language);
       return this.socialUtils.upsert(user);
     }
+  }
+
+  async onVoiceStateUpdate(oldMember, newMember) {
+    if (!this.client.playerManager) return
+    const guildPlayer = this.client.playerManager.get(newMember.guild.id)
+    if (!guildPlayer) return
+    guildPlayer.updateVoiceState(oldMember, newMember)
   }
 }
