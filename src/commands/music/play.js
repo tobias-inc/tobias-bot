@@ -1,4 +1,4 @@
-const { Command, CommandError, Constants, ClientEmbed } = require("../../");
+const { Command, CommandError, Constants, ClientEmbed, Utils } = require("../../");
 const { Song, Playlist } = require('../../music/structures')
 
 module.exports = class Play extends Command {
@@ -17,12 +17,11 @@ module.exports = class Play extends Command {
   }
 
   async run({ channel, flags, t, author, voiceChannel }, identifier) {
-    const embed = new ClientEmbed(author);
-
     if (!voiceChannel.joinable && !voiceChannel.connection) {
-      return channel.send(embed.setTitle(t('errors:voiceChannelJoin')))
+      throw new CommandError(t('errors:voiceChannelJoin'))
     }
 
+    channel.startTyping()
     const playerManager = this.client.playerManager;
     try {
       const specificSearch = flags['soundcloud'] || flags['youtube']
@@ -38,10 +37,8 @@ module.exports = class Play extends Command {
         throw new CommandError(t('music:songNotFound'))
       }
     } catch (e) {
-      console.log(e.stack)
       if (e instanceof CommandError) throw e
-
-      return channel.send(embed.setColor(Constants.ERROR_COLOR).setTitle(t('errors:generic')))
+      throw new CommandError(t('errors:generic'))
     }
   }
 
@@ -61,21 +58,14 @@ module.exports = class Play extends Command {
 
   playlistFeedback({ t, channel }, playlist) {
     const duration = `\`(${playlist.formattedDuration})\``
-    const loadTime = playlist.loadTime
+    const loadTime = Utils.replaceTime(t, playlist.loadTime)
     const count = Number(playlist.size)
     const playlistName = `[${playlist.title}](${playlist.uri})`
-
-    const timeResponses = t('commons:timeResponses', { returnObjects: true });
 
     channel.send(new ClientEmbed()
       .setThumbnail(playlist.artwork)
       .setDescription(t('music:addedFromPlaylist_plural', {
-        count, playlistName, duration, loadTime: loadTime.allReplaces(
-          timeResponses.obj(obj => {
-            const [[k, v]] = Object.entries(obj)
-            return [k, v]
-          })
-        )
+        count, playlistName, duration, loadTime
       }))
     )
   }
