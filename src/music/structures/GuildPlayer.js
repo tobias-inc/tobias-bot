@@ -34,6 +34,7 @@ module.exports = class GuildPlayer extends Player {
 
     this._listening = new Collection()
 
+    Object.defineProperty(this, 'track', { writable: true })
     Object.defineProperty(this, 'queue', {
       value: new Queue()
     })
@@ -88,7 +89,6 @@ module.exports = class GuildPlayer extends Player {
     }
   }
 
-  // Queue
   get nextSong() {
     return this.queue[0]
   }
@@ -128,8 +128,6 @@ module.exports = class GuildPlayer extends Player {
     return song
   }
 
-  // Volume
-
   volume(volume = 50) {
     this._volume = volume
     super.volume(volume)
@@ -167,12 +165,10 @@ module.exports = class GuildPlayer extends Player {
       { band: 1, gain: 0 },
       { band: 2, gain: 0 },
       { band: 3, gain: 0 },
-      { band: 4, gain: 0.1 },
-      { band: 5, gain: 0.1 }
+      { band: 4, gain: 0.2 },
+      { band: 5, gain: 0.2 }
     ])
   }
-
-  // Helpers
 
   get formattedElapsed() {
     if (!this.playingSong || this.playingSong.isStream) return ''
@@ -183,8 +179,6 @@ module.exports = class GuildPlayer extends Player {
     return this.client.channels.get(this.channel)
   }
 
-  // Internal
-
   setEQ(bands) {
     this.node.send({
       op: 'equalizer',
@@ -194,8 +188,6 @@ module.exports = class GuildPlayer extends Player {
     return this
   }
 
-  // Voice Update
-
   async updateVoiceState(oldMember, newMember) {
     const switchId = newMember.guild.me.user.id
     if (newMember.user.bot && newMember.user.id !== switchId) return
@@ -203,13 +195,11 @@ module.exports = class GuildPlayer extends Player {
     const { voiceChannel: newChannel } = newMember
     const isSwitch = newMember.user.id === switchId
     if (newMember.user.bot && !isSwitch) return
-    // Voice join
+
     if (!oldChannel && newChannel) {
-      if (isSwitch) this.handleSwitchJoin(newChannel.members)
-      else if (newChannel.members.has(switchId)) this.handleNewJoin(newMember.user.id)
-      else return
+      if (!isSwitch && !newChannel.members.has(switchId)) return
     }
-    // Voice leave
+
     if (oldChannel && !newChannel) {
       if (isSwitch) oldChannel.members.filter(m => !m.user.bot).forEach(m => this._listening.delete(m.user.id))
       if (oldChannel.members.size === 1 && oldChannel.members.has(switchId)) this.leaveOnEmpty(newMember.user.id)
@@ -217,58 +207,10 @@ module.exports = class GuildPlayer extends Player {
       else return
     }
     if (oldChannel && newChannel) {
-      // Voice channel change
       if (oldChannel.id === newChannel.id) return
-      if (isSwitch) this.handleSwitchJoin(newChannel.members)
       else if (!oldChannel.equals(newChannel)) {
-        if (newChannel.members.has(switchId)) this.handleNewJoin(newMember.user.id)
         if (oldChannel.members.has(switchId)) this._listening.delete(newMember.user.id)
       }
     }
-  }
-
-  async handleNewJoin(user, isSwitch = false) {
-    const connections = await this.client.controllers.connection.getConnections(user)
-    const lastfm = connections.find(c => c.name === 'lastfm')
-    if (!lastfm) return
-    this._listening.set(user, { join: new Date(), scrobblePercent: lastfm.config.percent })
-    if (!isSwitch) this.client.apis.lastfm.updateNowPlaying(this.playingSong, lastfm.tokens.sk)
-  }
-
-  async handleSwitchJoin(members) {
-    await Promise.all(members.filter(m => !m.user.bot).map(async ({ id }) => (this.handleNewJoin(id, true))))
-    this.updateNowPlaying()
-  }
-
-  updateListening() {
-    this._listening.forEach(({ scrobblePercent }, k) => this._listening.set(k, { join: new Date(), scrobblePercent }))
-  }
-  // Last.fm
-  async getAbleToScrobble() {
-    if (this.playingSong.isSteam) return []
-    const map = this._listening.map(async (s, u) => {
-      const connections = await this.client.controllers.connection.getConnections(u)
-      const user = { id: u, config: s }
-      return { user, lastfm: connections.find(c => c.name === 'lastfm') }
-    })
-    const promise = await Promise.all(map)
-      .then(conns => conns.filter(({ lastfm }) => lastfm ? lastfm.config.scrobbling : false))
-    return promise
-  }
-
-  async updateNowPlaying() {
-    const ableToUpdate = await this.getAbleToScrobble()
-    ableToUpdate.forEach(({ lastfm }) => this.client.apis.lastfm.updateNowPlaying(this.playingSong, lastfm.tokens.sk))
-  }
-
-  async scrobbleSong(song) {
-    const ableToScrobble = await this.getAbleToScrobble()
-    const canScrobble2 = ableToScrobble.map(o => ({
-      ...o,
-      listenedPercent: (100 * (new Date() - o.user.config.join)) / song.length
-    }))
-    canScrobble2.filter(p => p.listenedPercent >= p.user.config.scrobblePercent).forEach(({ lastfm, user }) => {
-      this.client.apis.lastfm.scrobbleSong(song, user.config.join, lastfm.tokens.sk)
-    })
   }
 }
