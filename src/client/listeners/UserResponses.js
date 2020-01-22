@@ -8,7 +8,7 @@ module.exports = class UserResponses extends Listener {
   }
 
   get module() {
-    return this.client.database.guild
+    return this.client.database.guilds
   }
 
   get social() {
