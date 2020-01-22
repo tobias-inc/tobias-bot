@@ -16,12 +16,12 @@ const CLIENT_OPTIONS = {
   disabledEvents: ["TYPING_START", "TYPING_STOP", "USER_NOTE_UPDATE"],
   disableEveryone: true,
   fetchAllMembers: true,
+  autoReconnect: true,
   restTimeOffset: 2000,
   retryLimit: 20,
   messageCacheMaxSize: 2024,
   messageCacheLifetime: 1680,
   messageSweepInterval: 1680,
-  autoReconnect: true,
   canvasLoaded
 }
 
