@@ -8,5 +8,12 @@ module.exports = class YoutubePlaylist extends Playlist {
     super(data, songs, requestedBy)
     this.uri = PLAYLIST_URI + this.identifier
     this.title = data.playlistInfo.name
+
+    this.source = 'youtube'
+  }
+
+  async loadInfo() {
+    this.songs = await Promise.all(this.songs.map(s => new YoutubeSong(s, this.requestedBy).loadInfo()))
+    return this
   }
 }
