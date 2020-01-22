@@ -10,5 +10,7 @@ module.exports = {
   LanguageLoader: require("./LanguageLoader.js"),
   ModulesLoader: require("./ModulesLoader.js"),
 
-  WrappersLoader: require("./WrappersLoader.js")
+  WrappersLoader: require("./WrappersLoader.js"),
+
+  HTTPLoader: require("./HTTPLoader.js")
 }
