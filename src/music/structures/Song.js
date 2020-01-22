@@ -1,6 +1,8 @@
 const { EventEmitter } = require("events");
 const moment = require("moment");
 
+const Constants = require("../../utils/Constants.js");
+
 const DEFAULT_THUMBNAIL_URL = 'https://i.ytimg.com/vi/{id}/maxresdefault.jpg';
 
 module.exports = class Song extends EventEmitter {
@@ -21,6 +23,7 @@ module.exports = class Song extends EventEmitter {
     this.startedAt = null
     this.message = null
 
+    this.color = Constants.DEFAULT_COLOR
     this.artwork = DEFAULT_THUMBNAIL_URL.replace('{id}', this.identifier)
 
     Object.defineProperty(this, 'requestedBy', { get: () => requestedBy || data.requestedBy })

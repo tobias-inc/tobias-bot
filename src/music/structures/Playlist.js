@@ -13,6 +13,11 @@ module.exports = class Playlist extends EventEmitter {
         precision: response <= 100 ? 3 : response >= 60000 ? 1 : 2
       })
 
+    if (data.playlistInfo) {
+      this.title = data.playlistInfo.name
+      this.uri = data.playlistInfo.url
+    }
+
     this.identifier = data.identifier
     this.source = data.source
     this.requestedBy = requestedBy
