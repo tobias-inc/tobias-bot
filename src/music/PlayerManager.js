@@ -71,6 +71,7 @@ module.exports = class TobiasPlayerManager extends PlayerManager {
   async loadTracks(identifier, requestedBy) {
     requestedBy.startedLoadingAt = Date.now()
 
+    identifier = MusicUtils.parseUrl(identifier)
     const songs = await this.fetchTracks(identifier);
     if (songs && Object.getPrototypeOf(songs) === SongSource) {
       return SongSearchResult.from(songs.provide(this, identifier, requestedBy), false)

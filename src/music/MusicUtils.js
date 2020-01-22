@@ -1,3 +1,7 @@
+// Url regex
+
+const URL_REGEX = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi
+
 // Song regex
 
 const HTTP_STREAM_REGEX = /^(icy|https?):\/\/(.*)$/
@@ -20,6 +24,13 @@ module.exports = class MusicUtils {
     if (HTTP_STREAM_REGEX.test(id)) return 'http'
     if (YOUTUBE_VIDEO_ID_REGEX.test(id)) return 'youtube'
     if (MIXER_STREAM_REGEX.test(uri)) return 'mixer'
+  }
+
+  static parseUrl(identifier) {
+    if (URL_REGEX.test(identifier)) {
+      return identifier.split(' ').find(i => URL_REGEX.test(i))
+    }
+    return identifier
   }
 
   static getPlaylistInfo(query) {

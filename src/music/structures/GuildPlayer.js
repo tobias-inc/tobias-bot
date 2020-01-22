@@ -33,10 +33,7 @@ module.exports = class GuildPlayer extends Player {
 
     this._listening = new Collection()
 
-    Object.defineProperty(this, 'track', { writable: true })
-    Object.defineProperty(this, 'queue', {
-      value: new Queue()
-    })
+    Object.defineProperty(this, 'queue', { value: new Queue() })
   }
 
   event(message) {
