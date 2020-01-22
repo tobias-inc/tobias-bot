@@ -20,4 +20,8 @@ module.exports = class SongSource {
   static get customSources() {
     return []
   }
+
+  static async getClosestVideo(client, title) {
+    return client.playerManager.fetchTracks(`ytsearch:${title}`).then(r => r && r[0])
+  }
 }

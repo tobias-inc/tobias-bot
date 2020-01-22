@@ -57,8 +57,6 @@ module.exports = class SpotifySongSource extends SongSource {
   }
 
   static getClosestVideo({ client }, track) {
-    return client.playerManager.fetchTracks(
-      `ytsearch:${track.artists.map(a => a.name).join(', ')} - ${track.name}`
-    ).then(r => r && r[0])
+    return super.getClosestVideo(client, `${track.artists.map(a => a.name).join(', ')} - ${track.name}`)
   }
 }
