@@ -195,7 +195,7 @@ module.exports = class CanvasTemplates {
   }
 
   static async nowPlaying(t, { state: { position } }, {
-    color, artwork, isStream, title, author, ms: length
+    color, artwork, isStream, title, source, author, ms: length
   }) {
     const WIDTH = 800;
     const HEIGHT = 300;
@@ -204,7 +204,7 @@ module.exports = class CanvasTemplates {
     const ctx = canvas.getContext('2d');
 
     const IMAGE_ASSETS = Promise.all([
-      Image.from(artwork || Constants.DEFAULT_PLAYER_BACKGROUND)
+      Image.from(artwork || Constants.PLAYER_SOURCES_BACKGROUND[source])
     ])
 
     const FAV_COLOR = new Color(color).rgb();
@@ -253,7 +253,6 @@ module.exports = class CanvasTemplates {
       const live = ctx.write(LIVE_TEXT, RIGHT_X, TIME_Y, TIME_FONT, 4)
       ctx.fillStyle = '#FF0000'
       ctx.circle(live.leftX - LIVE_CIRCLE_RADIUS * 2, live.centerY, LIVE_CIRCLE_RADIUS, 0, Math.PI * 2, true)
-      ctx.fillStyle = '#FFFFFF'
     }
 
     const LEFT_TEXT_MARGIN = THUMBNAIL_WIDTH + 20
@@ -265,7 +264,8 @@ module.exports = class CanvasTemplates {
     const titleY = ctx.printAt(title, LEFT_TEXT_MARGIN, 40, 35, (WIDTH - THUMBNAIL_WIDTH) - 20, TITLE_FONT)
 
     // Author
-    const AUTHOR_FONT = 'italic 22px Montserrat'
+    ctx.fillStyle = FAV_COLOR_RGBA.replace('.4', '.6')
+    const AUTHOR_FONT = 'italic 22px Montserrat ExtraBold'
     ctx.printAt(author, LEFT_TEXT_MARGIN, Number(titleY) + 10, 30, (WIDTH - THUMBNAIL_WIDTH) - 20, AUTHOR_FONT)
 
     // Thumbnail 
@@ -282,14 +282,15 @@ module.exports = class CanvasTemplates {
     const gradientColor = (a) => realColor.setAlpha(a).rgba(true)
 
     const grd = ctx.createLinearGradient(0, 0, 0, HEIGHT)
-    grd.addColorStop(0, gradientColor(0))
-    grd.addColorStop(1, gradientColor(0.9))
+    grd.addColorStop(0, gradientColor(0.5))
+    grd.addColorStop(1, gradientColor(1))
     ctx.fillStyle = grd
     ctx.fillRect(THUMBNAIL_WIDTH, 0, WIDTH - THUMBNAIL_WIDTH, HEIGHT)
 
     const bgWidth = WIDTH - THUMBNAIL_WIDTH
-    const bgHeight = (bgWidth / backgroundImage.width) * backgroundImage.height
-    const bgY = -((bgHeight - HEIGHT) / 2)
+    let bgHeight = (bgWidth / backgroundImage.width) * backgroundImage.height
+    bgHeight = bgHeight >= HEIGHT ? bgHeight : HEIGHT
+    let bgY = bgHeight > HEIGHT ? -((bgHeight - HEIGHT) / 2) : 0
     ctx.drawBlurredImage(backgroundImage, 2, THUMBNAIL_WIDTH, bgY, bgWidth, bgHeight)
 
     // Texts 
