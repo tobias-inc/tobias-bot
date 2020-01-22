@@ -31,7 +31,7 @@ module.exports = class WrappersLoader extends Loader {
         return !!process.env[variable]
       })) return false
 
-      this.apis[api.name] = api
+      this.apis[api.name] = api.load()
       this.client.console(false, 'Wrapper was successfully loaded!', this.name, api.name);
     } else {
       this.client.console(true, 'Not Wrapper!', this.name, file);
