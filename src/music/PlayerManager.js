@@ -26,7 +26,7 @@ const resolveRegion = (region) => {
   return dRegion && dRegion[0]
 }
 
-module.exports = class SwitchbladePlayerManager extends PlayerManager {
+module.exports = class TobiasPlayerManager extends PlayerManager {
   constructor(client, nodes = [], options = {}) {
     options.player = GuildPlayer
     super(client, nodes, options)

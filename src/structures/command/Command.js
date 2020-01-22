@@ -7,7 +7,6 @@ const ClientEmbed = require("../ClientEmbed.js");
 
 module.exports = class Command {
   constructor(client, path, options = {}) {
-    this.client = client
     this.name = options.name
     this.aliases = options.aliases || []
     this.category = options.category || 'general'
@@ -22,7 +21,8 @@ module.exports = class Command {
     this.cooldown = this.cooldownTime && this.cooldownTime > 0 && new Map()
     this.cooldownFeedback = this.cooldown && true
 
-    Object.defineProperty(this, 'fullPath', { value: path })
+    Object.defineProperty(this, 'client', { get: () => client })
+    Object.defineProperty(this, 'fullPath', { get: () => path })
   }
 
   get cmd() {
@@ -112,6 +112,25 @@ module.exports = class Command {
       return `${prefix}${this.fullName}${usage ? ' ' + usage : ''}`
     } else {
       return `**${t('commons:usage')}:** \`${prefix}${this.fullName}\``
+    }
+  }
+
+  asJSON(t, command = this) {
+    const aliases = command.aliases && command.aliases.length ? command.aliases : undefined
+    const subcommands = command.subcommands.length > 0 ? command.subcommands.map(sc => this.asJSON(t, sc)) : undefined
+
+    const descriptionPath = `${command.tPath}.commandDescription`
+    const usage = command.usage(t, Constants.DEFAULT_PREFIX, false, true)
+    let description = t(`commands:${command.tPath}.commandDescription`)
+    description = description === descriptionPath ? undefined : description
+
+    return {
+      name: command.fullName,
+      category: command.category || command.parent.category,
+      aliases,
+      description,
+      usage,
+      subcommands
     }
   }
 }

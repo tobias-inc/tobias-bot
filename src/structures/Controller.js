@@ -3,7 +3,7 @@ module.exports = class Controller {
     this.name = name
     this.client = client
 
-    if (parent) this.parent = parent;
+    if (parent) this.parent = parent
 
     this.subcontrollers = []
   }
