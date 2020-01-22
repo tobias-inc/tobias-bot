@@ -260,7 +260,7 @@ module.exports = class CanvasTemplates {
 
     // Title
     let titleLength = title.length
-    title = titleLength > 50 ? `${title.split(' ').slice(0, 5).join(' ')}...` : title
+    title = titleLength > 50 ? `${title.split(' ').slice(0, 8).join(' ')}...` : title
     const TITLE_FONT = 'italic 34px "Montserrat Black"'
     const titleY = ctx.printAt(title, LEFT_TEXT_MARGIN, 40, 35, (WIDTH - THUMBNAIL_WIDTH) - 20, TITLE_FONT)
 
