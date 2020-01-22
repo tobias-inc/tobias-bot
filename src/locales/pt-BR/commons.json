@@ -11,5 +11,16 @@
   "texts": {
     "subcmd": "Subcomandos",
     "versions": "Versões"
-  }
+  },
+  "timeResponses": [
+    {
+      "seconds": "segundos"
+    },
+    {
+      "minutes": "minutos"
+    },
+    {
+      "hours": "horas"
+    }
+  ]
 }
