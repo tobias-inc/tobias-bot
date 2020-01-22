@@ -96,7 +96,7 @@ module.exports = class Play extends Command {
     const songName = `[${song.title}](${song.uri}) ${duration}`
 
     song.once('stop', u => send(` ${t('music:queueIsEmpty')}`, u) && deleteMessage())
-    song.once('abruptStop', () => send(` ${t('music:leftDueToInactivity')}`))
+    song.once('abruptStop', () => send(` ${t('music:leftDueToInactivity')}`) && deleteMessage())
     song.on('end', () => deleteMessage())
 
     song.once('error', () => channel.send(bEmbed(t('errors:musicReproducion')).setColor(Constants.ERROR_COLOR)).then(() => song.emit('end')))
