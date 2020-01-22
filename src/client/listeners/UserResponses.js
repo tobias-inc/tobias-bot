@@ -4,10 +4,15 @@ const { CanvasTemplates, Listener, Utils } = require("../../");
 module.exports = class UserResponses extends Listener {
   constructor(client) {
     super(client)
-
     this.events = ['userLevelUp']
-    this.module = this.client.database && this.client.database.guilds;
-    this.social = client.database && client.database.users;
+  }
+
+  get module() {
+    return this.client.database.guild
+  }
+
+  get social() {
+    return this.client.database.users
   }
 
   async onUserLevelUp(user, userDocument) {

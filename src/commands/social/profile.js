@@ -20,6 +20,7 @@ module.exports = class Eval extends Command {
   }
 
   async run({ channel, t, author }, user = author) {
+    channel.startTyping()
     const informations = Promise.all([
       this.client.controllers.social.retrieveProfile(user.id, 'economy'),
       this.client.controllers.social.getRank(user.id),
@@ -36,6 +37,6 @@ module.exports = class Eval extends Command {
       })
     });
 
-    return channel.send(new Attachment(canvas, 'profile.jpg'));
+    return channel.send(new Attachment(canvas, 'profile.jpg')).then(() => channel.stopTyping());
   }
 }

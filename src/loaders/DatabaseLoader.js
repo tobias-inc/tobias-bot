@@ -7,7 +7,7 @@ module.exports = class DatabaseLoader extends Loader {
     this.database = new MongoDB({
       useNewUrlParser: true,
       useUnifiedTopology: true
-    });
+    })
   }
 
   async start() {

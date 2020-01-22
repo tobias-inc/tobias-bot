@@ -1,5 +1,5 @@
 const { User } = require("discord.js");
-const { Utils, Queue } = require("../../");
+const { Queue } = require("../../");
 
 class UserWrapper {
   constructor(user, channel, language) {
@@ -19,14 +19,20 @@ class UserWrapper {
 module.exports = class SocialUtils {
   constructor(client) {
     this.client = client;
-    this.database = client.database && client.database.users;
-    this.social = this.client.controllers && this.client.controllers.social;
 
     this.queue = new Queue({
       globalFunction: this.setGlobalXp.bind(this),
       delay: 500,
       randomKey: false
     })
+  }
+
+  get database() {
+    return this.client.database && this.client.database.users
+  }
+
+  get social() {
+    return this.client.controllers.social
   }
 
   upsert(user) {
@@ -45,7 +51,7 @@ module.exports = class SocialUtils {
 
       const [{ economy }, { current, next, level }] = await information;
 
-      const xp = Math.floor(((Math.random() * 5) + 1) + (level / 5) * (level / 10));
+      const xp = Math.floor(((Math.random() * 5) + 3) + (level / 5) * (level / 10));
       const nextLevel = current >= next;
 
       return this.database.update(user.id, {

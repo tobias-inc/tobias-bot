@@ -102,7 +102,7 @@ module.exports = class Command {
     } else {
       this.client.console(true, (error.stack || error), this.name)
     }
-    return channel.stopTyping()
+    return channel.stopTyping(true)
   }
 
   usage(t, prefix, noUsage = true, onlyCommand = false) {
