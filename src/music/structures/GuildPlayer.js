@@ -9,7 +9,6 @@ module.exports = class GuildPlayer extends Player {
     super(options)
 
     this.on('end', ({ reason }) => {
-      this.scrobbleSong(this.playingSong)
       if (reason === 'REPLACED') return
       this.playingSong.emit('end')
       if (reason !== 'STOPPED') this.next()
