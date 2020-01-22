@@ -28,7 +28,8 @@ module.exports = class MusicUtils {
 
   static parseUrl(identifier) {
     if (URL_REGEX.test(identifier)) {
-      return identifier.split(' ').find(i => URL_REGEX.test(i))
+      let identifierSplited = identifier.split(' ')
+      return identifierSplited.find(i => URL_REGEX.test(i)) || identifier
     }
     return identifier
   }
