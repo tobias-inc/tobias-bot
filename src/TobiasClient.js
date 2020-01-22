@@ -6,8 +6,6 @@ const { Loader } = require("./");
 
 const getDate = () => moment.locale('pt-BR') && moment().format('L LTS');
 
-require("moment-duration-format");
-
 module.exports = class TobiasClient extends Client {
   constructor(config) {
     super(config);
@@ -21,9 +19,7 @@ module.exports = class TobiasClient extends Client {
   }
 
   login(token = process.env.DISCORD_TOKEN) {
-    return super.login(token).then(
-      () => this.console(false, 'I successfully connected!', 'LOGIN', 'DISCORD API')
-    ).catch((e) => {
+    return super.login(token).catch((e) => {
       this.console(true, (e.stack || e), 'LOGIN');
       process.exit(1);
     })
