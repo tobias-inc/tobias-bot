@@ -14,6 +14,8 @@
     "@hapi/joi": "^17.0.2",
     "body-parser": "^1.19.0",
     "canvas": "^2.6.1",
+    "chalk": "^3.0.0",
+    "cors": "^2.8.5",
     "cross-env": "^6.0.3",
     "discord.js": "^11.5.1",
     "discord.js-lavalink": "^2.2.3",
@@ -30,6 +32,7 @@
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
     "mongoose": "^5.8.7",
+    "morgan": "^1.9.1",
     "node-fetch": "^2.6.0",
     "request": "^2.88.0",
     "transform-props": "^1.0.1"

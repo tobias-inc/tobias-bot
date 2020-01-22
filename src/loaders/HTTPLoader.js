@@ -1,6 +1,11 @@
 const { Loader, FileUtils, Router } = require("../");
+const authorizationMiddleware = require('../http/middlewares/needAuthorization.js');
+
 const express = require("express");
-const bodyParser = require("body-parser");
+
+const chalk = require("chalk");
+const cors = require("cors");
+const morgan = require("morgan");
 
 module.exports = class HTTPLoader extends Loader {
   constructor(client) {
@@ -20,8 +25,10 @@ module.exports = class HTTPLoader extends Loader {
     const PORT = process.env.PORT || 5000
 
     this.express
-      .use(bodyParser.json())
-      .unsubscribe(bodyParser.urlencoded({ extended: true }))
+      .use(cors())
+      .use(morgan(`${chalk.cyan('[HTTP]')} ${chalk.green(':method :url - IP :remote-addr - Code :status - Size :res[content-length] B - Handled in :response-time ms')}`))
+      .use(express.json())
+      .use(authorizationMiddleware)
       .listen(PORT, () => this.client.console(false, `Operando na Porta: "${PORT}"`, this.name, 'LISTEN'));
 
     return this.express
