@@ -14,13 +14,32 @@
   },
   "timeResponses": [
     {
-      "seconds": "segundos"
+      "s": "segundo",
+      "s_plural": "segundos"
     },
     {
-      "minutes": "minutos"
+      "m": "minuto",
+      "m_plural": "minutos"
     },
     {
-      "hours": "horas"
+      "h": "hora",
+      "h_plural": "horas"
+    },
+    {
+      "d": "dia",
+      "d_plural": "dias"
+    },
+    {
+      "w": "semana",
+      "w_plural": "semanas"
+    },
+    {
+      "mo": "mês",
+      "mo_plural": "mêses"
+    },
+    {
+      "y": "ano",
+      "y_plural": "anos"
     }
   ]
 }
