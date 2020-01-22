@@ -4,14 +4,13 @@ module.exports = class Ping extends Command {
   constructor(client, path) {
     super(client, path, {
       name: 'ping',
-      category: 'bot',
-      aliases: ['pong']
+      category: 'bot'
     })
   }
 
-  run({ channel, message: { createdTimestamp } }) {
+  run({ channel }) {
     return channel.send('\`❔\`').then(m => {
-      m.edit(`🏓 Pong! **${parseInt(m.createdTimestamp - createdTimestamp)} ms**`)
+      m.edit(`🏓 Pong! **${parseInt(Date.now() - m.createdTimestamp)} ms** | API \`${this.client.ping}ms\``)
     })
   }
 }
