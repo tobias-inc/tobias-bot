@@ -78,8 +78,6 @@ module.exports = class GuildPlayer extends Player {
     const nextSong = this.queue.shift()
     if (nextSong) {
       this.play(nextSong, true)
-      this.updateListening()
-      this.updateNowPlaying()
       return nextSong
     } else {
       super.stop()
