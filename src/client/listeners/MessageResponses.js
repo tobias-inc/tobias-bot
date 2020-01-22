@@ -62,6 +62,6 @@ module.exports = class MessageResponses extends Listener {
     if (!this.client.playerManager) return
     const guildPlayer = this.client.playerManager.get(newMember.guild.id)
     if (!guildPlayer) return
-    guildPlayer.updateVoiceState(oldMember, newMember)
+    setTimeout(() => guildPlayer.updateVoiceState(oldMember, newMember), 2000)
   }
 }

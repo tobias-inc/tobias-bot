@@ -31,10 +31,7 @@ module.exports = class SocialUtils {
 
   upsert(user) {
     if (!this.social) return;
-
-    for (let k of this.queue.keys()) {
-      if (this.queue.has(k)) return 'has in queue';
-    }
+    if (this.queue.has(user.id)) return 'has in queue';
 
     return this.queue.add({ key: user.id, params: [user] });
   }

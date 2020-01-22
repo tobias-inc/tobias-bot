@@ -11,12 +11,12 @@ module.exports = class HTTPLoader extends Loader {
   }
 
   async start() {
-    this.client.express = await this.loadServer()
+    this.client.express = this.loadServer()
     this.client.routes = await this.loadRoutes()
     return true
   }
 
-  async loadServer() {
+  loadServer() {
     const PORT = process.env.PORT || 5000
 
     this.express
