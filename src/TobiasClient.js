@@ -10,10 +10,12 @@ module.exports = class TobiasClient extends Client {
   constructor(config) {
     super(config);
 
-    this.commands = [];
+    this.commands = []
+    this.database = null
+    this.language = null
 
-    this.database = null;
-    this.language = null;
+    Object.defineProperty(this, 'express', { writable: true })
+    Object.defineProperty(this, 'routes', { writable: true })
 
     this.loadSystem()
   }
