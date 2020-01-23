@@ -1,4 +1,4 @@
-const { Command, CommandError, ClientEmbed } = require("../../");
+const { Command, CommandError, ClientEmbed } = require("../../../");
 
 module.exports = class Queue extends Command {
   constructor(client, path) {
@@ -15,7 +15,7 @@ module.exports = class Queue extends Command {
     const guildPlayer = this.client.playerManager.get(guild.id);
     const more = guildPlayer.queue.size > 10 ? t('music:andMore', { missing: guildPlayer.queue.size - 10 }) : null;
 
-    if (guildPlayer.queue.size) {
+    if (guildPlayer.nextSong) {
       channel.send(new ClientEmbed(author, { author: [this.client.user], thumbnail: guild.iconURL })
         .setDescription([
           guildPlayer.queue
@@ -26,7 +26,7 @@ module.exports = class Queue extends Command {
         ].filter(m => m).join('\n'))
       )
     } else {
-      throw new CommandError(t('commands:queue.noSize'))
+      throw new CommandError(t('music:noneAfterCurrent'))
     }
   }
 }
