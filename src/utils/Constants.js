@@ -42,8 +42,16 @@ module.exports = {
 
   // Bot Settings
 
+  CLIENT_ID: '669225017933955092',
   DEFAULT_PREFIX: 'tc!',
   DEFAULT_LANGUAGE: 'pt-BR',
   BOT_GUILD: '607365400988090378',
-  DEVELOPER_ROLE: '667497240914296834'
+  DEVELOPER_ROLE: '667497240914296834',
+  WEBSITE_URL: 'https://tobias.site',
+
+  // Discord Wrapper
+
+  Errors: {
+    NOT_A_PERMISSION: 'Invalid permission string or number.'
+  }
 }
