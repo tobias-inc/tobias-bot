@@ -16,8 +16,8 @@ module.exports = class Say extends Command {
     })
   }
 
-  run({ channel, args }) {
-    return channel.send(this.replaceString(args.join(' ')));
+  run({ channel }, expr) {
+    return channel.send(this.replaceString(expr));
   }
 
   replaceString(char) {
