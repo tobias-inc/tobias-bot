@@ -1,15 +1,19 @@
 {
   "usage": "Uso",
+  "aliases": "Abreviações",
   "enabled": "habilitado",
   "disabled": "desabilitado",
+  "permissions": "Permissões",
+  "botPermissions": "Permissões do Bot",
   "none": "Nenhum",
+  "none_a": "Nenhuma",
   "channelTypes": {
     "text": "Texto",
     "category": "Categoria",
     "voice": "Voz"
   },
   "texts": {
-    "subcmd": "Subcomandos",
+    "subcommands": "Subcomandos",
     "versions": "Versões",
     "about": "Sobre"
   },
@@ -17,7 +21,6 @@
     "website": "Website",
     "invite": "Convite",
     "additional": "Adicional"
-
   },
   "timeResponses": [
     {

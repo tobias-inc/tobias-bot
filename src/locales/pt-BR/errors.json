@@ -43,5 +43,8 @@
   "invalidURL": "Você precisa me fornecer um URL válido!",
   "invalidImageLink": "Você precisa me fornecer um link de imagem válido.",
   "imageParsingError": "Ocorreu um erro ao analisar a imagem.",
-  "musicReproducion": "Ocorreu um erro na reprodução. A lista será resetada!"
+  "musicReproducion": "Ocorreu um erro na reprodução. A lista será resetada!",
+  "notAcceptUrl": "Desculpe, não aceito uma **url** como parâmetro!",
+  "acceptAttachment": "Desculpe, não posso aceitar um anexo!",
+  "commandNotFound": "O comando inserido não é valido!"
 }

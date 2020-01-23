@@ -4,11 +4,14 @@
     "commandUsage": "<texto>"
   },
   "reload": {
+    "commandDescription": "Recarrega o comando inserido.",
+    "commandUsage": "<nome do comando>",
     "error": "Ocorreu um erro ao recarregar o comando:\n**{{error}}**",
     "sucess": "O comando **`{{command}}`** foi recarregado com sucesso!",
     "noCommand": "Por favor insira o `nome` ou uma `aliase` do comando a ser recarregado!"
   },
   "reloadlocales": {
+    "commandDescription": "Recarrega o sistema de Idiomas.",
     "error": "Ocorreu um erro ao recarregar o sistema: **{{error}}**",
     "sucess": "O sistema foi recarregado com **sucesso**!"
   },
@@ -40,7 +43,10 @@
   },
   "help": {
     "commandDescription": "Mostra as principais informações do bot.",
-    "commandUsage": "[nome do comando]"
+    "commandUsage": "[nome do comando]",
+    "noDescriptionProvided": "Nenhuma descrição fornecida.",
+    "specificInformation": "Digite `{{helpString}}` para obter informações específicas do comando.",
+    "subcommandKnowMore": "Use **`{{usage}} [subcomando]`** para saber mais sobre um subcomando!"
   },
   "daily": {
     "commandDescription": "Reivindica sua recompensa diária.",
