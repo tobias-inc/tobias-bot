@@ -253,6 +253,7 @@ module.exports = class CanvasTemplates {
       const live = ctx.write(LIVE_TEXT, RIGHT_X, TIME_Y, TIME_FONT, 4)
       ctx.fillStyle = '#FF0000'
       ctx.circle(live.leftX - LIVE_CIRCLE_RADIUS * 2, live.centerY, LIVE_CIRCLE_RADIUS, 0, Math.PI * 2, true)
+      ctx.fillStyle = '#FFF'
     }
 
     const LEFT_TEXT_MARGIN = THUMBNAIL_WIDTH + 20
