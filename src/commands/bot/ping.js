@@ -9,8 +9,10 @@ module.exports = class Ping extends Command {
   }
 
   run({ channel }) {
+    const now = Date.now()
     return channel.send('\`❔\`').then(m => {
-      m.edit(`🏓 Pong! **${parseInt(Date.now() - m.createdTimestamp)} ms** | API \`${this.client.ping}ms\``)
+      const sendNow = Date.now()
+      m.edit(`🏓 Pong! **${parseInt(sendNow - now)} ms** | API \`${Math.trunc(this.client.ping)}ms\``)
     })
   }
 }
