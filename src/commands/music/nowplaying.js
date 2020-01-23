@@ -19,6 +19,6 @@ module.exports = class Queue extends Command {
     const song = guildPlayer.playingSong
 
     const np = await CanvasTemplates.nowPlaying(t, guildPlayer, song)
-    return channel.send(new Attachment(np, 'nowplaying.jpg')).then(()=> channel.stopTyping())
+    return channel.send(new Attachment(np, 'nowplaying.jpg')).then(() => channel.stopTyping())
   }
 }
