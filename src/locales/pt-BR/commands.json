@@ -12,6 +12,10 @@
     "error": "Ocorreu um erro ao recarregar o sistema: **{{error}}**",
     "sucess": "O sistema foi recarregado com **sucesso**!"
   },
+  "say": {
+    "commandDescription": "Faz o bot enviar uma mensagem.",
+    "commandUsage": "<mensagem>"
+  },
   "config": {
     "commandDescription": "Altera a configuração atual do servidor.",
     "commandUsage": "[configuração a ser alterada]",
@@ -34,10 +38,14 @@
       }
     }
   },
+  "help": {
+    "commandDescription": "Mostra as principais informações do bot.",
+    "commandUsage": "[nome do comando]"
+  },
   "daily": {
     "commandDescription": "Reivindica sua recompensa diária.",
     "alreadyClaimedDescription": "Você já reivindicou sua recompensa diária. Você pode pegar novamente em **{{time}}**.",
-    "claimedSuccessfully": "Você recebeu **$t(commons:economy.currencyWithCount, { 'count': {{count}} })** como sua recompensa diária!"
+    "claimedSuccessfully": "Você recebeu **$t(economy:currencyWithCount, { 'count': {{count}} })** como sua recompensa diária!"
   },
   "rep": {
     "commandDescription": "Da um ponto de reputação para um usuário.",
@@ -50,6 +58,10 @@
     "commandUsage": "<imagem | url>",
     "updateBackgroundSucess": "O plano de fundo de seu perfil foi alterado com sucesso!",
     "updateBackgroundError": "Por favor insira uma imagem válida."
+  },
+  "profile": {
+    "commandDescription": "Mostra as informções do perfil do usuário.",
+    "commandUsage": "[@usuário]"
   },
   "favcolor": {
     "commandDescription": "Define a cor do seu perfil.",
@@ -82,5 +94,8 @@
   "queue": {
     "commandDescription": "Mostra a lista de reprodução.",
     "noSize": "Não há nenhuma música após a atual!"
+  },
+  "nowplaying": {
+    "commandDescription": "Mostra a música que está sendo reproduzida."
   }
 }

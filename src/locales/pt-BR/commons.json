@@ -10,7 +10,14 @@
   },
   "texts": {
     "subcmd": "Subcomandos",
-    "versions": "Versões"
+    "versions": "Versões",
+    "about": "Sobre"
+  },
+  "utils": {
+    "website": "Website",
+    "invite": "Convite",
+    "additional": "Adicional"
+
   },
   "timeResponses": [
     {
