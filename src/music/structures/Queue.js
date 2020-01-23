@@ -16,7 +16,7 @@ module.exports = class GuildQueue extends Array {
   }
 
   remove(index) {
-    return this.queue.splice(index, 1)[0]
+    return this.splice(index, 1)[0]
   }
 
   removeSong(num) {
