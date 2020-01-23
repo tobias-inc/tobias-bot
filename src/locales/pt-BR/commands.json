@@ -92,14 +92,29 @@
     "volumeSet": "Volume definido em **{{volume}}%**"
   },
   "skip": {
-    "commandDescription": "Pula a para a próxima música."
+    "commandDescription": "Pula para a próxima música."
   },
   "pause": {
-    "commandDescription": "Pausa a música que está sendo tocada."
+    "commandDescription": "Pausa|Reproduz a música que está sendo tocada."
   },
   "queue": {
     "commandDescription": "Mostra a lista de reprodução.",
-    "noSize": "Não há nenhuma música após a atual!"
+    "subcommands": {
+      "clear": {
+        "commandDescription": "Limpa a lista de reprodução.",
+        "queueCleared": "A lista de reprodução foi limpa com sucesso!"
+      },
+      "shuffle": {
+        "commandDescription": "Embaralha a lista de reprodução.",
+        "queueShuffled": "A lista de reprodução foi embaralhada!"
+      },
+      "jump": {
+        "commandDescription": "Pula para a música desejada.",
+        "commandUsage": "<numero da musica>",
+        "missingIndexParameter": "Você precisa me fornecer o número da música para a qual deseja pular.",
+        "jumpedToSong": "Saltou para {{- songName}}."
+      }
+    }
   },
   "nowplaying": {
     "commandDescription": "Mostra a música que está sendo reproduzida."
