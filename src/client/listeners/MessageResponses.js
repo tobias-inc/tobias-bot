@@ -41,7 +41,7 @@ module.exports = class MessageResponses extends Listener {
 
         const context = new CommandContext({
           client: this.client,
-          aliase: command.aliases.some(al => al.toLowerCase() === insert) && insert,
+          aliase: command.aliases.find(al => al === insert.toLowerCase()) || command.name,
           usedPrefix, message, command, prefix, args, language
         })
 
