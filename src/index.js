@@ -24,6 +24,7 @@ module.exports = {
   Queue: require("./utils/Queue.js"),
   Constants: require("./utils/Constants.js"),
   FileUtils: require("./utils/FileUtils.js"),
+  MiscUtils: require("./utils/MiscUtils.js"),
   Prototype: require("./utils/Prototype.js"),
 
   // Music
