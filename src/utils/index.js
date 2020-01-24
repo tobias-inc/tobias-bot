@@ -1,3 +1,4 @@
+const { Message } = require("discord.js");
 const moment = require("moment");
 
 const Permissions = require("./Permissions.js");
@@ -47,6 +48,24 @@ module.exports = class Utils {
       })
 
     return timeStr.join(' ')
+  }
+
+  // Message
+
+  static reactionCollectorResponse(message, filter,
+    { clear, ...options } = { time: 30000, max: 1, maxUsers: 1 }
+  ) {
+    if (message instanceof Message) {
+      return new Promise(resolve => {
+        const collector = message.createReactionCollector(filter, options)
+        collector.on('collect', () => {
+          if (clear) message.clearReactions().catch(() => { })
+          resolve(true)
+        }).on('end', () => {
+          if (clear) message.clearReactions().catch(() => { })
+        })
+      })
+    }
   }
 
   // Economy
