@@ -46,8 +46,4 @@ module.exports = class MongoRepository extends Repository {
   update(id, entity, options = { upsert: true }) {
     return this.model.updateOne({ _id: id }, entity, options);
   }
-
-  length(filter) {
-    return this.model.countDocuments(filter);
-  }
 }
