@@ -1,22 +1,22 @@
 const { Command, ClientEmbed, Utils } = require("../../");
 
-module.exports = class Hug extends Command {
+module.exports = class Slap extends Command {
   constructor(client, path) {
     super(client, path, {
-      name: 'hug',
+      name: 'slap',
       category: 'fun',
-      aliases: ['abraçar'],
+      aliases: ['tapa'],
       utils: {
         requirements: { guildOnly: true, apis: ['nekos'] },
-        parameters: [{ type: 'user', missingError: 'commands:hug.invalidUser' }]
+        parameters: [{ type: 'user', missingError: 'commands:slap.invalidUser' }]
       }
     })
   }
 
   async run({ t, author, channel, userHuged }, user) {
-    const hugImage = await this.client.apis.nekos.getImage('hug')
+    const hugImage = await this.client.apis.nekos.getImage('slap')
     const embed = new ClientEmbed(author).setImage(hugImage).setDescription(
-      t('commands:hug.successHug', { author, user })
+      t('commands:slap.successSlap', { author, user })
     )
 
     const channelPromise = (userHuged ? userHuged['edit'](embed) : channel['send'](embed))
