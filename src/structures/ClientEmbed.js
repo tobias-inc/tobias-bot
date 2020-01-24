@@ -27,7 +27,7 @@ module.exports = class ClientEmbed extends RichEmbed {
     if (data.url) this.setURL(data.url);
     if (data.color) this.setColor(data.color);
     if (data.title) this.setTitle(data.title);
-    if (data.author) this.setAuthor(data.author.user.username, data.author.user.displayAvatarURL, data.author.url);
+    if (data.author) this.setAuthor(data.author.username, data.author.displayAvatarURL, data.author.url);
     if (data.timestamp) this.setTimestamp(data.timestamp);
     if (data.image) this.setImage(data.image);
     if (data.thumbnail) this.setThumbnail(data.thumbnail);
@@ -35,6 +35,7 @@ module.exports = class ClientEmbed extends RichEmbed {
   }
 
   resolveData(user, data) {
+    const [author, url] = data.author || []
     return {
       url: data.url,
       title: data.title,
@@ -44,7 +45,7 @@ module.exports = class ClientEmbed extends RichEmbed {
       timestamp: (data.timestamp || Date.now()),
       color: (data.EMBED_COLOR || Constants.EMBED_COLOR),
       footer: hasUser(user),
-      author: (data.author && hasUser(data.author[0])) && { user: data.author[0], url: data.author[1] },
+      author: (hasUser(author) ? { ...author, url: url || author.displayAvatarURL } : null),
     }
   }
 }
