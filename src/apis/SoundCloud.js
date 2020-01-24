@@ -37,7 +37,7 @@ module.exports = class SoundCloudWrapper extends Wrapper {
 
     queryParams['client_id'] = this.clientId
     const qParams = new URLSearchParams(queryParams)
-    return fetch(API_URL + endpoint + `?${qParams.toString()}`)
+    return fetch(`${API_URL}${endpoint}?${qParams.toString()}`)
       .then(res => res.json())
       .catch(e => {
         if (e.statusCode === 401 && tries < 5) {

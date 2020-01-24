@@ -100,7 +100,7 @@ module.exports = class SpotifyWrapper extends Wrapper {
   async request(endpoint, queryParams = {}) {
     if (this.isTokenExpired) await this.getToken()
     const qParams = new URLSearchParams(queryParams)
-    return fetch(API_URL + endpoint + `?${qParams.toString()}`, {
+    return fetch(`${API_URL}${endpoint}?${qParams.toString()}`, {
       headers: this.tokenHeaders
     }).then(res => res.json())
   }

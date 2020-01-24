@@ -10,23 +10,23 @@ module.exports = class ImgurWrapper extends Wrapper {
   }
 
   postImage(image) {
-    return this.request('image', 'POST', { "image": image }).then(res => res.json())
+    return this.request('/image', 'POST', { image })
   }
 
-  getImage(imageId) {
-    return this.request(`image/${imageId}`);
+  getImage(id) {
+    return this.request(`/image/${id}`);
   }
 
   request(endpoint, method = 'GET', body) {
     body = method.toUpperCase() !== 'GET' ? body ? JSON.stringify(body) : null : null
 
-    return fetch(`${API_URL}/${endpoint}`, {
+    return fetch(`${API_URL}${endpoint}`, {
       method,
       body,
       headers: {
         Authorization: `Client-ID ${process.env.IMGUR_CLIENT_ID}`,
         'Content-Type': 'application/json'
       }
-    })
+    }).then(res => res.json())
   }
 }

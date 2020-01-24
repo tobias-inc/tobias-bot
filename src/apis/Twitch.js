@@ -31,8 +31,10 @@ module.exports = class TwitchWrapper extends Wrapper {
 
   request(endpoint, queryParams = {}) {
     const qParams = new URLSearchParams(queryParams)
-    return fetch(API_URL + endpoint + `?${qParams.toString()}`, {
-      headers: { 'Client-ID': process.env.TWITCH_CLIENT_ID }
+    return fetch(`${API_URL}${endpoint}?${qParams.toString()}`, {
+      headers: {
+        'Client-ID': process.env.TWITCH_CLIENT_ID
+      }
     }).then(res => res.json())
   }
 }

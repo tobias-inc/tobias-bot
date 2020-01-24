@@ -18,6 +18,6 @@ module.exports = class MixerWrapper extends Wrapper {
 
   request(endpoint, queryParams = {}) {
     const qParams = new URLSearchParams(queryParams)
-    return fetch(API_URL + endpoint + `?${qParams.toString()}`).then(res => res.json())
+    return fetch(`${API_URL}${endpoint}?${qParams.toString()}`).then(res => res.json())
   }
 }
