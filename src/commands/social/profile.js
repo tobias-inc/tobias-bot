@@ -1,7 +1,7 @@
 const { Attachment } = require("discord.js");
 const { Command, CanvasTemplates } = require("../../");
 
-module.exports = class Eval extends Command {
+module.exports = class Profile extends Command {
   constructor(client, path) {
     super(client, path, {
       name: 'profile',
@@ -9,12 +9,7 @@ module.exports = class Eval extends Command {
       aliases: ['perfil'],
       utils: {
         requirements: { databaseOnly: true, canvasOnly: true },
-        parameters: [{
-          type: 'user',
-          full: true,
-          required: false,
-          acceptSelf: true
-        }]
+        parameters: [{ type: 'user', fetchAll: true, required: false, acceptSelf: true }]
       }
     })
   }

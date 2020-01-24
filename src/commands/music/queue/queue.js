@@ -13,7 +13,7 @@ module.exports = class Queue extends Command {
 
   run({ t, author, channel, guild }) {
     const guildPlayer = this.client.playerManager.get(guild.id);
-    const more = guildPlayer.queue.size > 10 ? t('music:andMore', { missing: guildPlayer.queue.size - 10 }) : null;
+    const more = guildPlayer.queue.size > 10 && t('music:andMore', { missing: guildPlayer.queue.size - 10 })
 
     if (guildPlayer.nextSong) {
       channel.send(new ClientEmbed(author, { author: [this.client.user], thumbnail: guild.iconURL })

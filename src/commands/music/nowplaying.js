@@ -1,7 +1,7 @@
 const { Attachment } = require("discord.js");
 const { Command, CanvasTemplates } = require("../../");
 
-module.exports = class Queue extends Command {
+module.exports = class NowPlaying extends Command {
   constructor(client, path) {
     super(client, path, {
       name: 'nowplaying',

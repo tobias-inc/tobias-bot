@@ -7,13 +7,7 @@ module.exports = class Rank extends Command {
       category: 'social',
       utils: {
         requirements: { databaseOnly: true },
-        parameters: [{
-          type: 'user',
-          full: true,
-          fetchAll: true,
-          required: false,
-          acceptSelf: true
-        }]
+        parameters: [{ type: 'user', fetchAll: true, required: false, acceptSelf: true }]
       }
     })
   }

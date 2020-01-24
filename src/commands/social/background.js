@@ -8,24 +8,18 @@ module.exports = class Background extends Command {
       aliases: [],
       utils: {
         requirements: { databaseOnly: true, apis: ['imgur'] },
-        parameters: [{
-          type: 'image',
-          full: true,
-          required: true,
-          showUsage: false,
-          missingError: 'errors:invalidImage'
-        }]
+        parameters: [{ type: 'image', missingError: 'errors:invalidImage' }]
       }
     })
   }
 
-  async run({ t, author, channel }, insertedImage) {
+  async run({ t, author, channel }, image) {
     const embed = new ClientEmbed(author);
 
     try {
-      const { image } = await this.client.controllers.social.setBackground(author.id, insertedImage);
+      const { image: thumbnail } = await this.client.controllers.social.setBackground(author.id, image);
       embed.setTitle(t('commands:background.updateBackgroundSucess'))
-      embed.setThumbnail(image);
+      embed.setThumbnail(thumbnail);
     } catch (e) {
       embed.setColor(Constants.ERROR_COLOR);
       switch (e.message) {

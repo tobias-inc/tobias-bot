@@ -10,7 +10,10 @@ module.exports = class QueueJump extends Command {
       utils: {
         requirements: { permissions: ['MOVE_MEMBERS'] },
         parameters: [{
-          type: 'number', full: true, min: 1, missingError: ({ t }) => t(`commands:${this.tPath}.missingIndexParameter`)
+          type: 'number',
+          full: true,
+          min: 1,
+          missingError: ({ t }) => t(`commands:${this.tPath}.missingIndexParameter`)
         }]
       }
     })

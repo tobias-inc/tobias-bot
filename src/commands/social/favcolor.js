@@ -1,6 +1,6 @@
 const { Command, ClientEmbed, CommandError } = require("../../");
 
-module.exports = class Background extends Command {
+module.exports = class FavColor extends Command {
   constructor(client, path) {
     super(client, path, {
       name: 'favcolor',
@@ -9,11 +9,7 @@ module.exports = class Background extends Command {
       aliases: [],
       utils: {
         requirements: { databaseOnly: true },
-        parameters: [{
-          type: 'color',
-          full: true,
-          missingError: 'errors:invalidColor'
-        }]
+        parameters: [{ type: 'color', full: true, missingError: 'errors:invalidColor' }]
       }
     })
   }

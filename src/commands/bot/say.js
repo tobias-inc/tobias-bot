@@ -9,9 +9,7 @@ module.exports = class Say extends Command {
       category: 'bot',
       utils: {
         requirements: { guildOnly: true, permissions: ['MANAGE_GUILD'] },
-        parameters: [{
-          type: 'string', full: true, missingError: 'errors:invalidString', showUsage: true
-        }]
+        parameters: [{ type: 'string', full: true, missingError: 'errors:invalidString' }]
       }
     })
   }

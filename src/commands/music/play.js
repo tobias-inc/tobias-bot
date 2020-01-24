@@ -8,10 +8,10 @@ module.exports = class Play extends Command {
       category: 'music',
       aliases: ['p', 'tocar'],
       utils: {
-        requirements: { guildOnly: true, sameVoiceChannelOnly: true, voiceChannelOnly: true, playerManagerOnly: true },
-        parameters: [{
-          type: 'string', full: true, missingError: 'commands:play.noTrackIdentifier'
-        }]
+        requirements: {
+          guildOnly: true, sameVoiceChannelOnly: true, voiceChannelOnly: true, playerManagerOnly: true
+        },
+        parameters: [{ type: 'string', full: true, missingError: 'commands:play.noTrackIdentifier' }]
       }
     })
   }

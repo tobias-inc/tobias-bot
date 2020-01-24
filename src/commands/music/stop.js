@@ -6,13 +6,17 @@ module.exports = class Stop extends Command {
       name: 'stop',
       category: 'music',
       utils: {
-        requirements: { guildOnly: true, sameVoiceChannelOnly: true, guildPlaying: true, permissions: ['MOVE_MEMBERS'] }
+        requirements: {
+          guildOnly: true, sameVoiceChannelOnly: true, guildPlaying: true, permissions: ['MOVE_MEMBERS']
+        }
       }
     })
   }
 
   run({ t, author, channel, guild }) {
     const guildPlayer = this.client.playerManager.get(guild.id);
-    channel.send(new ClientEmbed(author).setDescription(t('commands:stop.stopped'))).then(() => guildPlayer.stop(author))
+    channel.send(
+      new ClientEmbed(author).setDescription(t('commands:stop.stopped'))
+    ).then(() => guildPlayer.stop(author))
   }
 }
