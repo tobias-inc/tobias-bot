@@ -55,7 +55,7 @@
   },
   "rep": {
     "commandDescription": "Da um ponto de reputação para um usuário.",
-    "commandUsage": "<usuário>",
+    "commandUsage": "<@usuário>",
     "alreadyDonateDescription": "Voçê já deu seu ponto de reputação diário. Aguarde **{{time}}** para dar novamente.",
     "claimedSuccessfully": "Voçê deu **1** ponto de reputação para **{{tag}}**!"
   },
