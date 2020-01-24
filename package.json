@@ -23,6 +23,7 @@
     "easy-youtube-info": "^1.0.2",
     "events": "^3.1.0",
     "express": "^4.17.1",
+    "figlet": "^1.2.4",
     "fs": "0.0.1-security",
     "i18next": "^19.0.3",
     "i18next-node-fs-backend": "^2.1.3",
