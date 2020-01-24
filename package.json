@@ -19,10 +19,7 @@
     "discord-bot",
     "bot"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/tobias-inc/TobiasRework.git"
-  },
+  "repository": "git+ssh://git@github.com/tobias-inc/TobiasRework.git",
   "license": "ISC",
   "dependencies": {
     "@hapi/joi": "^17.1.0",
