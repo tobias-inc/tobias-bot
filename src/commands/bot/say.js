@@ -19,9 +19,9 @@ module.exports = class Say extends Command {
   }
 
   replaceString(char) {
-    matches.forEach(
-      match => char = char.replace(new RegExp(match, 'gi'), (m) => m.split('@').map(m => `@ ${m}`).join(''))
-    )
+    matches.forEach(match => {
+      char = char.replace(new RegExp(match, 'gi'), (m) => m.split('@').map(m => `@ ${m}`).join(''))
+    })
     return char
   }
 }

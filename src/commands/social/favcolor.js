@@ -6,7 +6,6 @@ module.exports = class FavColor extends Command {
       name: 'favcolor',
       category: 'social',
       aliases: ['setcolor'],
-      aliases: [],
       utils: {
         requirements: { databaseOnly: true },
         parameters: [{ type: 'color', full: true, missingError: 'errors:invalidColor' }]

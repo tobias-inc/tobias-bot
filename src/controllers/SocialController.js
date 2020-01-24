@@ -83,7 +83,7 @@ module.exports = class SocialController extends Controller {
     return this._users
       .findAll(['type', 'economy.xp'], { sort: { 'economy.xp': -1 } })
       .then(users => {
-        const index = users.findIndex(u => u._id == _user);
+        const index = users.findIndex(u => u._id === _user);
         return index !== -1 ? index + 1 : users.length;
       })
   }

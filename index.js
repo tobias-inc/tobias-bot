@@ -27,6 +27,4 @@ const CLIENT_OPTIONS = {
 
 const tobias = require('./src/TobiasClient.js');
 const client = new tobias(CLIENT_OPTIONS);
-client
-  .login()
-  .then(() => client.console(false, 'I successfully connected!', 'LOGIN', 'DISCORD API'))
+client.login().then(() => client.console(false, 'I successfully connected!', 'LOGIN', 'DISCORD API'))

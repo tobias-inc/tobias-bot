@@ -4,7 +4,6 @@ module.exports = {
   EMBED_COLOR: '#43cea2',
   ERROR_COLOR: '#fc0303',
   FAV_COLOR: '#ff0000',
-  ERROR_COLOR: '#ff2828',
   SPOTIFY_COLOR: '#1DB954',
   REDDIT_COLOR: '#FF4500',
   YOUTUBE_COLOR: '#ff0000',

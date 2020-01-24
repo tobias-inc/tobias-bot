@@ -23,11 +23,14 @@ module.exports = class CommandsLoader extends Loader {
         .forEach(s => {
           const refCmds = Array.isArray(s.referenceCommand) ? s.referenceCommand : [s.referenceCommand]
           const commands = this.commands.filter(({ name }) => refCmds.includes(name))
-          if (commands.length) commands.forEach(cmd => {
-            const subcmdforcmd = new (require(s.fullPath))(this.client, s.fullPath)
-            subcmdforcmd.referenceCommand = cmd
-            cmd.subcommands.push(subcmdforcmd)
-          })
+          if (commands.length) {
+            commands.forEach(cmd => {
+              const subcommandRequired = require(s.fullPath)
+              const subcommand = new subcommandRequired(this.client, s.fullPath)
+              subcommand.referenceCommand = cmd
+              cmd.subcommands.push(subcommand)
+            })
+          }
         })
       return this.commands
     })

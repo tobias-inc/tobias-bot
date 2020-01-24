@@ -37,7 +37,9 @@ module.exports = class CommandRequirements {
     }
   }
 
-  static handle({ t, author, channel, client, command, guild, voiceChannel, member }, options) {
+  static handle({
+    t, author, channel, client, command, guild, voiceChannel, member
+  }, options) {
     const opts = this.parseOptions(options);
 
     if (command.cooldownFeedback && !PermissionUtils.isDeveloper(client, author)) {

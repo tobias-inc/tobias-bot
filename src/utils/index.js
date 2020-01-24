@@ -1,7 +1,5 @@
-const discord = require("discord.js");
 const moment = require("moment");
 
-const Client = require("../TobiasClient.js");
 const Permissions = require("./Permissions.js");
 const Constants = require("./Constants");
 
@@ -41,7 +39,7 @@ module.exports = class Utils {
         if (reviews.includes(keyLower)) {
           return str.replace(new RegExp(keyR), () => {
             const timeResponse = timeResponses.find(key => key[keyR])
-            const value = timeR > 1 || timeR == 0 ? timeResponse[`${keyR}_plural`] : timeResponse[keyR]
+            const value = timeR > 1 || timeR === 0 ? timeResponse[`${keyR}_plural`] : timeResponse[keyR]
             return ` ${value}`
           })
         }

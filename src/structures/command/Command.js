@@ -69,10 +69,8 @@ module.exports = class Command {
     return this.utils.parameters ? CommandParameters.handle(context, this.utils.parameters, args) : args
   }
 
-  getSubcommand(insert) {
-    return insert && this.subcommands.find(
-      ({ name, aliases }) => (name.toLowerCase() == insert) || aliases.some(a => a.toLowerCase() == insert)
-    )
+  getSubcommand(subcmd) {
+    return this.subcommands.find(({ name, aliases }) => (name === subcmd) || aliases.includes(subcmd))
   }
 
   reload() {
@@ -83,9 +81,10 @@ module.exports = class Command {
     this.subcommands
       .forEach(s => {
         delete require.cache[require.resolve(s.fullPath)];
-        const subcmd = new (require(s.fullPath))(this.client, s.fullPath);
-        subcmd.referenceCommand = command
-        command.subcommands.push(subcmd)
+        const subcommandRequired = require(s.fullPath);
+        const subcommand = new subcommandRequired(this.client, s.fullPath);
+        subcommand.referenceCommand = command
+        command.subcommands.push(subcommand)
       })
     return this.client.commands.splice(
       this.client.commands.findIndex(c => c.name == this.name), 1, command

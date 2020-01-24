@@ -1,7 +1,6 @@
 const SocialUtils = require("../utils/SocialUtils.js");
 const { CommandContext, Listener } = require("../../");
 
-const getMention = (id) => new RegExp(`^<@!?${id}>( |)$`);
 const getPrefix = (m, p) => p.find(pr => m.content.startsWith(pr));
 
 module.exports = class MessageResponses extends Listener {
@@ -35,13 +34,13 @@ module.exports = class MessageResponses extends Listener {
       const insert = fullCmd[0].toLowerCase().trim();
       const command = this.client.commands.find(({ name, aliases }) => (name === insert) || aliases.includes(insert));
 
-      if (command && (message.guild && message.channel.permissionsFor(this.client.user).has('SEND_MESSAGES') || true)) {
+      if (command && (message.guild && message.channel.permissionsFor(this.client.user).has('SEND_MESSAGES'))) {
         const userDocument = this.client.database && await this.client.database.users.findOne(message.author.id, 'blacklisted');
         if (userDocument && userDocument.blacklisted) return;
 
         const context = new CommandContext({
           client: this.client,
-          aliase: command.aliases.find(al => al === insert.toLowerCase()) || command.name,
+          aliase: (command.aliases.find(al => (al === insert.toLowerCase())) || command.name),
           usedPrefix, message, command, prefix, args, language
         })
 
