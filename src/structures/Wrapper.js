@@ -1,7 +1,7 @@
 module.exports = class Wrapper {
   constructor(name) {
     this.name = name
-    this.envVars = []
+    Object.defineProperty(this, 'envVars', { value: [], writable: true })
   }
 
   load() {
