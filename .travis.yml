@@ -2,10 +2,9 @@ language: node_js
 node_js: 12
 
 cache:
-  npm: true
+  yarn: true
 
 install:
-  - npm i
+  - yarn install
 
-script:
-  - npm test
+script: npm test
