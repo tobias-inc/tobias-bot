@@ -15,7 +15,8 @@
   "texts": {
     "subcommands": "Subcomandos",
     "versions": "Versões",
-    "about": "Sobre"
+    "about": "Sobre",
+    "notDefined": "Não Definido"
   },
   "utils": {
     "website": "Website",

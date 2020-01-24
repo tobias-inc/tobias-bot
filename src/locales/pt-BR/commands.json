@@ -55,7 +55,7 @@
   },
   "rep": {
     "commandDescription": "Da um ponto de reputação para um usuário.",
-    "commandUsage": "<@usuário>",
+    "commandUsage": "<usuário>",
     "alreadyDonateDescription": "Voçê já deu seu ponto de reputação diário. Aguarde **{{time}}** para dar novamente.",
     "claimedSuccessfully": "Voçê deu **1** ponto de reputação para **{{tag}}**!"
   },
@@ -67,7 +67,7 @@
   },
   "profile": {
     "commandDescription": "Mostra as informções do perfil do usuário.",
-    "commandUsage": "[@usuário]"
+    "commandUsage": "[usuário]"
   },
   "favcolor": {
     "commandDescription": "Define a cor do seu perfil.",
@@ -118,5 +118,26 @@
   },
   "nowplaying": {
     "commandDescription": "Mostra a música que está sendo reproduzida."
+  },
+  "hug": {
+    "commandDescription": "Abraça um usuário.",
+    "commandUsage": "<usuário>",
+    "invalidUser": "Você precisa mencionar o usuário que deseja abraçar!",
+    "successHug": "{{- author}} abraçou {{- user}}!"
+  },
+  "slap": {
+    "commandDescription": "Da um tapa em um usuário.",
+    "commandUsage": "<usuário>",
+    "invalidUser": "Você precisa mencionar o usuário que deseja abraçar!",
+    "successSlap": "{{- author}} de um tapa em {{- user}}!"
+  },
+  "ban": {
+    "commandDescription": "Bane um membro deste servidor.",
+    "commandUsage": "<membro> [razão]",
+    "missingUser": "Você precisa me dar um membro para banir!",
+    "missingReason": "Você precisa me dar um motivo para banir!",
+    "noPermission": "Estou com falta da permissão **$t(permissions: BAN_MEMBERS)** para banir este membro.",
+    "successTitle": "O membro foi banido!",
+    "cantBan": "Não posso banir este membro!"
   }
 }
