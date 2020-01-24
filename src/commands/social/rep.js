@@ -16,7 +16,7 @@ module.exports = class Rep extends Command {
     const embed = new ClientEmbed(author);
 
     try {
-      const { reps } = await this.client.controllers.social.rep.donationRep(user.id);
+      await this.client.controllers.social.rep.donationRep(user.id);
       embed.setDescription(t('commands:rep.claimedSuccessfully', { tag: user.tag }))
     } catch (e) {
       embed.setColor(Constants.ERROR_COLOR)
