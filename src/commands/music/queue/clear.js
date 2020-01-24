@@ -1,4 +1,4 @@
-const { Command, ClientEmbed } = require("../../../");
+const { Command, CommandError, ClientEmbed } = require("../../../");
 
 module.exports = class QueueClear extends Command {
   constructor(client, path) {

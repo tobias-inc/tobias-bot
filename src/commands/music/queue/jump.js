@@ -1,4 +1,4 @@
-const { Command } = require("../../../");
+const { Command, CommandError } = require("../../../");
 
 module.exports = class QueueJump extends Command {
   constructor(client, path) {
