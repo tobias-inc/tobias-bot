@@ -9,7 +9,7 @@
     "test": ""
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "author": "Tobias Team",
   "keywords": [
