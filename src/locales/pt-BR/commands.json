@@ -45,7 +45,7 @@
     "commandDescription": "Mostra as principais informações do bot.",
     "commandUsage": "[nome do comando]",
     "noDescriptionProvided": "Nenhuma descrição fornecida.",
-    "specificInformation": "Digite `{{helpString}}` para obter informações específicas do comando.",
+    "specificInformation": "Digite **{{helpString}}** para obter informações específicas do comando.",
     "subcommandKnowMore": "Use **`{{usage}} [subcomando]`** para saber mais sobre um subcomando!"
   },
   "daily": {
@@ -139,5 +139,10 @@
     "noPermission": "Estou com falta da permissão **$t(permissions: BAN_MEMBERS)** para banir este membro.",
     "successTitle": "O membro foi banido!",
     "cantBan": "Não posso banir este membro!"
+  },
+  "ascii": {
+    "commandDescription": "Envia um texto em ascii no chat.",
+    "commandUsage": "<texto>",
+    "emitedError": "Ocorreu um error no processamento!\n`{{- error}}`"
   }
 }
