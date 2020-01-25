@@ -7,11 +7,13 @@ module.exports = class Playlist extends EventEmitter {
   constructor(data = {}, songs = [], requestedBy) {
     super()
 
-    const response = Date.now() - requestedBy.startedLoadingAt;
+    const response = requestedBy.finishedLoadingAt - requestedBy.startedLoadingAt;
     this.loadTime = moment
       .duration(response)
       .format(response >= 60000 ? 'm[m]' : 's[s]', {
-        precision: response <= 100 ? 3 : response >= 60000 ? 1 : 2
+        useToLocaleString: false,
+        decimalSeparator: ".",
+        precision: response <= 100 ? 3 : response >= 10000 ? 1 : 2
       })
 
     if (data.playlistInfo) {

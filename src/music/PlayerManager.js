@@ -32,11 +32,11 @@ module.exports = class TobiasPlayerManager extends PlayerManager {
     super(client, nodes, options)
 
     Object.defineProperty(this, 'REST_ADDRESS', {
-      get: () => `${nodes[0].host}:${nodes[0].port}`
+      value: `${nodes[0].host}:${nodes[0].port}`
     })
 
     Object.defineProperty(this, 'REST_PASSWORD', {
-      get: () => nodes[0].password
+      value: nodes[0].password
     })
   }
 
@@ -47,13 +47,16 @@ module.exports = class TobiasPlayerManager extends PlayerManager {
     return player.event(message)
   }
 
-  async fetchTracks(identifier) {
+  async fetchTracks(identifier, requestedBy) {
     const specialSource = Object.values(Sources).find(source => source.test(identifier))
     if (specialSource) return specialSource
-    const params = new URLSearchParams({ identifier })
 
+    const params = new URLSearchParams({ identifier })
+    requestedBy.startedLoadingAt = Date.now()
     const res = await fetch(`http://${this.REST_ADDRESS}/loadtracks?${params.toString()}`, {
-      headers: { Authorization: this.REST_PASSWORD }
+      headers: {
+        Authorization: this.REST_PASSWORD
+      }
     }).then(res => res.json()).catch(err => {
       this.client.console(true, new Error(`Lavalink fetchTracks ${err}`))
     })
@@ -69,10 +72,10 @@ module.exports = class TobiasPlayerManager extends PlayerManager {
   }
 
   async loadTracks(identifier, requestedBy) {
-    requestedBy.startedLoadingAt = Date.now()
-
     identifier = MusicUtils.parseUrl(identifier)
-    const songs = await this.fetchTracks(identifier);
+
+    const songs = await this.fetchTracks(identifier, requestedBy);
+    requestedBy.finishedLoadingAt = Date.now()
     if (songs && Object.getPrototypeOf(songs) === SongSource) {
       return SongSearchResult.from(songs.provide(this, identifier, requestedBy), false)
     }
