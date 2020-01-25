@@ -144,5 +144,10 @@
     "commandDescription": "Envia um texto em ascii no chat.",
     "commandUsage": "<texto>",
     "emitedError": "Ocorreu um error no processamento!\n`{{- error}}`"
+  },
+  "commands": {
+    "commandDescription": "Mostra todos os comandos do bot.",
+    "commandsTitle": "Possuo atualmente o total de **`{{count}}`** comando!",
+    "commandsTitle_plural": "Possuo atualmente o total de **`{{count}}`** comandos!"
   }
 }
