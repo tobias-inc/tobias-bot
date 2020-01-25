@@ -24,7 +24,7 @@ module.exports = class Background extends Command {
       embed.setColor(Constants.ERROR_COLOR);
       switch (e.message) {
         case 'URL_INVALID':
-          embed.setDescription(t('commands:background.updateBackgroundError'))
+          embed.setTitle(t('commands:background.updateBackgroundError'))
           break;
         default:
           embed.setTitle(t('errors:generic'))
