@@ -18,6 +18,6 @@
   "noneAfterCurrent": "Não há nenhuma música após a atual!",
   "leftDueToInactivity": "Desconectado do canal de voz devido à inatividade.",
   "wasSkipped": "{{- songName}} foi pulado!",
-  "addedFromPlaylist": "**{{count}}** música de **{{- playlistName}}** foi adicionada a fila! {{- duration}}.\n*(carregado em **{{- loadTime}}**)*",
-  "addedFromPlaylist_plural": "**{{count}}** músicas de **{{- playlistName}}** foram adicionadas a fila! {{- duration}}.\n*(carregado em **{{- loadTime}}**)*"
+  "addedFromPlaylist": "**{{count}}** música de **{{- playlistName}}** foi adicionada a fila! {{- duration}}.\n*($t(commons:processed) em **{{- loadTime}}**)*",
+  "addedFromPlaylist_plural": "**{{count}}** músicas de **{{- playlistName}}** foram adicionadas a fila! {{- duration}}.\n*($t(commons:processed_plural) em **{{- loadTime}}**)*"
 }

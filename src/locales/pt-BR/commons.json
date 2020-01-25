@@ -7,6 +7,8 @@
   "botPermissions": "Permissões do Bot",
   "none": "Nenhum",
   "none_a": "Nenhuma",
+  "processed": "processada",
+  "processed_plural": "processadas",
   "channelTypes": {
     "text": "Texto",
     "category": "Categoria",
