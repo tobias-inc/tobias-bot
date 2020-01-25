@@ -24,6 +24,7 @@ module.exports = class UserRepository extends MongoRepository {
         background: Constants.DEFAULT_BACKGROUND,
         badges: []
       },
+      vip: [],
       ...(super.parse(entity) || {})
     }
   }

@@ -1,6 +1,5 @@
 const { Schema } = require("mongoose");
 
-const Utils = require("../../utils");
 const Constants = require("../../utils/Constants.js");
 
 const vipTypes = ['dbl', 'bpd'];
@@ -8,6 +7,11 @@ const vipTypes = ['dbl', 'bpd'];
 const BlacklistedSchema = new Schema({
   reason: String,
   blacklister: { type: String, required: true }
+})
+
+const VipSchema = new Schema({
+  type: { type: String, required: true },
+  date: { type: Number, default: Date.now() }
 })
 
 const LevelSchema = new Schema({
@@ -36,15 +40,16 @@ const EconomySchema = new Schema({
   badges: [BadgeSchema]
 })
 
-const VipSchema = new Schema({
-  type: { type: String, required: true },
-  date: { type: Number, default: Date.now() }
+const PremiumSchema = new Schema({
+  activeAt: { type: Date, default: Date.now() },
+  removeAt: { type: Date, required: true }
 })
 
 const UserSchema = new Schema({
   _id: String,
   blacklisted: BlacklistedSchema,
   economy: EconomySchema,
+  premium: PremiumSchema,
   vip: [VipSchema],
 })
 
