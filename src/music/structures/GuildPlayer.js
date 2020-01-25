@@ -25,7 +25,7 @@ module.exports = class GuildPlayer extends Player {
       return this.stop()
     })
 
-    this._volume = 40
+    this._volume = 80
     this._loop = false
 
     this._previousVolume = null

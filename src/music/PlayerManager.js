@@ -47,12 +47,11 @@ module.exports = class TobiasPlayerManager extends PlayerManager {
     return player.event(message)
   }
 
-  async fetchTracks(identifier, requestedBy) {
+  async fetchTracks(identifier) {
     const specialSource = Object.values(Sources).find(source => source.test(identifier))
     if (specialSource) return specialSource
 
     const params = new URLSearchParams({ identifier })
-    requestedBy.startedLoadingAt = Date.now()
     const res = await fetch(`http://${this.REST_ADDRESS}/loadtracks?${params.toString()}`, {
       headers: {
         Authorization: this.REST_PASSWORD
@@ -74,8 +73,9 @@ module.exports = class TobiasPlayerManager extends PlayerManager {
   async loadTracks(identifier, requestedBy) {
     identifier = MusicUtils.parseUrl(identifier)
 
-    const songs = await this.fetchTracks(identifier, requestedBy);
-    requestedBy.finishedLoadingAt = Date.now()
+    requestedBy.startedLoadingAt = Date.now()
+    const songs = await this.fetchTracks(identifier);
+
     if (songs && Object.getPrototypeOf(songs) === SongSource) {
       return SongSearchResult.from(songs.provide(this, identifier, requestedBy), false)
     }
