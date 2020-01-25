@@ -71,6 +71,7 @@ module.exports = class Help extends Command {
       .sort(() => Math.random() > 0.5 ? -1 : 1)[0];
     const someCommands = commands.filter(c => c.category === chosenCategory).slice(0, 10)
 
+    const commandString = commands.find(c => c.name === 'commands').usage(t, prefix, false, true)
     const timeOnline = Utils.duration(
       this.client.uptime, { format: 'd[d] h[h] m[m] s[s]', stopTrim: 'm', trim: true }
     )
@@ -86,8 +87,8 @@ module.exports = class Help extends Command {
         `**${t('commons:utils.additional')}**`,
         `${t('client:viewCommandList')}:`, '',
         `**${chosenCategory.capitalize()}**: ${someCommands.map(cmd => `\`${cmd.name}\``).join(', ')}...`,
-        `${t('commands:help.specificInformation', { helpString: this.usage(t, prefix, false, true) })}`,
-        `${t('client:toKnowMoreHelp')} ${Utils.websiteUrl('commands')}`, '',
+        `${t('commands:help.specificInformation', { helpString: this.usage(t, prefix, false, true) })}`, '',
+        `${t('client:toKnowMoreHelp', { commandString })} ${Utils.websiteUrl('commands')}`, '',
         `**${t('client:aboutHelping')} ?**`, Utils.websiteUrl('donate'),
         `**${t('client:configureYourServer')}**`, Utils.websiteUrl('dashboard'), '',
         `${t('client:timeOnline')}: **${Utils.replaceTime(t, timeOnline)}**`
