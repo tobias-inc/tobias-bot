@@ -68,29 +68,11 @@ module.exports = class CanvasUtils {
     registerFont('src/assets/fonts/Montserrat-Black.otf', { family: 'Montserrat Black' })
     registerFont('src/assets/fonts/Montserrat-BlackItalic.otf', { family: 'Montserrat Black', style: 'italic' })
 
-    Image.from = function (url, localFile = false) {
+    Image.from = function (url) {
       return loadImage(url)
     }
 
     Image.buffer = (url, localFile = false) => localFile ? FileUtils.readFile(url) : URLtoBuffer(url);
-
-    // Context2d.prototype.printAt = function (text, x, y, lineHeight, fitWidth, font = '16px "Montserrat"') {
-    //   fitWidth = fitWidth || 0;
-
-    //   this.font = font
-
-    //   if (fitWidth <= 0) return this.fillText(text, x, y);
-
-    //   for (let idx = 1; idx <= text.length; idx++) {
-    //     let str = text.substr(0, idx);
-    //     if (this.measureText(str).width > fitWidth) {
-    //       this.fillText(text.substr(0, idx - 1), x, y);
-    //       this.printAt(text.substr(idx - 1), x, y + lineHeight, lineHeight, fitWidth, font);
-    //       return;
-    //     }
-    //   }
-    //   this.fillText(text, x, y);
-    // }
 
     Context2d.prototype.printAt = function (text, x, y, lineHeight, fitWidth = x + y, font = '16px "Montserrat"') {
       const words = text.split(' ')
