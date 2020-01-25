@@ -98,7 +98,11 @@ module.exports = class CanvasTemplates {
     const LOGO_X = 50;
     const LOGO_Y = 100;
 
-    ctx.drawImage(backgroundImage, 0, 0, WIDTH, HEIGHT);
+    const bgWidth = WIDTH
+    let bgHeight = (bgWidth / backgroundImage.width) * backgroundImage.height
+    bgHeight = bgHeight >= HEIGHT ? bgHeight : HEIGHT
+    let bgY = bgHeight > HEIGHT ? -((bgHeight - HEIGHT) / 2) : 0
+    ctx.drawImage(backgroundImage, 0, bgY, bgWidth, bgHeight);
     ctx.drawImage(Source, 0, 0, WIDTH, HEIGHT);
 
     ctx.fillStyle = FAV_COLOR;
@@ -114,7 +118,6 @@ module.exports = class CanvasTemplates {
     ctx.fillRect(REP_X, REP_Y, REP_WIDTH, REP_HEIGHT)
 
     const BAR_WIDTH = 390;
-    const BAR_HEIGHT = 56;
     const BAR_X = 340;
     const BAR_Y = 334;
 
@@ -126,7 +129,6 @@ module.exports = class CanvasTemplates {
     // Texts
 
     const normalFont = (size = '36px') => `${size} Montserrat`;
-    const italicFont = (size = '36px') => `italic ${size} Montserrat'`;
     const bolderFont = (size = '36px') => `${size} Montserrat ExtraBold`;
     const bolderItalicFont = (size = '36px') => `italic ${size} Montserrat ExtraBold`;
 
