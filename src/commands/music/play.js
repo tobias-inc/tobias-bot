@@ -64,7 +64,7 @@ module.exports = class Play extends Command {
 
     channel.send(new ClientEmbed()
       .setThumbnail(playlist.artwork)
-      .setDescription(t('music:addedFromPlaylist_plural', {
+      .setDescription(t('music:addedFromPlaylist', {
         count, playlistName, duration, loadTime
       }))
     )
@@ -79,7 +79,7 @@ module.exports = class Play extends Command {
     const sendWI = (d, i, u) => (t, ...f) => {
       const e = bEmbed(d, u, t).setThumbnail(i || song.artwork)
       if (f.length) e.setFooter(...f)
-      return channel.send(e).then(m => m)
+      return channel.send(e)
     }
 
     const duration = song.isStream ? `(${t('music:live')})` : `\`(${song.formattedDuration})\``
