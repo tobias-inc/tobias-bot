@@ -33,7 +33,7 @@ module.exports = class Utils {
     let timeStr = time
       .split(' ')
       .map(str => {
-        const timeR = parseInt(str.replace(/[^0-9]+/, ''));
+        const timeR = parseInt(str.replace(/[^0-9]+/, ''))
         const keyR = str.replace(/[^a-zA-Z]+/, '');
 
         let keyLower = keyR.toLowerCase()
