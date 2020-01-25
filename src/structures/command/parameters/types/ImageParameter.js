@@ -3,7 +3,7 @@ const CommandError = require("../../CommandError.js");
 
 const defVal = (o, k, d) => typeof o[k] === 'undefined' ? d : o[k]
 
-const URL_REGEX = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+const URL_REGEX = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
 
 module.exports = class ImageParameter extends Parameter {
   static parseOptions(options = {}) {
@@ -18,11 +18,11 @@ module.exports = class ImageParameter extends Parameter {
     }
   }
 
-  static parse(arg, { message, t }) {
-    const regexResult = URL_REGEX.exec(arg);
+  static parse(arg, { message, args, t }) {
+    const regexResult = URL_REGEX.test(arg);
     if (regexResult) {
       if (!this.acceptUrl) throw new CommandError(t(this.errors.notAcceptUrl))
-      const [, url] = regexResult
+      const url = args.find(u => URL_REGEX.test(u))
       return url
     }
 
