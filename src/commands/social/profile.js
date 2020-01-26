@@ -18,18 +18,13 @@ module.exports = class Profile extends Command {
     channel.startTyping()
     const informations = Promise.all([
       this.client.controllers.social.retrieveProfile(user.id, 'economy'),
-      this.client.controllers.social.getRank(user.id),
-      this.client.controllers.social.currentXp(user.id)
+      this.client.controllers.social.getRank(user.id)
     ])
 
-    const [{ economy: profile }, rank, currentXp] = await informations;
-
+    const [profile, rank] = await informations;
+    const currentXp = await this.client.controllers.social.currentXp(profile)
     const canvas = await CanvasTemplates.profile(user, t, {
-      ...({
-        profile,
-        rank,
-        currentXp
-      })
+      ...({ profile: profile.economy, rank, currentXp })
     });
 
     return channel.send(new Attachment(canvas, 'profile.jpg')).then(() => channel.stopTyping());
