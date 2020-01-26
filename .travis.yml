@@ -1,0 +1,10 @@
+language: node_js
+node_js: 12
+
+cache:
+  yarn: true
+
+install:
+  - yarn install
+
+script: npm test
