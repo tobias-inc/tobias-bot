@@ -69,13 +69,16 @@ module.exports = class SocialController extends Controller {
     return this._users.update(_user, { 'economy.favColor': favColor })
   }
 
+  setPersonalText(_user, text) {
+    return this._users.update(_user, { 'economy.personalText': text })
+  }
+
   async setBackground(_user, image) {
     const { data: { error, link } } = await this.client.apis.imgur.postImage(image);
 
     if (error) throw new Error('URL_INVALID');
 
     await this._users.update(_user, { 'economy.background': link });
-
     return { image: link }
   }
 
@@ -89,7 +92,7 @@ module.exports = class SocialController extends Controller {
   }
 
   async currentXp(_user) {
-    const { economy: { xp, levels, level } } = await this._users.findOne(_user);
+    const { economy: { xp, levels, level } } = _user instanceof Object ? _user : await this._users.findOne(_user);
     const current = levels.length > 1
       ? xp - levels
         .slice(0, levels.length - 1)
