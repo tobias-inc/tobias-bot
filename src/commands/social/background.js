@@ -5,7 +5,6 @@ module.exports = class Background extends Command {
     super(client, path, {
       name: 'background',
       category: 'social',
-      aliases: [],
       utils: {
         requirements: { databaseOnly: true, apis: ['imgur'] },
         parameters: [{ type: 'image', missingError: 'errors:invalidImage' }]
