@@ -1,4 +1,4 @@
-const { Command, ClientEmbed, Utils } = require("../../");
+const { Command, ClientEmbed } = require("../../");
 
 module.exports = class Rank extends Command {
   constructor(client, path) {
