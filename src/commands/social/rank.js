@@ -1,5 +1,7 @@
 const { Command, ClientEmbed } = require("../../");
 
+// Not worked
+
 module.exports = class Rank extends Command {
   constructor(client, path) {
     super(client, path, {
