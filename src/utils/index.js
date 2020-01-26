@@ -77,7 +77,7 @@ module.exports = class Utils {
   // Client
 
   static generateInvite(permissions = 8, id = Constants.CLIENT_ID) {
-    permissions = typeof permissions === 'undefined' ? 0 : Permissions.resolve(permissions);
+    permissions = Permissions.resolve(permissions);
     return `https://discordapp.com/oauth2/authorize?client_id=${id}&permissions=${permissions}&scope=bot`
   }
 
