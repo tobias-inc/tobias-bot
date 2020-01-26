@@ -10,7 +10,7 @@ module.exports = class HTTPSong extends Song {
   }
 
   async loadInfo() {
-    const radioInfo = await this._Icecast.fetchMetadata(this.uri).catch(e => null)
+    const radioInfo = await this._Icecast.fetchMetadata(this.uri).catch(() => null)
     if (radioInfo) {
       this.title = radioInfo['StreamTitle'] || 'Unknown Title'
       this.uri = radioInfo['StreamUrl'] || this.uri
