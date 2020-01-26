@@ -217,8 +217,6 @@ module.exports = class CanvasTemplates {
     const [backgroundImage] = await IMAGE_ASSETS;
 
     const THUMBNAIL_WIDTH = Math.trunc(WIDTH / 3)
-    let THUMBNAIL_HEIGHT = HEIGHT
-
     const FULL_WIDTH = (WIDTH - THUMBNAIL_WIDTH)
 
     // Bar 
@@ -274,7 +272,7 @@ module.exports = class CanvasTemplates {
     // Thumbnail 
 
     ctx.drawBlurredImage(backgroundImage, 20, 0, 0, THUMBNAIL_WIDTH, HEIGHT)
-    THUMBNAIL_HEIGHT = backgroundImage.height * (THUMBNAIL_WIDTH / backgroundImage.width)
+    const THUMBNAIL_HEIGHT = backgroundImage.height * (THUMBNAIL_WIDTH / backgroundImage.width)
     ctx.drawImage(backgroundImage, 0, HEIGHT * 0.5 - THUMBNAIL_HEIGHT * 0.5, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT)
 
     // Background

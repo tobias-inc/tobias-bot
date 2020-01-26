@@ -83,32 +83,22 @@ module.exports = class CanvasUtils {
       let completeWidth = fitWidth * 1.5
       for (let word of words) {
         const { width, height } = self.measureText(this, font, `${word} `)
-
         if ((inX + width) > completeWidth) {
           inHeight += lineHeight
           inX = x
-          wordsRenders.push({
-            [word]: {
-              x: inX,
-              y: inHeight,
-              width,
-              height
-            }
-          })
-        } else {
-          wordsRenders.push({
-            [word]: {
-              x: inX,
-              y: inHeight,
-              width,
-              height
-            }
-          })
         }
+        wordsRenders.push({
+          [word]: {
+            x: inX,
+            y: inHeight,
+            width,
+            height
+          }
+        })
         inX = inX + width
       }
 
-      wordsRenders.map(word => {
+      wordsRenders.forEach(word => {
         const [[text, v]] = Object.entries(word)
         const { x, y } = v
         this.fillText(text, x, y)
