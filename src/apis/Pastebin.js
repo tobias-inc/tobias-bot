@@ -12,17 +12,17 @@ module.exports = class PastebinWrapper extends Wrapper {
     this.envVars = ['PASTEBIN_DEV_KEY']
   }
 
-  createPaste({
-    text, title = 'Paste', expireAt = 'N', format = 'text', privacy = '0'
-  } = {}) {
-    return this.request('/api_post.php', 'POST', {
+  createPaste(text, { title = 'DefaultPaste', expireAt = 'N', format = 'text', privacy = '0' } = {}) {
+    const queryParams = {
       'api_paste_expire_date': expireAt,
       'api_option': 'paste',
       'api_paste_code': text,
       'api_paste_private': privacy,
       'api_paste_name': title,
       'api_paste_format': format
-    }).then(async res => {
+    }
+
+    return this.request('/api_post.php', 'POST', queryParams).then(async res => {
       const url = await res.text()
       if (PASTEBIN_URL_REGEX.test(url)) {
         const [, id] = PASTEBIN_URL_REGEX.exec(url)
