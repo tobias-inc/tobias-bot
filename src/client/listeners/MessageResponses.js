@@ -13,7 +13,7 @@ module.exports = class MessageResponses extends Listener {
 
   onMessageUpdate(oldM, newM) {
     if (!(newM.edits.length > 2 || oldM.author.bot)) {
-      if (!(oldM.content === newM.content) && newM.content.trim().length) this.client.emit('message', newM, true);
+      if ((oldM.content !== newM.content) && newM.content.trim().length) this.client.emit('message', newM, true);
     }
     return true
   }
