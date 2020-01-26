@@ -96,7 +96,7 @@ $ git commit
 [depfu-updates-badge]: https://badges.depfu.com/badges/a2e6164631bd93b427015a48c5f16b5c/count.svg
 [depfu-updates-url]: https://depfu.com/github/tobias-inc/TobiasBot?project_id=10620
 [deepsource-badge]: https://static.deepsource.io/deepsource-badge-light-mini.svg
-[deepsource-url]: https://deepsource.io/gh/tobias-inc/TobiasBot/?ref=repository-badge
+[deepsource-url]: https://deepsource.io/gh/tobias-inc/TobiasBot/
 [license-badge]: https://img.shields.io/github/license/tobias-inc/TobiasBot?label=LICENSE&style=flat-square
 [license-url]: https://github.com/tobias-inc/TobiasBot
 [lastcommit-badge]: https://img.shields.io/github/last-commit/tobias-inc/TobiasBot?label=LAST%20COMMIT&style=flat-square
