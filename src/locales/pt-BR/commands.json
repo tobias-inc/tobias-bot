@@ -63,7 +63,13 @@
     "commandDescription": "Altera o plano de fundo do perfil do usuário",
     "commandUsage": "<imagem | url>",
     "updateBackgroundSucess": "O plano de fundo de seu perfil foi alterado com sucesso!",
-    "updateBackgroundError": "Por favor insira uma imagem válida."
+    "updateBackgroundError": "Por favor insira uma imagem válida.",
+    "subcommands": {
+      "remove": {
+        "commandDescription": "Reseta o plano de fundo.",
+        "backgroundReset": "Seu plano de fundo foi resetado!"
+      }
+    }
   },
   "profile": {
     "commandDescription": "Mostra as informções do perfil do usuário.",
@@ -149,5 +155,22 @@
     "commandDescription": "Mostra todos os comandos do bot.",
     "commandsTitle": "Possuo atualmente o total de **`{{count}}`** comando!",
     "commandsTitle_plural": "Possuo atualmente o total de **`{{count}}`** comandos!"
+  },
+  "weather": {
+    "commandDescription": "Mostra a o tempo da cidade inserida.",
+    "commandUsage": "<nome da cidade>",
+    "cityNotEntered": "Por favor insira o nome da cidade desejeada.",
+    "cityNotFound": "A cidade inserida não foi encontrada!",
+    "timezone": "Fuso Horário",
+    "temperature": "Temperatura",
+    "thermalSensation": "Sensação Térmica",
+    "wind": "Velocidade e Direção do vento",
+    "humidity": "Umidade do ar",
+    "day": "Dia da semana"
+  },
+  "personaltext": {
+    "commandDescription": "Altera o texto pessoal do perfil.",
+    "commandUsage": "<texto>",
+    "updateSucessTitle": "Texto pessoal alterado com sucesso!"
   }
 }
