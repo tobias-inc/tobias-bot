@@ -44,12 +44,8 @@ module.exports = class SocialUtils {
 
   async setGlobalXp(user) {
     if (user instanceof UserWrapper) {
-      const information = Promise.all([
-        this.social.retrieveProfile(user.id),
-        this.social.currentXp(user.id),
-      ])
-
-      const [{ economy }, { current, next, level }] = await information;
+      const profile = await this.social.retrieveProfile(user.id)
+      const { current, next, level } = await this.social.currentXp(profile)
 
       const xp = Math.floor(((Math.random() * 5) + 3) + (level / 5) * (level / 10));
       const nextLevel = current >= next;
@@ -61,7 +57,7 @@ module.exports = class SocialUtils {
             'economy.level': nextLevel && 1
           })
         }
-      }).then(() => nextLevel && this.client.emit('userLevelUp', user, { ...economy, level: level + 1 }))
+      }).then(() => nextLevel && this.client.emit('userLevelUp', user, { ...profile.economy, level: level + 1 }))
     }
   }
 }
