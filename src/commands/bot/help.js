@@ -5,7 +5,7 @@ module.exports = class Help extends Command {
     super(client, path, {
       name: 'help',
       category: 'bot',
-      aliases: ['ajuda', 'h'],
+      aliases: ['ajuda'],
       utils: {
         parameters: [{ type: 'command', required: false, getSubcommands: true, validCommands: true }]
       }
