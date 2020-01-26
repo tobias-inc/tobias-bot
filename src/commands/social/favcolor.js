@@ -1,4 +1,4 @@
-const { Command, ClientEmbed, CommandError } = require("../../");
+const { Command, ClientEmbed, Constants } = require("../../");
 
 module.exports = class FavColor extends Command {
   constructor(client, path) {
@@ -14,17 +14,14 @@ module.exports = class FavColor extends Command {
   }
 
   async run({ t, author, channel }, color) {
+    const embed = new ClientEmbed(author);
     const hexadecimal = color.rgb(true);
-
     try {
-      const embed = new ClientEmbed(author);
       await this.client.controllers.social.setFavoriteColor(author.id, hexadecimal);
-      channel.send(embed
-        .setColor(hexadecimal)
-        .setTitle(t('commands:favcolor.changedSuccessfully', { hexadecimal }))
-      )
+      embed.setColor(hexadecimal).setTitle(t('commands:favcolor.changedSuccessfully', { hexadecimal }))
     } catch (e) {
-      throw new CommandError(t('errors:generic'))
+      embed.setColor(Constants.ERROR_COLOR).setTitle(t('errors:generic'))
     }
+    channel.send(embed)
   }
 }
