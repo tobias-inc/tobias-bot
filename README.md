@@ -85,7 +85,7 @@ $ git commit
 [circleci-url]: https://circleci.com/gh/tobias-inc/TobiasBot
 [codefactor-badge]: https://www.codefactor.io/repository/github/tobias-inc/TobiasBot/badge
 [codefactor-url]: https://www.codefactor.io/repository/github/tobias-inc/TobiasBot
-[maintainability-badge]: https://api.codeclimate.com/v1/badges/6c5ac457279552e5f25b/maintainability
+[maintainability-badge]: https://api.codeclimate.com/v1/badges/6d471343b7e0438dd373/maintainability
 [maintainability-url]: https://codeclimate.com/github/tobias-inc/TobiasBot/maintainability
 [deepscan-badge]: https://deepscan.io/api/teams/7110/projects/9254/branches/117685/badge/grade.svg
 [deepscan-url]: https://deepscan.io/dashboard#view=project&tid=7110&pid=9254&bid=117685
