@@ -66,7 +66,7 @@ module.exports = class Help extends Command {
   fullHelp({ t, channel, prefix, clientUser, embed }) {
     const commands = this.client.commands
     const chosenCategory = commands
-      .filter(c => !c.hidden || !(c.category === 'developer'))
+      .filter(c => !c.hidden)
       .map(c => c.category)
       .sort(() => Math.random() > 0.5 ? -1 : 1)[0];
     const someCommands = commands.filter(c => c.category === chosenCategory).slice(0, 10)
