@@ -11,7 +11,7 @@ module.exports = class WeatherWrapper extends Wrapper {
     super('weather')
   }
 
-  searchLocale(locale = 'Los Angeles', { lang = 'en-US', degreeType = 'F' } = {}) {
+  searchLocale(locale, { lang = 'en-US', degreeType = 'F' } = {}) {
     const queryParams = {
       culture: lang,
       weadegreetype: degreeType,
