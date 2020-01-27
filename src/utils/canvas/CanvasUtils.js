@@ -88,24 +88,22 @@ module.exports = class CanvasUtils {
           inX = x
         }
         wordsRenders.push({
-          [word]: {
-            x: inX,
-            y: inHeight,
-            width,
-            height
-          }
+          x: inX,
+          y: inHeight,
+          word,
+          width,
+          height
         })
         inX = inX + width
       }
 
       wordsRenders.forEach(word => {
-        const [[text, v]] = Object.entries(word)
-        const { x, y } = v
+        const { x, y, word: text } = word
         this.fillText(text, x, y)
       })
 
-      const lastWord = wordsRenders.slice(-1)[0][words.slice(-1)[0]]
-      return lastWord.y + lastWord.height
+      const wordMaxHeight = wordsRenders.map(word => word.height).sort((a, b) => a + b)[0]
+      return inHeight + wordMaxHeight
     }
 
     Context2d.prototype.roundImage = function (img, x, y, w, h, r) {

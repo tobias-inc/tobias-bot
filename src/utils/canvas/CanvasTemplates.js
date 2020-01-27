@@ -264,7 +264,6 @@ module.exports = class CanvasTemplates {
     title = titleLength > 50 ? `${title.split(' ').slice(0, 8).join(' ')}...` : title
     const TITLE_FONT = 'italic 34px "Montserrat Black"'
     const titleY = ctx.printAt(title, LEFT_TEXT_MARGIN, 40, 35, (WIDTH - THUMBNAIL_WIDTH) - 20, TITLE_FONT)
-
     // Author
     ctx.fillStyle = FAV_COLOR_RGBA.replace('.4', '.6')
     const AUTHOR_FONT = 'italic 22px Montserrat ExtraBold'
