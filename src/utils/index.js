@@ -76,6 +76,14 @@ module.exports = class Utils {
 
   // Client
 
+  static guildSend(message, channelId, { client }) {
+    if (!(message && channelId && client)) return
+
+    const guild = client.guilds.get(Constants.BOT_GUILD)
+    const channel = guild && guild.channels.get(channelId)
+    if (channel) return channel.send(message)
+  }
+
   static generateInvite(permissions = 8, id = Constants.CLIENT_ID) {
     permissions = Permissions.resolve(permissions);
     return `https://discordapp.com/oauth2/authorize?client_id=${id}&permissions=${permissions}&scope=bot`
