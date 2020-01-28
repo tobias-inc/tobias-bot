@@ -1,9 +1,9 @@
 const Parameter = require("./Parameter.js");
 const CommandError = require("../../CommandError.js");
 
-const defVal = (o, k, d) => typeof o[k] === 'undefined' ? d : o[k]
+const URL_REGEX = /^(https|http):\/\/[^\s$.?#].[^\s]*$/gm
 
-const URL_REGEX = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
+const defVal = (o, k, d) => typeof o[k] === 'undefined' ? d : o[k]
 
 module.exports = class ImageParameter extends Parameter {
   static parseOptions(options = {}) {
