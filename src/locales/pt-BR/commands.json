@@ -9,9 +9,9 @@
   "reload": {
     "commandDescription": "Recarrega o comando inserido.",
     "commandUsage": "<nome do comando>",
-    "error": "Ocorreu um erro ao recarregar o comando:\n**{{error}}**",
-    "sucess": "O comando **`{{command}}`** foi recarregado com sucesso!",
-    "noCommand": "Por favor insira o `nome` ou uma `aliase` do comando a ser recarregado!"
+    "error": "Ocorreu um erro ao recarregar o comando",
+    "sucess": "O comando **`{{commandName}}`** foi recarregado com sucesso!",
+    "missingCommand": "Por favor insira o `nome` ou uma `aliase` do comando a ser recarregado!"
   },
   "reloadlocales": {
     "commandDescription": "Recarrega o sistema de Idiomas.",
@@ -39,7 +39,7 @@
         "commandDescription": "Altera o prefixo do servidor atual.",
         "commandUsage": "<novo prefixo>",
         "info": "**Para alterar o prefixo do servidor**:",
-        "noPrefix": "Você tem que me dar um prefixo!",
+        "missingPrefix": "Você tem que me dar um prefixo!",
         "changedSuccessfully": "O prefixo foi alterado para **`{{prefix}}`**"
       }
     }
@@ -60,8 +60,8 @@
   "rep": {
     "commandDescription": "Da um ponto de reputação para um usuário.",
     "commandUsage": "<usuário>",
-    "alreadyDonateDescription": "Voçê já deu seu ponto de reputação diário. Aguarde **{{time}}** para dar novamente.",
-    "claimedSuccessfully": "Voçê deu **1** ponto de reputação para **{{tag}}**!"
+    "alreadyDonateDescription": "Você já deu seu ponto de reputação diário. Aguarde **{{time}}** para dar novamente.",
+    "claimedSuccessfully": "Você deu **1** ponto de reputação para **{{tag}}**!"
   },
   "background": {
     "commandDescription": "Altera o plano de fundo do perfil do usuário",
@@ -132,14 +132,19 @@
   "hug": {
     "commandDescription": "Abraça um usuário.",
     "commandUsage": "<usuário>",
-    "invalidUser": "Você precisa mencionar o usuário que deseja abraçar!",
+    "missingUser": "Você precisa mencionar o usuário que deseja abraçar!",
     "successHug": "{{- author}} abraçou {{- user}}!"
   },
   "slap": {
     "commandDescription": "Da um tapa em um usuário.",
     "commandUsage": "<usuário>",
-    "invalidUser": "Você precisa mencionar o usuário que deseja abraçar!",
+    "missingUser": "Você precisa mencionar o usuário que deseja estapear!",
     "successSlap": "{{- author}} de um tapa em {{- user}}!"
+  },
+  "ascii": {
+    "commandDescription": "Envia um texto em ascii no chat.",
+    "commandUsage": "<texto>",
+    "emitedError": "Ocorreu um error no processamento!\n`{{- error}}`"
   },
   "ban": {
     "commandDescription": "Bane um membro deste servidor.",
@@ -150,10 +155,14 @@
     "successTitle": "O membro foi banido!",
     "cantBan": "Não posso banir este membro!"
   },
-  "ascii": {
-    "commandDescription": "Envia um texto em ascii no chat.",
-    "commandUsage": "<texto>",
-    "emitedError": "Ocorreu um error no processamento!\n`{{- error}}`"
+  "kick": {
+    "commandDescription": "Bane um membro deste servidor.",
+    "commandUsage": "<membro> [razão]",
+    "missingUser": "Você precisa me dar um membro para banir!",
+    "missingReason": "Você precisa me dar um motivo para banir!",
+    "noPermission": "Estou com falta da permissão **$t(permissions: KICK_MEMBERS)** para banir este membro.",
+    "successTitle": "O membro foi banido!",
+    "cantKick": "Não posso kickar este membro!"
   },
   "commands": {
     "commandDescription": "Mostra todos os comandos do bot.",
@@ -180,7 +189,7 @@
   "bugreport": {
     "commandDescription": "Esclarece um bug para o time de desenvolvedores do bot.",
     "commandUsage": "<bug> [--screenshots <prints url>]",
-    "invalidString": "Desculpe, voçê precisa inserir o bug.",
+    "missingBug": "Desculpe, você precisa inserir o bug.",
     "screenshots": "Capturas de tela",
     "view": "Ver"
   }
