@@ -7,7 +7,13 @@ const Constants = require("./Constants");
 module.exports = class Utils {
   // Moment duration - Utils
 
-  static duration(length, { type = 'ms', format = 'hh:mm:ss', stopTrim = 'm', trim = false, ...moreOptions } = {}) {
+  static duration(length, {
+    type = 'ms',
+    format = 'hh:mm:ss',
+    stopTrim = 'm',
+    trim = false,
+    ...moreOptions
+  } = {}) {
     if (!(length instanceof Number) && isNaN(parseInt(length))) return length
     length = parseInt(length)
 
@@ -52,17 +58,20 @@ module.exports = class Utils {
 
   // Message
 
-  static reactionCollectorResponse(message, filter,
-    { clear, ...options } = { time: 30000, max: 1, maxUsers: 1 }
-  ) {
+  static reactionCollectorResponse(message, filter, { clear, ...options } = {
+    time: 30000,
+    max: 1,
+    maxUsers: 1
+  }) {
     if (message instanceof Message) {
       return new Promise(resolve => {
         const collector = message.createReactionCollector(filter, options)
+        const clearReactions = () => message.clearReactions().catch(() => false)
         collector.on('collect', () => {
-          if (clear) message.clearReactions().catch(() => { })
+          if (clear) clearReactions()
           resolve(true)
         }).on('end', () => {
-          if (clear) message.clearReactions().catch(() => { })
+          if (clear) clearReactions()
         })
       })
     }
