@@ -6,7 +6,7 @@ const MusicUtils = require("./MusicUtils.js");
 const { GuildPlayer, Song, SongSearchResult, SongSource, Playlist } = require("./structures");
 const {
   Songs: {
-    HTTPSong, MixerSong, SoundcloudSong, TwitchSong, YoutubeSong, YoutubePlaylist
+    HTTPSong, MixerSong, SoundcloudSong, TwitchSong, YoutubeSong, YoutubePlaylist, SoundcloudPlaylist
   },
   Sources
 } = require("./sources");
@@ -106,6 +106,8 @@ module.exports = class TobiasPlayerManager extends PlayerManager {
         switch (pInfo.source) {
           case 'youtube':
             return searchResult.setResult(new YoutubePlaylist(pInfo, songs, requestedBy).loadInfo())
+          case 'soundcloud':
+            return searchResult.setResult(new SoundcloudPlaylist(pInfo, songs, requestedBy).loadInfo())
           default:
             return searchResult.setResult(new Playlist(pInfo, songs, requestedBy).loadInfo())
         }
