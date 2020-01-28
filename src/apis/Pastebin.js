@@ -21,7 +21,6 @@ module.exports = class PastebinWrapper extends Wrapper {
       'api_paste_name': title,
       'api_paste_format': format
     }
-
     return this.request('/api_post.php', 'POST', queryParams).then(async res => {
       const url = await res.text()
       if (PASTEBIN_URL_REGEX.test(url)) {
