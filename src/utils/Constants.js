@@ -47,6 +47,9 @@ module.exports = {
   BOT_GUILD: '500452776770535444',
   DEVELOPER_ROLE: '671404243449544704',
   WEBSITE_URL: 'https://tobias.site',
+  Channels: {
+    BUG_REPORT: '671400580781965313'
+  },
 
   // Discord Wrapper
 
