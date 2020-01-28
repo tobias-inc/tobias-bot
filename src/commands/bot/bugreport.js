@@ -1,4 +1,4 @@
-const { Command, ClientEmbed, Constants } = require("../../");
+const { Command, CommandError, ClientEmbed, Constants, Utils } = require("../../");
 
 const URL_REGEX = /^(https|http):\/\/[^\s$.?#].[^\s]*$/gm
 
@@ -18,7 +18,7 @@ module.exports = class BugReport extends Command {
     })
   }
 
-  async run({ t, flags, author, channel }, bugReported) {
+  async run({ t, flags, author, channel, guild }, bugReported) {
     const embed = new ClientEmbed(author);
 
     try {
@@ -27,16 +27,22 @@ module.exports = class BugReport extends Command {
       const PASTE_URL = await this.client.apis.hastebin.createPaste([
         ['Author:', author.tag].join('\n'),
         ['Bug:', bugReported].join('\n'),
-        ['Screenshots:', screenShots.join('\n') || 'None'].join('\n'),
+        ['Screenshots:', screenShots ? screenShots.join('\n') : 'None'].join('\n'),
         ['Date', new Date().toLocaleDateString()].join('\n')
       ].join('\n\n'))
 
       if (screenShots) embed.addField(t('commands:bugreport.screenshots'), screenShots.join('\n'))
       embed.setTitle(t('commands:bugreport.view')).setURL(PASTE_URL).setDescription(bugReported)
     } catch (e) {
-      embed.setColor(Constants.ERROR_COLOR).setTitle(t('errors:generic'))
+      throw new CommandError(t('errors:generic'))
     }
 
-    channel.send(embed)
+    channel.send(embed).then(() => {
+      Utils.guildSend(
+        embed.setThumbnail(author.displayAvatarURL).addField('Guild', guild ? guild.id : 'None'),
+        Constants.Channels.BUG_REPORT,
+        { client: this.client }
+      )
+    })
   }
 }
