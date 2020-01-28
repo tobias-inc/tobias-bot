@@ -1,5 +1,6 @@
 module.exports = {
   booleanFlag: require("./BooleanFlagParameter.js"),
+  stringFlag: require("./StringFlagParameter.js"),
   channel: require("./ChannelParameter.js"),
   string: require("./StringParameter.js"),
   user: require("./UserParameter.js"),
