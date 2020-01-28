@@ -16,7 +16,7 @@ module.exports = class SoundCloudWrapper extends Wrapper {
   }
 
   load() {
-    this.updateClientId()
+    // this.updateClientId()
     return this
   }
 
