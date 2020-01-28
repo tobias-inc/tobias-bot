@@ -10,7 +10,7 @@ module.exports = class BugReport extends Command {
       utils: {
         requirements: { apis: ['hastebin'] },
         parameters: [{
-          type: 'string', full: true, missingError: 'commands:bugreport:invalidString'
+          type: 'string', full: true, missingError: 'commands:bugreport:missingBug'
         }, [{
           type: 'stringFlag', name: 'screenshots', aliases: ['screenshot']
         }]]

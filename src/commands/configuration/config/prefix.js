@@ -14,7 +14,7 @@ module.exports = class ConfigPrefix extends Command {
           full: true,
           required: false,
           maxLength: PREFIX_MAX_LENGTH,
-          missingError: 'commands:config.subcommands.prefix.noPrefix'
+          missingError: 'commands:config.subcommands.prefix.missingPrefix'
         }]
       }
     })

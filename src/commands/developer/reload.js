@@ -1,4 +1,4 @@
-const { Command, CommandError, ClientEmbed } = require("../../");
+const { Command, ClientEmbed, Constants } = require("../../");
 
 module.exports = class Reload extends Command {
   constructor(client, path) {
@@ -8,17 +8,22 @@ module.exports = class Reload extends Command {
       hidden: true,
       utils: {
         requirements: { devOnly: true },
-        parameters: [{ type: 'command', missingError: 'commands:reload.noCommand' }]
+        parameters: [{ type: 'command', missingError: 'commands:reload.missingCommand' }]
       }
     })
   }
 
   async run({ channel, author, t }, command) {
+    const embed = new ClientEmbed(author)
     try {
       await command.reload()
-      channel.send(new ClientEmbed(author).setTitle(t('commands:reload.sucess', { command: command.name })))
+      embed.setTitle(t('commands:reload.sucess', { commandName: command.name }))
     } catch (e) {
-      throw new CommandError(t('commands:reload.error', { error: e.message }))
+      embed
+        .setColor(Constants.ERROR_COLOR)
+        .setTitle(t('commands:reload.error'))
+        .setDescription(`\`${e.message || e.stack || e}\``)
     }
+    channel.send(embed)
   }
 }
