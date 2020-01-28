@@ -18,7 +18,7 @@ module.exports = class NowPlaying extends Command {
     const guildPlayer = this.client.playerManager.get(guild.id);
     const song = guildPlayer.playingSong
 
-    const np = await CanvasTemplates.nowPlaying(t, guildPlayer, song)
-    return channel.send(new Attachment(np, 'nowplaying.jpg')).then(() => channel.stopTyping())
+    const nowPlayingImage = await CanvasTemplates.nowPlaying(t, guildPlayer, song)
+    return channel.send(new Attachment(nowPlayingImage, 'nowplaying.jpg')).then(() => channel.stopTyping())
   }
 }

@@ -1,6 +1,7 @@
 const request = require("request");
 const { createCanvas, registerFont, loadImage, Context2d, Image } = require("canvas");
 
+const Constants = require("../Constants.js");
 const FileUtils = require("../FileUtils.js");
 
 const URLtoBuffer = function (url) {
@@ -68,8 +69,9 @@ module.exports = class CanvasUtils {
     registerFont('src/assets/fonts/Montserrat-Black.otf', { family: 'Montserrat Black' })
     registerFont('src/assets/fonts/Montserrat-BlackItalic.otf', { family: 'Montserrat Black', style: 'italic' })
 
-    Image.from = function (url) {
-      return loadImage(url)
+    Image.from = function (src) {
+      if (!src) src = Constants.DEFAULT_BACKGROUND
+      return loadImage(src)
     }
 
     Image.buffer = (url, localFile = false) => localFile ? FileUtils.readFile(url) : URLtoBuffer(url);

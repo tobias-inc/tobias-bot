@@ -23,10 +23,10 @@ module.exports = class Profile extends Command {
 
     const [profile, rank] = await informations;
     const currentXp = await this.client.controllers.social.currentXp(profile)
-    const canvas = await CanvasTemplates.profile(user, t, {
+    const profileImage = await CanvasTemplates.profile(user, t, {
       ...({ profile: profile.economy, rank, currentXp })
     });
 
-    return channel.send(new Attachment(canvas, 'profile.jpg')).then(() => channel.stopTyping());
+    return channel.send(new Attachment(profileImage, 'profile.jpg')).then(() => channel.stopTyping());
   }
 }
