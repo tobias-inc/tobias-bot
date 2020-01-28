@@ -1,5 +1,7 @@
 const { Command, ClientEmbed, Constants } = require("../../../");
 
+const PREFIX_MAX_LENGTH = 5;
+
 module.exports = class ConfigPrefix extends Command {
   constructor(client, path) {
     super(client, path, {
@@ -11,7 +13,7 @@ module.exports = class ConfigPrefix extends Command {
           type: 'string',
           full: true,
           required: false,
-          maxLength: 3,
+          maxLength: PREFIX_MAX_LENGTH,
           missingError: 'commands:config.subcommands.prefix.noPrefix'
         }]
       }
