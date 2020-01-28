@@ -8,7 +8,7 @@ module.exports = class Ban extends Command {
       aliases: ['banir'],
       utils: {
         requirements: {
-          guildOnly: true, permissions: ['BAN_MEMBERS'], botPermissions: ['BAN_MEMBERS'],
+          guildOnly: true, permissions: ['BAN_MEMBERS'], botPermissions: ['BAN_MEMBERS']
         },
         parameters: [{
           type: 'member', acceptBot: true, missingError: 'commands:ban.missingUser'
