@@ -66,7 +66,7 @@ module.exports = class Utils {
     if (message instanceof Message) {
       return new Promise(resolve => {
         const collector = message.createReactionCollector(filter, options)
-        const clearReactions = () => message.clearReactions().catch(() => false)
+        const clearReactions = () => message.clearReactions().catch(() => null)
         collector.on('collect', () => {
           if (clear) clearReactions()
           resolve(true)
@@ -90,7 +90,7 @@ module.exports = class Utils {
 
     const guild = client.guilds.get(Constants.BOT_GUILD)
     const channel = guild && guild.channels.get(channelId)
-    if (channel) return channel.send(message)
+    if (channel) return channel.send(message).catch(() => null)
   }
 
   static generateInvite(permissions = 8, id = Constants.CLIENT_ID) {
