@@ -31,13 +31,8 @@ module.exports = class TobiasPlayerManager extends PlayerManager {
     options.player = GuildPlayer
     super(client, nodes, options)
 
-    Object.defineProperty(this, 'REST_ADDRESS', {
-      value: `${nodes[0].host}:${nodes[0].port}`
-    })
-
-    Object.defineProperty(this, 'REST_PASSWORD', {
-      value: nodes[0].password
-    })
+    Object.defineProperty(this, 'REST_ADDRESS', { value: `${nodes[0].host}:${nodes[0].port}` })
+    Object.defineProperty(this, 'REST_PASSWORD', { value: nodes[0].password })
   }
 
   onMessage(message) {
@@ -52,36 +47,42 @@ module.exports = class TobiasPlayerManager extends PlayerManager {
     if (specialSource) return specialSource
 
     const params = new URLSearchParams({ identifier })
+
+    const now = Date.now()
+    let finishedAt = 0
     const res = await fetch(`http://${this.REST_ADDRESS}/loadtracks?${params.toString()}`, {
-      headers: {
-        Authorization: this.REST_PASSWORD
-      }
-    }).then(res => res.json()).catch(err => {
-      this.client.console(true, new Error(`Lavalink fetchTracks ${err}`))
-    })
+      headers: { Authorization: this.REST_PASSWORD }
+    }).then(res => {
+      finishedAt = Date.now()
+      return res.json()
+    }).catch(() => false)
 
     if (!res) return false
-    if (['LOAD_FAILED', 'NO_MATCHES'].includes(res.loadType) || !res.tracks.length) return res.loadType !== 'LOAD_FAILED'
+    if (['LOAD_FAILED', 'NO_MATCHES'].includes(res.loadType) || !res.tracks.length) {
+      return res.loadType !== 'LOAD_FAILED'
+    }
 
     const songs = res.tracks
+    if (res.playlistInfo) {
+      songs.playlistInfo = res.playlistInfo
+      songs.playlistInfo.url = identifier
+    }
+
     songs.searchResult = res.loadType === 'SEARCH_RESULT'
-    songs.playlistInfo = res.playlistInfo
-    if (songs.playlistInfo) songs.playlistInfo.url = identifier
+    songs.loadTime = finishedAt - now
     return songs
   }
 
   async loadTracks(identifier, requestedBy) {
     identifier = MusicUtils.parseUrl(identifier)
 
-    requestedBy.startedLoadingAt = Date.now()
     const songs = await this.fetchTracks(identifier);
-
     if (songs && Object.getPrototypeOf(songs) === SongSource) {
       return SongSearchResult.from(songs.provide(this, identifier, requestedBy), false)
     }
 
     if (songs && songs.length > 0) {
-      const searchResult = new SongSearchResult(songs.searchResult)
+      const searchResult = new SongSearchResult(songs.searchResult, songs.loadTime)
       if (songs.searchResult || songs.length === 1) {
         const [song] = songs
         const source = song.info.source = MusicUtils.getSongSource(song)
