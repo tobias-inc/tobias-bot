@@ -62,7 +62,6 @@ module.exports = class Play extends Command {
     const playlistName = `[${playlist.title}](${playlist.uri})`
 
     const response = playlist.loadTime
-    console.log(response)
     const loadTime = Utils.replaceTime(t, Utils.duration(response, {
       format: response >= 60000 ? 'm[m]' : 's[s]',
       useToLocaleString: false,
