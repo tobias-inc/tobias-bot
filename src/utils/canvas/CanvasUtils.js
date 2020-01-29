@@ -1,6 +1,7 @@
 const request = require("request");
 const { createCanvas, registerFont, loadImage, Context2d, Image } = require("canvas");
 
+const Constants = require("../Constants.js");
 const FileUtils = require("../FileUtils.js");
 
 const URLtoBuffer = function (url) {
@@ -68,8 +69,9 @@ module.exports = class CanvasUtils {
     registerFont('src/assets/fonts/Montserrat-Black.otf', { family: 'Montserrat Black' })
     registerFont('src/assets/fonts/Montserrat-BlackItalic.otf', { family: 'Montserrat Black', style: 'italic' })
 
-    Image.from = function (url) {
-      return loadImage(url)
+    Image.from = function (src) {
+      if (!src) src = Constants.DEFAULT_BACKGROUND
+      return loadImage(src)
     }
 
     Image.buffer = (url, localFile = false) => localFile ? FileUtils.readFile(url) : URLtoBuffer(url);
@@ -88,24 +90,22 @@ module.exports = class CanvasUtils {
           inX = x
         }
         wordsRenders.push({
-          [word]: {
-            x: inX,
-            y: inHeight,
-            width,
-            height
-          }
+          x: inX,
+          y: inHeight,
+          word,
+          width,
+          height
         })
         inX = inX + width
       }
 
       wordsRenders.forEach(word => {
-        const [[text, v]] = Object.entries(word)
-        const { x, y } = v
+        const { x, y, word: text } = word
         this.fillText(text, x, y)
       })
 
-      const lastWord = wordsRenders.slice(-1)[0][words.slice(-1)[0]]
-      return lastWord.y + lastWord.height
+      const wordMaxHeight = wordsRenders.map(word => word.height).sort((a, b) => a + b)[0]
+      return inHeight + wordMaxHeight
     }
 
     Context2d.prototype.roundImage = function (img, x, y, w, h, r) {

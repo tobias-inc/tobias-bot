@@ -29,7 +29,7 @@ module.exports = class DeezerSongSource extends SongSource {
 
     const { tracks: { data } } = playlist
     const videos = (await Promise.all(data.map(track => this.provideTrack(manager, track, requestedBy)))).filter(i => !!i)
-    return new DeezerPlaylist(playlist, videos, requestedBy).loadInfo()
+    return new DeezerPlaylist(playlist, videos, requestedBy)
   }
 
   static async provideAlbum(manager, id, requestedBy) {
@@ -38,7 +38,7 @@ module.exports = class DeezerSongSource extends SongSource {
 
     const { tracks: { data } } = album
     const videos = (await Promise.all(data.map((track) => this.provideTrack(manager, track, requestedBy, album)))).filter(i => !!i)
-    return new DeezerPlaylist(album, videos, requestedBy).loadInfo()
+    return new DeezerPlaylist(album, videos, requestedBy)
   }
 
   static async provideTrack(manager, track, requestedBy, album) {
@@ -49,7 +49,7 @@ module.exports = class DeezerSongSource extends SongSource {
     try {
       const song = await this.getClosestVideo(manager, track);
       if (song) {
-        return new DeezerSong(song, requestedBy, track, album).loadInfo()
+        return new DeezerSong(song, requestedBy, track, album)
       }
     } catch (e) {
       manager.client.console(true, e)

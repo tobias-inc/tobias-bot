@@ -11,11 +11,19 @@ module.exports = class MessageResponses extends Listener {
     this.socialUtils = new SocialUtils(client);
   }
 
+  get commands() {
+    return this.client.commands
+  }
+
   onMessageUpdate(oldM, newM) {
-    if (!(newM.edits.length > 2 || oldM.author.bot)) {
-      if ((oldM.content !== newM.content) && newM.content.trim().length) this.client.emit('message', newM, true);
+    if (oldM.author.bot) return
+    if (newM.edits.length <= 2) {
+      const inGuild = !!newM.channel.guild
+      if (!inGuild) return
+      if ((oldM.content !== newM.content) && newM.content.length) {
+        this.client.emit('message', newM, true);
+      }
     }
-    return true
   }
 
   async onMessage(message, emited) {
@@ -32,9 +40,11 @@ module.exports = class MessageResponses extends Listener {
       const args = fullCmd.slice(1);
 
       const insert = fullCmd[0].toLowerCase().trim();
-      const command = this.client.commands.find(({ name, aliases }) => (name === insert) || aliases.includes(insert));
+      const command = this.commands.find(cmd => (cmd.name === insert) || cmd.aliases.includes(insert))
 
-      if (command && (message.guild && message.channel.permissionsFor(this.client.user).has('SEND_MESSAGES'))) {
+      if (command) {
+        if (message.guild && !message.channel.permissionsFor(this.client.user).has('SEND_MESSAGES')) return
+
         const userDocument = this.client.database && await this.client.database.users.findOne(message.author.id, 'blacklisted');
         if (userDocument && userDocument.blacklisted) return;
 

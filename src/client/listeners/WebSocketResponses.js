@@ -1,4 +1,4 @@
-const { PlayerManager, Status, Listener } = require("../../");
+const { PlayerManager, Status, Listener, Constants } = require("../../");
 
 const PRESENCE_TYPES = Object.keys(Status);
 const PRESENCE_INTERVAL = 60 * 1000;
@@ -26,7 +26,7 @@ module.exports = class WebSocketResponses extends Listener {
       .replace('{guilds}', guilds.size)
       .replace('{users}', users.size)
       .replace('{client}', user.username)
-      .replace('{prefix}', process.env.PREFIX)
+      .replace('{prefix}', Constants.DEFAULT_PREFIX)
       .replace('{musicServers}', playerManager ? playerManager.size : 0)
   }
 

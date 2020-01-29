@@ -85,7 +85,7 @@ $ git commit
 [circleci-url]: https://circleci.com/gh/tobias-inc/TobiasBot
 [codefactor-badge]: https://www.codefactor.io/repository/github/tobias-inc/TobiasBot/badge
 [codefactor-url]: https://www.codefactor.io/repository/github/tobias-inc/TobiasBot
-[maintainability-badge]: https://api.codeclimate.com/v1/badges/6c5ac457279552e5f25b/maintainability
+[maintainability-badge]: https://api.codeclimate.com/v1/badges/6d471343b7e0438dd373/maintainability
 [maintainability-url]: https://codeclimate.com/github/tobias-inc/TobiasBot/maintainability
 [deepscan-badge]: https://deepscan.io/api/teams/7110/projects/9254/branches/117685/badge/grade.svg
 [deepscan-url]: https://deepscan.io/dashboard#view=project&tid=7110&pid=9254&bid=117685
@@ -96,7 +96,7 @@ $ git commit
 [depfu-updates-badge]: https://badges.depfu.com/badges/a2e6164631bd93b427015a48c5f16b5c/count.svg
 [depfu-updates-url]: https://depfu.com/github/tobias-inc/TobiasBot?project_id=10620
 [deepsource-badge]: https://static.deepsource.io/deepsource-badge-light-mini.svg
-[deepsource-url]: https://deepsource.io/gh/tobias-inc/TobiasBot/?ref=repository-badge
+[deepsource-url]: https://deepsource.io/gh/tobias-inc/TobiasBot/
 [license-badge]: https://img.shields.io/github/license/tobias-inc/TobiasBot?label=LICENSE&style=flat-square
 [license-url]: https://github.com/tobias-inc/TobiasBot
 [lastcommit-badge]: https://img.shields.io/github/last-commit/tobias-inc/TobiasBot?label=LAST%20COMMIT&style=flat-square

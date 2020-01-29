@@ -8,7 +8,7 @@ module.exports = class Hug extends Command {
       aliases: ['abraçar'],
       utils: {
         requirements: { guildOnly: true, apis: ['nekos'] },
-        parameters: [{ type: 'user', missingError: 'commands:hug.invalidUser' }]
+        parameters: [{ type: 'user', missingError: 'commands:hug.missingUser' }]
       }
     })
   }

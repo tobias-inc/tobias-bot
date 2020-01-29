@@ -13,6 +13,8 @@ module.exports = class Skip extends Command {
 
   run({ message, guild }) {
     const guildPlayer = this.client.playerManager.get(guild.id);
+    const playingSong = guildPlayer.playingSong;
+    playingSong.emit('end')
     message.react('⏩').then(() => guildPlayer.next())
   }
 }

@@ -10,8 +10,4 @@ module.exports = class DeezerPlaylist extends Playlist {
 
     this.source = 'deezer'
   }
-
-  loadInfo () {
-    return this
-  }
 }

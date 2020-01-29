@@ -98,12 +98,13 @@ module.exports = class CanvasTemplates {
     const LOGO_X = 50;
     const LOGO_Y = 100;
 
-    const bgWidth = WIDTH
-    let bgHeight = (bgWidth / backgroundImage.width) * backgroundImage.height
-    bgHeight = bgHeight >= HEIGHT ? bgHeight : HEIGHT
+    const bgWidth = backgroundImage.width >= WIDTH ? backgroundImage.width : backgroundImage.width + WIDTH
+    const bgHeight = backgroundImage.height >= HEIGHT ? backgroundImage.height : backgroundImage.height + HEIGHT
     let bgY = bgHeight > HEIGHT ? -((bgHeight - HEIGHT) / 2) : 0
-    ctx.drawImage(backgroundImage, 0, bgY, bgWidth, bgHeight);
+    let bgX = bgWidth > WIDTH ? (WIDTH - bgWidth) / 2 : 0
+    ctx.drawBlurredImage(backgroundImage, 5, bgX, bgY, bgWidth, bgHeight);
     ctx.drawImage(Source, 0, 0, WIDTH, HEIGHT);
+
 
     ctx.fillStyle = FAV_COLOR;
     ctx.roundFill(LOGO_X, LOGO_Y, LOGO_SIZE + LOGO_BORDER, LOGO_SIZE + LOGO_BORDER);
@@ -263,7 +264,6 @@ module.exports = class CanvasTemplates {
     title = titleLength > 50 ? `${title.split(' ').slice(0, 8).join(' ')}...` : title
     const TITLE_FONT = 'italic 34px "Montserrat Black"'
     const titleY = ctx.printAt(title, LEFT_TEXT_MARGIN, 40, 35, (WIDTH - THUMBNAIL_WIDTH) - 20, TITLE_FONT)
-
     // Author
     ctx.fillStyle = FAV_COLOR_RGBA.replace('.4', '.6')
     const AUTHOR_FONT = 'italic 22px Montserrat ExtraBold'

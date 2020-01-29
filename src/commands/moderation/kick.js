@@ -1,17 +1,17 @@
 const { Command, ClientEmbed, Constants } = require("../../");
 
-module.exports = class Ban extends Command {
+module.exports = class Kick extends Command {
   constructor(client, path) {
     super(client, path, {
-      name: 'ban',
+      name: 'kick',
       category: 'moderation',
-      aliases: ['banir'],
+      aliases: ['kickar', 'expulsar'],
       utils: {
         requirements: {
-          guildOnly: true, permissions: ['BAN_MEMBERS'], botPermissions: ['BAN_MEMBERS']
+          guildOnly: true, permissions: ['KICK_MEMBERS'], botPermissions: ['KICK_MEMBERS']
         },
         parameters: [{
-          type: 'member', acceptBot: true, missingError: 'commands:ban.missingUser'
+          type: 'member', acceptBot: true, missingError: 'commands:kick.missingUser'
         }, {
           type: 'string', required: false, full: true, missingError: 'commands:ban.missingReason'
         }]
@@ -19,17 +19,17 @@ module.exports = class Ban extends Command {
     })
   }
 
-  async run({ t, author, channel, guild }, member, reason = t('commons:texts.notDefined')) {
+  async run({ t, author, channel }, member, reason = t('commons:texts.notDefined')) {
     const embed = new ClientEmbed(author, { author: [this.client.user] })
-    await guild.ban(member, { days: 7, reason }).then(bannedMember => {
+    await member.kick(reason).then(kickedMember => {
       embed
         .setThumbnail(member.user.displayAvatarURL)
-        .setTitle(t('commands:ban.successTitle'))
-        .setDescription(`${bannedMember} - \`${reason}\``)
+        .setTitle(t('commands:kick.successTitle'))
+        .setDescription(`${kickedMember} - \`${reason}\``)
     }).catch(err => {
       embed
         .setColor(Constants.ERROR_COLOR)
-        .setTitle(t('commands:ban.cantBan'))
+        .setTitle(t('commands:kick.cantKick'))
         .setDescription(`\`${err}\``)
     })
     channel.send(embed)

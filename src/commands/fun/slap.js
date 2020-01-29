@@ -8,7 +8,7 @@ module.exports = class Slap extends Command {
       aliases: ['tapa'],
       utils: {
         requirements: { guildOnly: true, apis: ['nekos'] },
-        parameters: [{ type: 'user', missingError: 'commands:slap.invalidUser' }]
+        parameters: [{ type: 'user', missingError: 'commands:slap.missingUser' }]
       }
     })
   }

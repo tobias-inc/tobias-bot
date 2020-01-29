@@ -10,8 +10,4 @@ module.exports = class SpotifyPlaylist extends Playlist {
 
     this.source = 'spotify'
   }
-
-  loadInfo() {
-    return this
-  }
 }

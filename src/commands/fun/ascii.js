@@ -1,7 +1,7 @@
 const figlet = require("figlet");
 const { Command, CommandError } = require("../../");
 
-const ASCII_LENGTH = 20;
+const ASCII_MAX_LENGTH = 20;
 
 module.exports = class Ascii extends Command {
   constructor(client, path) {
@@ -12,7 +12,7 @@ module.exports = class Ascii extends Command {
         parameters: [{
           type: 'string',
           full: true,
-          maxLength: ASCII_LENGTH,
+          maxLength: ASCII_MAX_LENGTH,
           missingError: 'errors:invalidString'
         }]
       }

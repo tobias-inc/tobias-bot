@@ -1,6 +1,6 @@
 // Url regex
 
-const URL_REGEX = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi
+const URL_REGEX = /(https|http):\/\/[^\s$.?#].[^\s]*$/
 
 // Song regex
 
@@ -13,6 +13,7 @@ const MIXER_STREAM_REGEX = /^https?:\/\/(?:www\.)?beam\.pro\/([^/]+)$/
 // Playlist regex
 
 const YOUTUBE_PLAYLIST_REGEX = /list=((RD|PL|LL|FL|UU)[a-zA-Z0-9_-]+)/
+const SOUNDCLOUD_PLAYLIST_REGEX = /^https?:\/\/soundcloud\.com\/([a-zA-Z0-9-_]+)\/sets/
 
 module.exports = class MusicUtils {
   static getSongSource(song) {
@@ -37,6 +38,10 @@ module.exports = class MusicUtils {
   static getPlaylistInfo(query) {
     if (YOUTUBE_PLAYLIST_REGEX.test(query)) {
       return { identifier: YOUTUBE_PLAYLIST_REGEX.exec(query)[1], source: 'youtube' }
+    }
+
+    if (SOUNDCLOUD_PLAYLIST_REGEX.test(query)) {
+      return { source: 'soundcloud' }
     }
     return {}
   }

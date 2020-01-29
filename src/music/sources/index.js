@@ -10,6 +10,7 @@ module.exports = {
 
     // SoundCloud
 
+    SoundcloudPlaylist: require("./soundcloud/SoundcloudPlaylist.js"),
     SoundcloudSong: require("./soundcloud/SoundcloudSong.js"),
 
     // Twitch

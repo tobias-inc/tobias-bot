@@ -58,9 +58,16 @@ module.exports = class Play extends Command {
 
   playlistFeedback({ t, channel }, playlist) {
     const duration = `\`(${playlist.formattedDuration})\``
-    const loadTime = Utils.replaceTime(t, playlist.loadTime)
     const count = Number(playlist.size)
     const playlistName = `[${playlist.title}](${playlist.uri})`
+
+    const response = playlist.loadTime
+    const loadTime = Utils.replaceTime(t, Utils.duration(response, {
+      format: response >= 60000 ? 'm[m]' : 's[s]',
+      useToLocaleString: false,
+      decimalSeparator: ".",
+      precision: response <= 100 ? 3 : response >= 10000 ? 1 : 2
+    }))
 
     channel.send(new ClientEmbed()
       .setThumbnail(playlist.artwork)
