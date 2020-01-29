@@ -19,10 +19,30 @@ module.exports = class GuildPlayer extends Player {
       this.manager.leave(this.id)
     })
 
-    this.on('error', (e) => {
+    this.on('forceStop', songError => {
+      if (songError) this.playingSong.emit('error');
+      this.stop()
+    })
+
+    let inappropriateVideoErrors = 0
+    this.on('error', e => {
+      const { op, event, error } = e
+
+      switch (op) {
+        case 'event':
+          switch (event) {
+            case 'TrackExceptionEvent':
+              if (inappropriateVideoErrors >= 5) this.emit('forceStop', true)
+              else if (error.includes('This video may be inappropriate for some users.')) {
+                inappropriateVideoErrors += 1
+              }
+              break;
+          }
+          break;
+        default: this.emit('forceStop')
+      }
+
       console.log(e)
-      this.playingSong.emit('error')
-      return this.stop()
     })
 
     this._volume = 80
