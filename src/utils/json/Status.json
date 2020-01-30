@@ -1,11 +1,12 @@
 {
   "listening": [
     "Spotify",
-    "Illenium - Crawl Outta Love"
+    "Pyotr Ilyich Tchaikovsky"
   ],
   "watching": [
     "Supernatural",
     "CSI: Crime Scene Investigation",
+    "House",
     "Brazil x Alemanha",
     "{guilds} Servers | Prefix: {prefix}",
     "{users} Users in {guilds} Servers"
@@ -14,7 +15,7 @@
     "Music in {musicServers} servers!"
   ],
   "playing": [
-    "Garena Free Fire",
+    "Battlefield 4",
     "Fortnite",
     "PUBG Lite",
     "@{client} help"
