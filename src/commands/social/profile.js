@@ -16,17 +16,15 @@ module.exports = class Profile extends Command {
 
   async run({ channel, t, author }, user = author) {
     channel.startTyping()
-    const informations = Promise.all([
-      this.client.controllers.social.retrieveProfile(user.id, 'economy'),
-      this.client.controllers.social.getRank(user.id)
-    ])
-
-    const [profile, rank] = await informations;
+    const social = this.client.controllers.social
+    const rank = await this.client.controllers.social.getRank(user.id)
+    const profile = await social.retrieveProfile(user.id, 'economy')
     const currentXp = await this.client.controllers.social.currentXp(profile)
+
     const profileImage = await CanvasTemplates.profile(user, t, {
       ...({ profile: profile.economy, rank, currentXp })
     });
 
-    return channel.send(new Attachment(profileImage, 'profile.jpg')).then(() => channel.stopTyping());
+    return channel.send(new Attachment(profileImage, 'profile.png')).then(() => channel.stopTyping());
   }
 }

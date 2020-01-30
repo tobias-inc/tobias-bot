@@ -17,6 +17,7 @@
   "cooldown": "Woah! Devagar amigo! Você está indo rápido demais, tem que esperar!",
   "notPlaying": "Não estou tocando nada!",
   "missingParameters": "Você precisa me fornecer parâmetros!",
+  "missingChannel": "Você precisa me fornecer um canal válido.",
   "notTrueOrFalse": "Você precisa me fornecer um valor verdadeiro ou falso.",
   "nsfwOnly": "Isso só pode ser feito nos canais marcados como NSFW.",
   "noSentence": "Você tem que me fornecer uma frase.",

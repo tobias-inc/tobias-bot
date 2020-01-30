@@ -6,7 +6,7 @@ const ModuleSchema = new Schema({
 })
 
 const CommandsChannelSchema = new Schema({
-  channelID: { type: String, required: true }
+  channel: { type: String, required: true }
 })
 
 const SystemsDisabledSchema = new Schema({

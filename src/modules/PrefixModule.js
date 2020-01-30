@@ -2,7 +2,7 @@ const Joi = require("@hapi/joi");
 const { Module, Constants } = require("../");
 
 const MIN_PREFIX_SIZE = 1;
-const MAX_PREFIX_SIZE = 3;
+const MAX_PREFIX_SIZE = 5;
 
 module.exports = class PrefixModule extends Module {
   constructor(client) {

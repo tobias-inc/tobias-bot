@@ -1,11 +1,11 @@
 const { Command, ClientEmbed } = require("../../");
 
-module.exports = class Config extends Command {
+module.exports = class CommandChannel extends Command {
   constructor(client, path) {
     super(client, path, {
-      name: 'config',
+      name: 'commandchannel',
       category: 'configuration',
-      aliases: ['cfg'],
+      aliases: ['command-channel', 'commandsch'],
       utils: {
         requirements: { guildOnly: true, databaseOnly: true, permissions: ['MANAGE_GUILD'] }
       }

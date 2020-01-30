@@ -30,6 +30,14 @@ module.exports = class WebSocketResponses extends Listener {
       .replace('{musicServers}', playerManager ? playerManager.size : 0)
   }
 
+  parseNodesErrors() {
+    this.client.playerManager.nodes.forEach(node => {
+      const listens = node.listeners('error');
+      listens.forEach(listen => node.removeListener('error', listen))
+      node.on('error', () => { })
+    })
+  }
+
   async onReady() {
     try {
       const nodes = JSON.parse(process.env.LAVALINK_NODES);
@@ -39,6 +47,7 @@ module.exports = class WebSocketResponses extends Listener {
         shards: 1
       })
       this.client.console(false, 'Lavalink connection established!', 'Ready', "Music")
+      this.parseNodesErrors()
     } catch (e) {
       this.client.console(true, 'PFailed to establish Lavalink connection - Failed to parse LAVALINK_NODES environment variable', 'Ready', 'Music')
     }

@@ -21,8 +21,13 @@ module.exports = class ConfigPrefix extends Command {
   }
 
   async run({ t, author, channel, guild }, prefix = Constants.DEFAULT_PREFIX) {
-    const embed = new ClientEmbed(author);
-    await this.client.modules.prefix.updateValues(guild.id, { prefix });
-    channel.send(embed.setTitle(t('commands:config.subcommands.prefix.changedSuccessfully', { prefix })))
+    const embed = new ClientEmbed(author)
+    try {
+      await this.client.modules.prefix.updateValues(guild.id, { prefix })
+      embed.setTitle(t('commands:config.subcommands.prefix.changedSuccessfully', { prefix }))
+    } catch (e) {
+      embed.setColor(Constants.ERROR_COLOR).setDescription(t('errors:generic'))
+    }
+    channel.send(embed)
   }
 }
