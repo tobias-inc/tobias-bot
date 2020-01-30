@@ -82,24 +82,26 @@ module.exports = class SocialController extends Controller {
     return { image: link }
   }
 
-  getRank(_user) {
-    return this._users
-      .findAll(['type', 'economy.xp'], { sort: { 'economy.xp': -1 } })
-      .then(users => {
-        const index = users.findIndex(u => u._id === _user);
-        return index !== -1 ? index + 1 : users.length;
-      })
+  async getRank(_user, getSorted = false) {
+    const usersSorted = await this._users.findAll(['type', 'economy.xp', 'economy.level'], {
+      sort: {
+        'economy.xp': -1
+      }
+    })
+
+    if (_user) {
+      const userIndex = usersSorted.findIndex(u => u._id === _user);
+      const inRank = userIndex !== -1 ? userIndex + 1 : this.client.users.size;
+      if (!getSorted) return inRank
+      return { inRank, usersSorted }
+    }
+    return usersSorted
   }
 
   async currentXp(_user) {
     const { economy: { xp, levels, level } } = _user instanceof Object ? _user : await this._users.findOne(_user);
-    const current = levels.length > 1
-      ? xp - levels
-        .slice(0, levels.length - 1)
-        .map(r => r.maxXp)
-        .reduce((a, b) => a + b)
-      : xp;
-
+    const levelReduced = levels.slice(0, levels.length - 1).map(r => r.maxXp).reduce((a, b) => a + b)
+    const current = levels.length > 1 ? xp - levelReduced : xp;
     return { current, next: Utils.XPtoNextLevel(level), level }
   }
 }
