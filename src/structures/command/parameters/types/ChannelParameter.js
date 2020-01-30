@@ -5,12 +5,9 @@ const MENTION_REGEX = /(<#)?([0-9]{16,18})>?$/
 const defVal = (o, k, d) => typeof o[k] === 'undefined' ? d : o[k]
 
 const searchOn = (local, id, arg) => (
-  local.channels.get(id) || local.channels.find(
-    c => (c.name.toLowerCase() === arg)
-  ) || local.channels.find(
-    c => c.name.toLowerCase().includes(arg.toLowerCase()
-    )
-  )
+  local.channels.get(id) ||
+  local.channels.find(c => (c.name.toLowerCase() === arg)) ||
+  local.channels.find(c => c.name.toLowerCase().includes(arg.toLowerCase()))
 )
 
 module.exports = class ChannelParameter extends Parameter {
@@ -19,7 +16,6 @@ module.exports = class ChannelParameter extends Parameter {
       ...super.parseOptions(options),
       acceptDM: defVal(options, 'acceptDM', false),
       acceptGroup: defVal(options, 'acceptGroup', false),
-
       onlySameGuild: defVal(options, 'onlySameGuild', true),
       acceptText: defVal(options, 'acceptText', false),
       acceptVoice: defVal(options, 'acceptVoice', false),

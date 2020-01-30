@@ -22,6 +22,7 @@ module.exports = class CommandRequirements {
 
       errors: {
         databaseOnly: 'errors:databaseOnly',
+        playerManagerOnly: 'errors:playerManagerOnly',
         devOnly: 'errors:developerOnly',
         guildOnly: 'errors:guildOnly',
         cooldown: 'errors:cooldown',
@@ -60,7 +61,7 @@ module.exports = class CommandRequirements {
       throw new CommandError(t(opts.errors.databaseOnly))
     }
 
-    if (opts.playerManagerOnly && !client.playerManager) {
+    if (opts.playerManagerOnly && !client.playerManager || !client.playerManager.isOnline(guild.region)) {
       throw new CommandError(t(opts.errors.playerManagerOnly))
     }
 
