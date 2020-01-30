@@ -10,9 +10,7 @@ class UserWrapper {
     this.channel = channel
     this.language = language
 
-    Object.defineProperty(this, 'user', {
-      get: () => user
-    })
+    Object.defineProperty(this, 'user', { value: user })
   }
 }
 
@@ -22,7 +20,7 @@ module.exports = class SocialUtils {
 
     this.queue = new Queue({
       globalFunction: this.setGlobalXp.bind(this),
-      delay: 500,
+      delay: 1000,
       randomKey: false
     })
   }
@@ -44,11 +42,21 @@ module.exports = class SocialUtils {
 
   async setGlobalXp(user) {
     if (user instanceof UserWrapper) {
+      const getClaim = [true, true, false].sort(() => Math.random() > 0.5 ? -1 : 1)[0]
+      if (!getClaim) return
+
+      const multiplique = l => {
+        const reduceValue = Math.floor(Math.random() * l) + l / l * 0.5;
+        return Math.floor((Math.random() * 2) + reduceValue / 5)
+      }
+
       const profile = await this.social.retrieveProfile(user.id)
       const { current, next, level } = await this.social.currentXp(profile)
 
-      const xp = Math.floor(((Math.random() * 5) + 3) + (level / 5) * (level / 10));
-      const nextLevel = current >= next;
+      let xp = Math.floor((Math.random() * 4) + 2);
+      xp = xp === 2 ? xp * (multiplique(level) || 1) : xp;
+
+      const nextLevel = current + xp >= next;
 
       return this.database.update(user.id, {
         $inc: {
