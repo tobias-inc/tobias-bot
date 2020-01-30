@@ -35,6 +35,12 @@ module.exports = class TobiasPlayerManager extends PlayerManager {
     Object.defineProperty(this, 'REST_PASSWORD', { value: nodes[0].password })
   }
 
+  isOnline(region) {
+    const isNull = (n) => n === null || n === undefined
+    const node = this.getIdealHost(region)
+    return isNull(node.connected)
+  }
+
   onMessage(message) {
     if (!message || !message.op) return
     const player = this.get(message.guildId)
@@ -120,7 +126,7 @@ module.exports = class TobiasPlayerManager extends PlayerManager {
 
   async play(song, channel) {
     if (song && song instanceof Song) {
-      const host = this.getIdealHost(channel.guild.region)
+      const { host } = this.getIdealHost(channel.guild.region)
       const player = this.join({
         guild: channel.guild.id,
         channel: channel.id,
@@ -134,7 +140,7 @@ module.exports = class TobiasPlayerManager extends PlayerManager {
 
   getIdealHost(region) {
     region = resolveRegion(region)
-    const { host } = (region && this.nodes.find(n => n.ready && n.region === region)) || this.nodes.first()
-    return host
+    const node = (region && this.nodes.find(n => n.ready && n.region === region)) || this.nodes.first()
+    return node
   }
 }
