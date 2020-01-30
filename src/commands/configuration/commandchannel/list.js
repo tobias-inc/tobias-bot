@@ -14,11 +14,11 @@ module.exports = class CommandChannelList extends Command {
     const clientUser = this.client.user
     const embed = new ClientEmbed(author, { author: [clientUser], thumbnail: guild.iconURL })
 
-    const commandModule = await this.client.modules.command
-    const SettedChannels = await commandModule.retrieveValue(guild.id, 'commandsChannel')
-    const channels = Object.keys(SettedChannels)
-      .filter(c => guild.channels.has(c))
-      .map(c => guild.channels.get(c))
+    const guildDatabase = this.client.database.guilds
+    const { commandsChannel } = await guildDatabase.findOne(guild.id, 'commandsChannel')
+    const channels = commandsChannel
+      .filter(c => guild.channels.has(c.channelId))
+      .map(c => guild.channels.get(c.channelId))
 
     if (channels.length) {
       embed.setDescription(channels.map(c => `**${c.name}** - \`${c.id}\``).join('\n'))

@@ -20,7 +20,7 @@ module.exports = class CommandChannelSet extends Command {
   async run({ t, author, channel, guild }, { id, name }) {
     const embed = new ClientEmbed(author)
     try {
-      const commandModule = await this.client.modules.command
+      const commandModule = this.client.modules.commands
       await commandModule.setCommandChannel(guild.id, id)
       embed.setDescription(t(`commands:${this.tPath}.setChannelSuccessfully`, { name }))
     } catch (e) {

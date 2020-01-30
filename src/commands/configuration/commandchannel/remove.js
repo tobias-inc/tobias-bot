@@ -17,16 +17,17 @@ module.exports = class CommandChannelRemove extends Command {
     })
   }
 
-  async run({ t, author, channel, guild }, insertedChannel) {
+  async run({ t, author, channel, guild }, { id }) {
     const embed = new ClientEmbed(author)
-
-    const commandModule = await this.client.modules.command
-    const SettedChannels = await commandModule.retrieveValue(guild.id, 'commandsChannel')
-    const hasChannel = Object.keys(SettedChannels).find(c => c === insertedChannel.id)
-
     try {
+      const guildDatabase = this.client.database.guilds
+      const commandModule = this.client.modules.commands
+
+      const { commandsChannel } = await guildDatabase.findOne(guild.id, 'commandsChannel')
+      const hasChannel = commandsChannel.some(c => c.channelId === id)
+
       if (hasChannel) {
-        await commandModule.removeCommandChannel(guild.id, insertedChannel.id)
+        await commandModule.removeCommandChannel(guild.id, id)
         embed.setTitle(t(`commands:${this.tPath}.removeChannelSuccessfully`))
       } else {
         embed.setColor(Constants.ERROR_COLOR).setTitle(t(`commands:${this.tPath}.channelInvalid`))

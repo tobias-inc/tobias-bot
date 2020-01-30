@@ -39,8 +39,9 @@ module.exports = class MessageResponses extends Listener {
     const language = await this.modules.language.retrieveValue(guildId, 'language');
     const usedPrefix = getPrefix(message, [prefix, `<@!${this.client.user.id}>`, `<@${this.client.user.id}>`]);
 
-    const commandsChannelModule = await this.modules.command.retrieveValue(guildId, 'commandsChannel');
-    const commandsChannel = Object.keys(commandsChannelModule).filter(c => message.guild.channels.has(c));
+    const commandsChannel = await this.modules.commands
+      .retrieveValue(guildId, 'commandsChannel')
+      .then(g => g.filter(c => message.guild.channels.has(c.channelId)).map(c => c.channelId));
 
     if (usedPrefix && (message.content.length > usedPrefix.length)) {
       const fullCmd = message.content.substring(usedPrefix.length).split(/[ \t]+/).filter(a => !spacePrefix || a)
@@ -50,8 +51,7 @@ module.exports = class MessageResponses extends Listener {
       const command = this.commands.find(cmd => (cmd.name === insert) || cmd.aliases.includes(insert))
 
       if (command) {
-        const guild = message.guild
-        if (guild) {
+        if (message.guild) {
           if (
             !message.channel.permissionsFor(this.client.user).has('SEND_MESSAGES') ||
             commandsChannel.length && !commandsChannel.includes(message.channel.id)
