@@ -68,12 +68,16 @@ module.exports = class Module {
     return entity
   }
 
-  updateValues(_guild, values, _user, validate = true) {
+  updateEntity(_guild, entity) {
+    return this._guilds.update(_guild, entity)
+  }
+
+  updateValues(_guild, values, { user, validate = true } = {}) {
     if (!this.client.database) return
 
     let entity = values
     if (validate) {
-      const { error, value } = this.validateValues(values, _guild, _user)
+      const { error, value } = this.validateValues(values, _guild, user)
       entity = value
       if (error) throw error
     }
