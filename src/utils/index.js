@@ -45,8 +45,7 @@ module.exports = class Utils {
         let keyLower = keyR.toLowerCase()
         if (reviews.includes(keyLower)) {
           return str.replace(new RegExp(keyR), () => {
-            const timeResponse = timeResponses.find(key => key[keyR])
-            const value = timeR > 1 || timeR === 0 ? timeResponse[`${keyR}_plural`] : timeResponse[keyR]
+            const value = timeR > 1 || timeR === 0 ? timeResponses[`${keyR}_plural`] : timeResponses[keyR]
             return ` ${value}`
           })
         }
