@@ -18,7 +18,7 @@ module.exports = class Config extends Command {
     embed.setDescription(this.subcommands.map(subcmd => {
       const path = `commands:${subcmd.tPath}`
       return [t(`${path}.info`), subcmd.usage(t, prefix, false)].join('\n')
-    }).join('\n'))
+    }).join('\n\n'))
     channel.send(embed)
   }
 }
