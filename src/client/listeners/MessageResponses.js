@@ -15,6 +15,10 @@ module.exports = class MessageResponses extends Listener {
     return this.client.commands
   }
 
+  get modules() {
+    return this.client.modules
+  }
+
   onMessageUpdate(oldM, newM) {
     if (oldM.author.bot) return
     if (newM.edits.length <= 2) {
@@ -31,9 +35,12 @@ module.exports = class MessageResponses extends Listener {
 
     const guildId = message.guild && message.guild.id;
 
-    const { prefix, spacePrefix } = await this.client.modules.prefix.retrieveValues(guildId, ['prefix', 'spacePrefix']);
-    const language = await this.client.modules.language.retrieveValue(guildId, 'language');
+    const { prefix, spacePrefix } = await this.modules.prefix.retrieveValues(guildId, ['prefix', 'spacePrefix']);
+    const language = await this.modules.language.retrieveValue(guildId, 'language');
     const usedPrefix = getPrefix(message, [prefix, `<@!${this.client.user.id}>`, `<@${this.client.user.id}>`]);
+
+    const commandsChannelModule = await this.modules.command.retrieveValue(guildId, 'commandsChannel');
+    const commandsChannel = Object.keys(commandsChannelModule).filter(c => message.guild.channels.has(c));
 
     if (usedPrefix && (message.content.length > usedPrefix.length)) {
       const fullCmd = message.content.substring(usedPrefix.length).split(/[ \t]+/).filter(a => !spacePrefix || a)
@@ -43,7 +50,13 @@ module.exports = class MessageResponses extends Listener {
       const command = this.commands.find(cmd => (cmd.name === insert) || cmd.aliases.includes(insert))
 
       if (command) {
-        if (message.guild && !message.channel.permissionsFor(this.client.user).has('SEND_MESSAGES')) return
+        const guild = message.guild
+        if (guild) {
+          if (
+            !message.channel.permissionsFor(this.client.user).has('SEND_MESSAGES') ||
+            commandsChannel.length && !commandsChannel.includes(message.channel.id)
+          ) return
+        }
 
         const userDocument = this.client.database && await this.client.database.users.findOne(message.author.id, 'blacklisted');
         if (userDocument && userDocument.blacklisted) return;
