@@ -5,11 +5,10 @@ class UserWrapper {
   constructor(user, channel, language) {
     if (!(user instanceof User)) throw new Error('The user you entered is not a valid user.');
 
-    Object.entries(user).forEach(([k, v]) => this[k] = v);
-
     this.channel = channel
     this.language = language
 
+    Object.entries(user).forEach(([k, v]) => this[k] = v)
     Object.defineProperty(this, 'user', { value: user })
   }
 }
@@ -26,7 +25,7 @@ module.exports = class SocialUtils {
   }
 
   get database() {
-    return this.client.database && this.client.database.users
+    return this.client.database.users
   }
 
   get social() {
@@ -52,9 +51,10 @@ module.exports = class SocialUtils {
 
       const profile = await this.social.retrieveProfile(user.id)
       const { current, next, level } = await this.social.currentXp(profile)
+      const nultiplicateValue = multiplique(level)
 
-      let xp = Math.floor((Math.random() * 4) + 2);
-      xp = xp === 2 ? xp * (multiplique(level) || 1) : xp;
+      let xp = Math.floor((Math.random() * 6) + 4);
+      xp = xp === 2 ? xp * (nultiplicateValue >= 1 ? nultiplicateValue : 1) : xp;
 
       const nextLevel = current + xp >= next;
 
