@@ -6,11 +6,16 @@ const ModuleSchema = new Schema({
 })
 
 const CommandsChannelSchema = new Schema({
-  channel: { type: String, required: true }
+  channelId: { type: String, required: true }
 })
 
 const SystemsDisabledSchema = new Schema({
   name: { type: String, required: true }
+})
+
+const SystemsConfigurableSchema = new Schema({
+  name: { type: String, required: true },
+  config: Object
 })
 
 module.exports = {
@@ -22,6 +27,7 @@ module.exports = {
     prefix: String,
     language: String,
     commandsChannel: [CommandsChannelSchema],
+    systemsConfigurable: [SystemsConfigurableSchema],
     systemsDisabled: [SystemsDisabledSchema],
     modules: {
       type: Map,
