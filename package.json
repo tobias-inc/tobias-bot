@@ -23,6 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/joi": "^17.1.0",
+    "ascii-table": "^0.0.9",
     "canvas": "^2.6.1",
     "chalk": "^3.0.0",
     "cors": "^2.8.5",

@@ -183,6 +183,11 @@ array-flatten@1.1.1:
   resolved "https://registry.yarnpkg.com/array-flatten/-/array-flatten-1.1.1.tgz#9a5f699051b1e7073328f2a008968b64ea2955d2"
   integrity sha1-ml9pkFGx5wczKPKgCJaLZOopVdI=
 
+ascii-table@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/ascii-table/-/ascii-table-0.0.9.tgz#06a6604d6a55d4bf41a9a47d9872d7a78da31e73"
+  integrity sha1-BqZgTWpV1L9BqaR9mHLXp42jHnM=
+
 asn1@~0.2.3:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/asn1/-/asn1-0.2.4.tgz#8d2475dfab553bb33e77b54e59e880bb8ce23136"
