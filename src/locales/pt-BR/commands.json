@@ -68,7 +68,11 @@
       }
     }
   },
-  "rank": {},
+  "rank": {
+    "commandDescription": "Mostra os rank global do bot.",
+    "commandUsage": "[usuário]",
+    "tableTitle": "Classificação Global"
+  },
   "help": {
     "commandDescription": "Mostra as principais informações do bot.",
     "commandUsage": "[nome do comando]",

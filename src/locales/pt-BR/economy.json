@@ -7,5 +7,11 @@
   "leveluped": "SUBIU DE LEVEL!",
   "lvl": "LVL",
   "rank": "RANK",
-  "personalText": "Texto Pessoal"
+  "personalText": "Texto Pessoal",
+  "texts": {
+    "rank": "Classificação",
+    "user": "Usuário",
+    "level": "Level",
+    "xp": "XP"
+  }
 }
