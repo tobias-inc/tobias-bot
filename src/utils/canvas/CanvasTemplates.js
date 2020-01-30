@@ -185,7 +185,7 @@ module.exports = class CanvasTemplates {
     ctx.write(LEVEL_TEXT, (LEVEL_LABEL.width + (LEVEL_X * 2) + LevelNumberTextMeasure.width) / 2, LEVEL_LABEL.bottomY + 40, bolderFont('60px'), 4)
     ctx.writeParagraph(
       personalText,
-      bolderFont('24px'),
+      bolderFont('22px'),
       LINE_X,
       PERSONAL_LABEL.bottomY + 10,
       LINE_MAX_X,
@@ -193,6 +193,17 @@ module.exports = class CanvasTemplates {
       10,
       1
     )
+
+    /*
+        ctx.printAt(
+      personalText,
+      LINE_X,
+      PERSONAL_LABEL.bottomY + 30,
+      25,
+      520,
+      bolderFont('22px')
+    )
+    */
 
     return canvas.toBuffer()
   }
