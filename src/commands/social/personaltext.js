@@ -1,6 +1,6 @@
 const { Command, ClientEmbed, Constants } = require("../../");
 
-const TEXT_MAX_LENGTH = 23;
+const TEXT_MAX_LENGTH = 86;
 
 module.exports = class PersonalText extends Command {
   constructor(client, path) {
