@@ -44,6 +44,30 @@
       }
     }
   },
+  "commandchannel": {
+    "commandDescription": "Configura os canais que o bot aceita comandos.",
+    "commandUsage": "[configuração]",
+    "subcommands": {
+      "set": {
+        "commandDescription": "Inseri um canal na lista branca.",
+        "commandUsage": "<canal>",
+        "info": "**Para inserir um canal**:",
+        "setChannelSuccessfully": "O canal **{{- name}}** foi setado com sucesso!"
+      },
+      "remove": {
+        "commandDescription": "Remove um canal da lista branca.",
+        "commandUsage": "<canal>",
+        "info": "**Para remover um canal**:",
+        "removeChannelSuccessfully": "Canal removido com sucesso!",
+        "channelInvalid": "Este canal não está setado!"
+      },
+      "list": {
+        "commandDescription": "Lista todos os comandos setados.",
+        "info": "**Para listar todos os canais**:",
+        "noChannels": "Nenhum canal setado!"
+      }
+    }
+  },
   "rank": {},
   "help": {
     "commandDescription": "Mostra as principais informações do bot.",
