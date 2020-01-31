@@ -16,6 +16,8 @@ module.exports = class CommandContext {
     this.args = options.args
     this.command = options.command
 
+    this.instancedTimestamp = options.instancedTimestamp
+
     this.t = () => { throw new Error('Invalid FixedT') }
     this.flags = {}
   }
