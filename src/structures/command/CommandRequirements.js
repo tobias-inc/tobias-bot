@@ -61,7 +61,7 @@ module.exports = class CommandRequirements {
       throw new CommandError(t(opts.errors.databaseOnly))
     }
 
-    if (opts.playerManagerOnly && !client.playerManager || !client.playerManager.isOnline(guild.region)) {
+    if (opts.playerManagerOnly && !(client.playerManager && client.playerManager.isOnline(guild.region))) {
       throw new CommandError(t(opts.errors.playerManagerOnly))
     }
 
