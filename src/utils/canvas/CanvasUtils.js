@@ -29,29 +29,13 @@ module.exports = class CanvasUtils {
   static initializeHelpers() {
     const self = this;
 
-    registerFont('src/assets/fonts/Azonix.otf', { family: 'Azonix' })
     registerFont('src/assets/fonts/BebasNeueRegular.ttf', { family: 'Bebas Neue' })
-    registerFont('src/assets/fonts/BigNoodleTitlingOblique.ttf', { family: 'Big Noodle' })
-    registerFont('src/assets/fonts/ChampagneBold.ttf', { family: 'Champagne' })
-    registerFont('src/assets/fonts/ChampagnBold- Italic.ttf', { family: 'Champagne', style: 'italic' })
-    registerFont('src/assets/fonts/CocogooseTrial.ttf', { family: 'Cocogoose ' })
-    registerFont('src/assets/fonts/CocogooseItalic-Trial.ttf', { family: 'Cocogoose', style: 'italic' })
-    registerFont('src/assets/fonts/CocogooseSemilight-Trial.ttf', { family: 'Cocogoose Light' })
-    registerFont('src/assets/fonts/CocogooseSemilightItalic-Trial.ttf', { family: 'Cocogoose Light', style: 'italic' })
-    registerFont('src/assets/fonts/CocogooseUltralight-Trial.ttf', { family: 'Cocogoose Ultralight' })
-    registerFont('src/assets/fonts/CocogooseUltraLightItalic-Trial.ttf', { family: 'Cocogoose Ultralight', style: 'italic' })
-    registerFont('src/assets/fonts/CoolkidsPersonalUse.ttf', { family: 'Coolkids Personal' })
     registerFont('src/assets/fonts/LemonMilk.otf', { family: 'Lemon Milk' })
     registerFont('src/assets/fonts/LemonMilkItalic.otf', { family: 'Lemon Milk', style: 'italic' })
     registerFont('src/assets/fonts/LemonMilkBold.otf', { family: 'Lemon Milk Bold' })
     registerFont('src/assets/fonts/LemonMilkBold-Italic.otf', { family: 'Lemon Milk Bold', style: 'italic' })
     registerFont('src/assets/fonts/LemonMilkLight.otf', { family: 'Lemon Milk Light' })
     registerFont('src/assets/fonts/LemonMilkLight-Italic.otf', { family: 'Lemon Milk Light', style: 'italic' })
-    registerFont('src/assets/fonts/Provicali.otf', { family: 'Provicali' })
-    registerFont('src/assets/fonts/RobotoRegular.ttf', { family: 'Roboto' })
-    registerFont('src/assets/fonts/RobotoItalic.ttf', { family: 'Roboto', style: 'italic' })
-    registerFont('src/assets/fonts/RobotoBlack.ttf', { family: 'Roboto Black' })
-    registerFont('src/assets/fonts/RobotoBlack-Italic.ttf', { family: 'Roboto Black', style: 'italic' })
     registerFont('src/assets/fonts/Montserrat-Thin.otf', { family: 'Montserrat Thin' })
     registerFont('src/assets/fonts/Montserrat-ThinItalic.otf', { family: 'Montserrat Thin', style: 'italic' })
     registerFont('src/assets/fonts/Montserrat-Light.otf', { family: 'Montserrat Light' })
@@ -69,33 +53,34 @@ module.exports = class CanvasUtils {
     registerFont('src/assets/fonts/Montserrat-Black.otf', { family: 'Montserrat Black' })
     registerFont('src/assets/fonts/Montserrat-BlackItalic.otf', { family: 'Montserrat Black', style: 'italic' })
 
-    Image.from = function (src) {
-      if (!src) src = Constants.DEFAULT_BACKGROUND
-      return loadImage(src)
+    Image.from = async (src, errorSource) => {
+      const defaultSource = Constants.DEFAULT_BACKGROUND
+      try {
+        src = src || defaultSource
+        const imageLoaded = await loadImage(src)
+        return imageLoaded
+      } catch (e) {
+        if (errorSource) return Image.from(errorSource)
+        return loadImage(defaultSource)
+      }
     }
 
     Image.buffer = (url, localFile = false) => localFile ? FileUtils.readFile(url) : URLtoBuffer(url);
 
     Context2d.prototype.printAt = function (text, x, y, lineHeight, fitWidth = x + y, font = '16px "Montserrat"') {
-      const words = text.split(' ')
+      const completeWidth = fitWidth * 1.5
+      const words = (self.splitText(text, completeWidth, { font, ctx: this })).split(' ')
       const wordsRenders = []
 
       let inX = x
       let inHeight = y
-      let completeWidth = fitWidth * 1.5
       for (let word of words) {
         const { width, height } = self.measureText(this, font, `${word} `)
         if ((inX + width) > completeWidth) {
           inHeight += lineHeight
           inX = x
         }
-        wordsRenders.push({
-          x: inX,
-          y: inHeight,
-          word,
-          width,
-          height
-        })
+        wordsRenders.push({ x: inX, y: inHeight, word, width, height })
         inX = inX + width
       }
 
@@ -290,6 +275,40 @@ module.exports = class CanvasUtils {
       this.drawImage(canvas, x, y, w, h)
       return canvas
     }
+  }
+
+  static splitText(text, completeWidth, { font, ctx }) {
+    const textSplited = text
+      .split(' ')
+      .map(word => {
+        const { width } = this.measureText(ctx, font, word)
+        if (width > completeWidth) {
+          const wordsScaped = []
+
+          const letters = word.split('')
+          const maxIndex = Math.floor(
+            letters.findIndex((w, j) => {
+              const word = letters.slice(0, j + 1).join('')
+              const wordText = this.measureText(ctx, font, word)
+              if (wordText.width <= completeWidth) return false
+              else return true
+            }) * 0.5
+          )
+
+          const splitTextLength = Math.floor(word.length / maxIndex)
+
+          let inIndex = 0;
+          for (let i = 0; i < splitTextLength + 1; i++) {
+            let max = maxIndex * (i + 1)
+            if (i === splitTextLength) max = word.length
+            wordsScaped.push(letters.slice(inIndex, max).join(''))
+            inIndex += maxIndex
+          }
+          return wordsScaped.join('- ')
+        }
+        return word
+      })
+    return textSplited.join(' ')
   }
 
   static measureText(ctx, font, text) {

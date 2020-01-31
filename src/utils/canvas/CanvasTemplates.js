@@ -1,9 +1,15 @@
 const moment = require("moment");
+const { Util } = require("discord.js");
 const { createCanvas, Image } = require("canvas");
 
 const CanvasUtils = require("./CanvasUtils.js");
 const Constants = require("../Constants.js");
 const Color = require("../Color.js");
+
+const maxLength = (text, length) => {
+  if (text.length > length) return text.toString().substring(0, length) + '...'
+  return text
+}
 
 module.exports = class CanvasTemplates {
   static async levelUpdated(user, t, { level, background, favColor }) {
@@ -139,7 +145,7 @@ module.exports = class CanvasTemplates {
     const TAG_Y = 206;
 
     ctx.fillStyle = '#FFF';
-    ctx.write(user.username, WIDTH - USERNAME_X, USERNAME_Y, bolderItalicFont(), 8);
+    ctx.write(maxLength(user.username, 14), WIDTH - USERNAME_X, USERNAME_Y, bolderItalicFont(), 8);
     ctx.write(user.discriminator, TAG_X, TAG_Y, bolderItalicFont(), 8)
 
     const XP_TEXT = `XP: ${current} / ${next}`;
@@ -183,27 +189,14 @@ module.exports = class CanvasTemplates {
 
     ctx.fillStyle = FAV_COLOR;
     ctx.write(LEVEL_TEXT, (LEVEL_LABEL.width + (LEVEL_X * 2) + LevelNumberTextMeasure.width) / 2, LEVEL_LABEL.bottomY + 40, bolderFont('60px'), 4)
-    ctx.writeParagraph(
-      personalText,
-      bolderFont('22px'),
+    ctx.printAt(
+      Util.escapeMarkdown(personalText),
       LINE_X,
-      PERSONAL_LABEL.bottomY + 10,
-      LINE_MAX_X,
-      canvas.height - 25,
-      10,
-      1
+      PERSONAL_LABEL.bottomY + 25,
+      25,
+      520,
+      bolderFont('22px')
     )
-
-    // 
-    //     ctx.printAt(
-    // personalText,
-    // LINE_X,
-    // PERSONAL_LABEL.bottomY + 30,
-    // 25,
-    // 520,
-    // bolderFont('22px')
-    // )
-    // 
 
     return canvas.toBuffer()
   }
@@ -271,11 +264,14 @@ module.exports = class CanvasTemplates {
     const LEFT_TEXT_MARGIN = THUMBNAIL_WIDTH + 20
 
     // Title
+
     let titleLength = title.length
     title = titleLength > 50 ? `${title.split(' ').slice(0, 8).join(' ')}...` : title
     const TITLE_FONT = 'italic 34px "Montserrat Black"'
-    const titleY = ctx.printAt(title, LEFT_TEXT_MARGIN, 40, 35, (WIDTH - THUMBNAIL_WIDTH) - 20, TITLE_FONT)
+    const titleY = ctx.printAt(Util.escapeMarkdown(title), LEFT_TEXT_MARGIN, 40, 35, (WIDTH - THUMBNAIL_WIDTH) - 20, TITLE_FONT)
+
     // Author
+
     ctx.fillStyle = FAV_COLOR_RGBA.replace('.4', '.6')
     const AUTHOR_FONT = 'italic 22px Montserrat ExtraBold'
     ctx.printAt(author, LEFT_TEXT_MARGIN, Number(titleY) + 10, 30, (WIDTH - THUMBNAIL_WIDTH) - 20, AUTHOR_FONT)
