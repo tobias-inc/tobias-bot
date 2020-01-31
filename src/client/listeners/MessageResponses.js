@@ -33,6 +33,7 @@ module.exports = class MessageResponses extends Listener {
   async onMessage(message, emited) {
     if (message.author.bot) return;
 
+    const now = Date.now()
     const guildId = message.guild && message.guild.id;
 
     const { prefix, spacePrefix } = await this.modules.prefix.retrieveValues(guildId, ['prefix', 'spacePrefix']);
@@ -52,9 +53,11 @@ module.exports = class MessageResponses extends Listener {
 
       if (command) {
         if (message.guild) {
+          if (!message.channel.permissionsFor(this.client.user).has('SEND_MESSAGES')) return
           if (
-            !message.channel.permissionsFor(this.client.user).has('SEND_MESSAGES') ||
-            commandsChannel.length && !commandsChannel.includes(message.channel.id)
+            commandsChannel.length &&
+            !commandsChannel.includes(message.channel.id) &&
+            !message.member.hasPermission('MANAGE_GUILD')
           ) return
         }
 
@@ -63,7 +66,8 @@ module.exports = class MessageResponses extends Listener {
 
         const context = new CommandContext({
           client: this.client,
-          aliase: (command.aliases.find(al => (al === insert.toLowerCase())) || command.name),
+          instancedTimestamp: now,
+          aliase: insert,
           usedPrefix, message, command, prefix, args, language
         })
 
@@ -84,6 +88,6 @@ module.exports = class MessageResponses extends Listener {
     if (!this.client.playerManager) return
     const guildPlayer = this.client.playerManager.get(newMember.guild.id)
     if (!guildPlayer) return
-    setTimeout(() => guildPlayer.updateVoiceState(oldMember, newMember), 2000)
+    setTimeout(() => guildPlayer.updateVoiceState(oldMember, newMember), 5000)
   }
 }
