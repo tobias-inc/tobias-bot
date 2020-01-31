@@ -194,16 +194,16 @@ module.exports = class CanvasTemplates {
       1
     )
 
-    /*
-        ctx.printAt(
-      personalText,
-      LINE_X,
-      PERSONAL_LABEL.bottomY + 30,
-      25,
-      520,
-      bolderFont('22px')
-    )
-    */
+    // 
+    //     ctx.printAt(
+    // personalText,
+    // LINE_X,
+    // PERSONAL_LABEL.bottomY + 30,
+    // 25,
+    // 520,
+    // bolderFont('22px')
+    // )
+    // 
 
     return canvas.toBuffer()
   }
