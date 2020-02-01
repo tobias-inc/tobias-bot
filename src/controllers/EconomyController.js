@@ -50,10 +50,6 @@ module.exports = class EconomyController extends Controller {
     this.subcontrollers = [new BonusController(this, client)]
   }
 
-  canLoad() {
-    return !!this.client.database
-  }
-
   get _users() {
     return this.client.database.users
   }

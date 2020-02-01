@@ -49,10 +49,6 @@ module.exports = class SocialController extends Controller {
     this.subcontrollers = [new RepController(this, client)]
   }
 
-  canLoad() {
-    return !!this.client.database
-  }
-
   get _users() {
     return this.client.database.users
   }
@@ -83,15 +79,18 @@ module.exports = class SocialController extends Controller {
   }
 
   async getRank(_user, getSorted = false) {
-    const usersSorted = await this._users.findAll(['type', 'economy.xp', 'economy.level'], {
-      sort: {
-        'economy.xp': -1
+    const usersSorted = await this._users.findAll(
+      ['type', 'economy.xp', 'economy.level'],
+      {
+        sort: {
+          'economy.xp': -1
+        }
       }
-    })
+    )
 
     if (_user) {
-      const userIndex = usersSorted.findIndex(u => u._id === _user);
-      const inRank = userIndex !== -1 ? userIndex + 1 : this.client.users.size;
+      const userIndex = usersSorted.findIndex(u => u._id === _user)
+      const inRank = userIndex !== -1 ? userIndex + 1 : this.client.users.size
       if (!getSorted) return inRank
       return { inRank, usersSorted }
     }
@@ -99,9 +98,10 @@ module.exports = class SocialController extends Controller {
   }
 
   async currentXp(_user) {
-    const { economy: { xp, levels, level } } = _user instanceof Object ? _user : await this._users.findOne(_user);
-    const levelReduced = levels.slice(0, levels.length - 1).map(r => r.maxXp).reduce((a, b) => a + b)
-    const current = levels.length > 1 ? xp - levelReduced : xp;
+    const userIsObj = _user instanceof Object
+    const { economy: { xp, levels, level } } = userIsObj ? _user : await this._users.findOne(_user)
+    const levelReduced = levels.slice(0, levels.length - 1).map(r => r.maxXp)
+    const current = levels.length > 1 ? xp - levelReduced.reduce((a, b) => a + b) : xp
     return { current, next: Utils.XPtoNextLevel(level), level }
   }
 }

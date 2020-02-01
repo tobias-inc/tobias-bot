@@ -2,14 +2,13 @@ module.exports = class Controller {
   constructor(name, client, parent) {
     this.name = name
     this.client = client
-
-    if (parent) this.parent = parent
-
     this.subcontrollers = []
+
+    this.parent = parent
   }
 
   canLoad() {
-    return true
+    return !!this.client.database
   }
 
   load() {
