@@ -13,15 +13,16 @@ module.exports = class UserRepository extends MongoRepository {
       economy: {
         lastDaily: 0,
         lastRep: 0,
+        level: 1,
         xp: 0,
         rep: 0,
         bank: 0,
         pocket: 0,
-        level: 1,
-        levels: [{ level: 1, maxXp: Utils.XPtoNextLevel(1) }],
         favColor: Constants.FAV_COLOR,
         personalText: Constants.DEFAULT_PERSONAL_TEXT,
         background: Constants.DEFAULT_BACKGROUND,
+        guildExperience: [],
+        levels: [{ level: 1, maxXp: Utils.XPtoNextLevel(1) }],
         badges: []
       },
       vip: [],
@@ -32,7 +33,7 @@ module.exports = class UserRepository extends MongoRepository {
   getParse() {
     return {
       economy: {
-        by: Date.now(),
+        createdAt: Date.now(),
         levels: [{ level: 1, maxXp: Utils.XPtoNextLevel(1) }]
       }
     }

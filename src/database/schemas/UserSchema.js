@@ -14,6 +14,11 @@ const VipSchema = new Schema({
   date: { type: Number, default: Date.now() }
 })
 
+const GuildExperienceSchema = new Schema({
+  guildId: { type: String, required: true },
+  xp: { type: Number, default: 0 }
+})
+
 const LevelSchema = new Schema({
   level: { type: Number, required: true },
   maxXp: { type: Number, required: true }
@@ -25,18 +30,19 @@ const BadgeSchema = new Schema({
 })
 
 const EconomySchema = new Schema({
-  by: { type: Date, required: true },
+  createdAt: { type: Date, required: true },
   lastDaily: { type: Number, default: 0 },
   lastRep: { type: Number, default: 0 },
+  level: { type: Number, default: 1 },
   xp: { type: Number, default: 0 },
   rep: { type: Number, default: 0 },
   bank: { type: Number, default: 0 },
   pocket: { type: Number, default: 0 },
-  level: { type: Number, default: 1 },
-  levels: [LevelSchema],
   favColor: { type: String, default: Constants.FAV_COLOR },
   personalText: { type: String, default: 'Nothing inserted...' },
   background: { type: String, default: Constants.DEFAULT_BACKGROUND },
+  guildExperience: [GuildExperienceSchema],
+  levels: [LevelSchema],
   badges: [BadgeSchema]
 })
 
