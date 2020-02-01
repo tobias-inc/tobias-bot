@@ -19,10 +19,11 @@ module.exports = class FileUtils {
             file: file.replace(/\.(js|json)$/, ''),
             required,
             fullPath
-          });
+          })
           return required
         } catch (e) {
-          error && error(e, file.replace(/\.(js|json)$/, ''))
+          if (typeof error === 'function') return error(e, file.replace(/\.(js|json)$/, ''))
+          throw e
         }
       } else if (recursive) {
         const isDirectory = await FileUtils.stat(fullPath).then(f => f.isDirectory())
@@ -30,7 +31,7 @@ module.exports = class FileUtils {
           return FileUtils.requireDirectory(fullPath, call, error)
         }
       }
-    })).then(() => filesObject).catch(console.error)
+    })).then(() => filesObject)
   }
 }
 
