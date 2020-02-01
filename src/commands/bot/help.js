@@ -86,7 +86,7 @@ module.exports = class Help extends Command {
         `${t('client:description')}`, '',
         `**${t('commons:utils.additional')}**`,
         `${t('client:viewCommandList')}:`, '',
-        `**${chosenCategory.capitalize()}**: ${someCommands.map(cmd => `\`${cmd.name}\``).join(', ')}...`,
+        `**${t(`categories:${chosenCategory}`)}**: ${someCommands.map(cmd => `\`${cmd.name}\``).join(', ')}...`,
         `${t('commands:help.specificInformation', { helpString: this.usage(t, prefix, false, true) })}`, '',
         `${t('client:toKnowMoreHelp', { commandString })} ${Utils.websiteUrl('commands')}`, '',
         `**${t('client:aboutHelping')} ?**`, Utils.websiteUrl('donate'),
