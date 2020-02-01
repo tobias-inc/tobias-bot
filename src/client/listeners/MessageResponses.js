@@ -48,8 +48,8 @@ module.exports = class MessageResponses extends Listener {
       const fullCmd = message.content.substring(usedPrefix.length).split(/[ \t]+/).filter(a => !spacePrefix || a)
       const args = fullCmd.slice(1);
 
-      const insert = fullCmd[0].toLowerCase().trim();
-      const command = this.commands.find(cmd => (cmd.name === insert) || cmd.aliases.includes(insert))
+      const aliase = fullCmd[0].toLowerCase().trim()
+      const command = this.commands.find(cmd => (cmd.name === aliase) || cmd.aliases.includes(aliase))
 
       if (command) {
         if (message.guild) {
@@ -61,24 +61,20 @@ module.exports = class MessageResponses extends Listener {
           ) return
         }
 
-        const userDocument = this.client.database && await this.client.database.users.findOne(message.author.id, 'blacklisted');
-        if (userDocument && userDocument.blacklisted) return;
-
         const context = new CommandContext({
           client: this.client,
           instancedTimestamp: now,
-          aliase: insert,
-          usedPrefix, message, command, prefix, args, language
+          usedPrefix, message, command, prefix, args, language, aliase
         })
 
         context.setFixedT(this.client.language.lang(language))
-        await command
+        command
           ._run(context, args)
           .catch((e) => this.client.console(true, (e.stack || e), 'CommandRun', command.name))
       }
     }
 
-    if (!emited && message.guild) {
+    if (!emited && message.guild && this.client.database) {
       const user = new SocialUtils.userWrapper(message.author, message.channel, language);
       return this.socialUtils.upsert(user);
     }
