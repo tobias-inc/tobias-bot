@@ -56,7 +56,7 @@ module.exports = class Command {
       this.error(context, e)
     }
 
-    return true
+    return context.channel.stopTyping(true)
   }
 
   run() { }
