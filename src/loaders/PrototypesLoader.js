@@ -15,8 +15,7 @@ module.exports = class PrototypesLoader extends Loader {
   loadPrototypes() {
     return FileUtils.requireDirectory(
       'src/utils/prototypes',
-      this.validatePrototype.bind(this),
-      (e, file) => this.client.console(true, (e.stack || e), this.name, file)
+      this.validatePrototype.bind(this)
     ).then(() => this.loadedPrototypes)
   }
 

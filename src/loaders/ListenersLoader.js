@@ -14,8 +14,7 @@ module.exports = class ListenersLoader extends Loader {
     return FileUtils
       .requireDirectory(
         'src/client/listeners',
-        this.validateListener.bind(this),
-        (e, file) => this.client.console(true, (e.stack || e), this.name, file)
+        this.validateListener.bind(this)
       )
       .then(() => true)
   }

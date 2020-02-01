@@ -15,8 +15,7 @@ module.exports = class ModulesLoader extends Loader {
   loadModules() {
     return FileUtils.requireDirectory(
       'src/modules',
-      this.validateModule.bind(this),
-      (e, file) => this.client.console(true, (e.stack || e), this.name, file)
+      this.validateModule.bind(this)
     ).then(() => this.modules)
   }
 
