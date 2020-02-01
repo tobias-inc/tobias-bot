@@ -7,12 +7,8 @@ module.exports = class UserResponses extends Listener {
     this.events = ['userLevelUp']
   }
 
-  get module() {
-    return this.client.database.guilds
-  }
-
-  get social() {
-    return this.client.database.users
+  get database() {
+    return this.client.database
   }
 
   async onUserLevelUp(user, userDocument) {
@@ -20,7 +16,7 @@ module.exports = class UserResponses extends Listener {
     const channel = user.channel;
 
     try {
-      const insertNewLevel = await this.social.update(user.id, {
+      const insertNewLevel = await this.database.users.update(user.id, {
         $push: {
           'economy.levels': {
             level, maxXp: Utils.XPtoNextLevel(userDocument.level)
@@ -31,14 +27,13 @@ module.exports = class UserResponses extends Listener {
       // Send
 
       if (channel instanceof Channel) {
-        const { systemsDisabled } = await this.module.findOne(channel.guild.id, 'systemsDisabled');
-
+        const { systemsDisabled } = await this.database.guilds.findOne(channel.guild.id, 'systemsDisabled');
         if (systemsDisabled.some(system => system.name.toUpperCase() === 'LEVEL_UP')) return;
 
         const t = this.client.language.lang(user.language);
         const updateImage = await CanvasTemplates.levelUpdated(user.user, t, userDocument)
 
-        channel
+        await channel
           .send(
             t('economy:levelup', { level, username: user.username }),
             new Attachment(updateImage, 'levelup.jpg')
