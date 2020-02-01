@@ -11,7 +11,7 @@ module.exports = class CommandModule extends Module {
     this.defaultValues = { commandsChannel: [] }
   }
 
-  retrieveValue(_guild, value) {
+  async retrieveValue(_guild, value) {
     if (!this.client.database) return this.defaultValues[value]
     return this._guilds.findOne(_guild, value).then(g => g[value])
   }
