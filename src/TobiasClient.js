@@ -21,7 +21,7 @@ module.exports = class TobiasClient extends Client {
   }
 
   login(token = process.env.DISCORD_TOKEN) {
-    return super.login(token).catch((e) => {
+    return super.login(token).catch(e => {
       this.console(true, (e.stack || e), 'LOGIN');
       process.exit(1);
     })
