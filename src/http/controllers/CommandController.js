@@ -3,7 +3,7 @@ const { Router } = require("express");
 
 module.exports = class CommandController extends ClientRouter {
   constructor(client) {
-    super('command', client)
+    super('commands', client)
   }
 
   register(app) {
