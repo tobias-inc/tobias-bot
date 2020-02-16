@@ -56,7 +56,7 @@ module.exports = class CommandController extends ClientRouter {
     router.get("/@me/guilds", async (req, res) => {
       try {
         const { accessToken } = req.userParameters;
-        const guilds = await EndPoints.getGuilds(accessToken);
+        const guilds = await EndPoints.getGuilds(this.client, accessToken);
         return res.json({ guilds });
       } catch (e) {
         return res.status(400).json({ error: "Bad request!" });
