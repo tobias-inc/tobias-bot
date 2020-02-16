@@ -1,13 +1,13 @@
 const { Router: ClientRouter } = require("../../");
 const { Router } = require("express");
-const fetch = require("node-fetch");
 const jwt = require("jsonwebtoken");
 
-const API_URL = "https://discordapp.com/api";
+const EndPoints = require("../../utils/EndPoints.js");
+const authMiddleware = require("../middlewares/needAuthorization.js");
 
 module.exports = class CommandController extends ClientRouter {
   constructor(client) {
-    super("user", client);
+    super("users", client);
   }
 
   register(app) {
@@ -23,7 +23,7 @@ module.exports = class CommandController extends ClientRouter {
           expires_in: expiresIn,
           refresh_token: refreshToken,
           token_type: tokenType
-        } = await this.getToken(code);
+        } = await EndPoints.getToken(code);
 
         return res.json({
           token: jwt.sign(
@@ -41,22 +41,28 @@ module.exports = class CommandController extends ClientRouter {
       }
     });
 
+    router.use(authMiddleware);
+
+    router.get("/@me", async (req, res) => {
+      try {
+        const { accessToken } = req.userParameters;
+        const user = await EndPoints.getUser(accessToken);
+        return res.json({ user });
+      } catch (e) {
+        return res.status(400).json({ error: "Bad request!" });
+      }
+    });
+
+    router.get("/@me/guilds", async (req, res) => {
+      try {
+        const { accessToken } = req.userParameters;
+        const guilds = await EndPoints.getGuilds(accessToken);
+        return res.json({ guilds });
+      } catch (e) {
+        return res.status(400).json({ error: "Bad request!" });
+      }
+    });
+
     return app.use(this.path, router);
-  }
-
-  getToken(code, scope = "identify guilds") {
-    const config = {
-      grant_type: "authorization_code",
-      client_id: process.env.DISCORD_ID,
-      client_secret: process.env.DISCORD_SECRET,
-      redirect_uri: process.env.DISCORD_REDIRECT,
-      scope,
-      code
-    };
-
-    return fetch(`${API_URL}/oauth2/token`, {
-      method: "POST",
-      body: new URLSearchParams(config)
-    }).then(res => (res.ok ? res.json() : Promise.reject(res)));
   }
 };
