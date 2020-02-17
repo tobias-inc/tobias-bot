@@ -7,6 +7,13 @@ module.exports = class EndPoints {
     return this.request("/users/@me", accessToken);
   }
 
+  static getGuild(client, guildId, accessToken) {
+    return this.request(
+      `/users/@me/guilds/${guildId}`,
+      accessToken
+    ).then(g => ({ ...g, common: client.guilds.has(g.id) }));
+  }
+
   static getGuilds(client, accessToken) {
     return this.request("/users/@me/guilds", accessToken).then(gs =>
       gs.map(g => {

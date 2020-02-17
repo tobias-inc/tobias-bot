@@ -63,6 +63,25 @@ module.exports = class CommandController extends ClientRouter {
       }
     });
 
+    router.get("/@me/guilds/:id", async (req, res) => {
+      try {
+        const { id } = req.params;
+        if (!id) throw new Error("No id entered!");
+
+        const guild = this.client.guilds.get(id);
+        if (!guild) throw new Error("guild Invalid!");
+
+        const databaseInfo = await this.client.database.guilds.findOne(id);
+        const { id: guildId, name, icon, features } = guild;
+        return res.json({
+          guild: { id: guildId, name, icon, features },
+          databaseInfo
+        });
+      } catch (e) {
+        return res.status(400).json({ error: "Bad request!" });
+      }
+    });
+
     return app.use(this.path, router);
   }
 };
