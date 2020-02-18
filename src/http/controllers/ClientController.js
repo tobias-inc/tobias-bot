@@ -21,7 +21,7 @@ module.exports = class ClientController extends ClientRouter {
         c => c.name === name.toLocaleLowerCase() || c.aliases.includes(name)
       )
 
-      if (!command) return res.status(400).json()
+      if (!command) return res.status(400).json({ error: 'Not command!' })
       return res.json({ command: command.asJSON(t) })
     })
 

@@ -2,7 +2,6 @@ const Joi = require('@hapi/joi')
 const { Module } = require('../')
 
 const CHANNEL_ID_LENGTH = 18
-const SYSTEM_THAT_DISABLE = ['LEVEL_UP']
 
 module.exports = class CommandModule extends Module {
   constructor (client) {
