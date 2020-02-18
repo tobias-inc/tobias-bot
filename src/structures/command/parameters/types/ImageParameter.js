@@ -1,12 +1,12 @@
-const Parameter = require("./Parameter.js");
-const CommandError = require("../../CommandError.js");
+const Parameter = require('./Parameter.js')
+const CommandError = require('../../CommandError.js')
 
 const URL_REGEX = /^(https|http):\/\/[^\s$.?#].[^\s]*$/gm
 
-const defVal = (o, k, d) => typeof o[k] === 'undefined' ? d : o[k]
+const defVal = (o, k, d) => (typeof o[k] === 'undefined' ? d : o[k])
 
 module.exports = class ImageParameter extends Parameter {
-  static parseOptions(options = {}) {
+  static parseOptions (options = {}) {
     return {
       ...super.parseOptions(options),
       acceptUrl: defVal(options, 'acceptUrl', true),
@@ -18,17 +18,17 @@ module.exports = class ImageParameter extends Parameter {
     }
   }
 
-  static parse(arg, { message, args, t }) {
-    const regexResult = URL_REGEX.test(arg);
+  static parse (arg, { message, args, t }) {
+    const regexResult = URL_REGEX.test(arg)
     if (regexResult) {
       if (!this.acceptUrl) throw new CommandError(t(this.errors.notAcceptUrl))
       const url = args.find(u => URL_REGEX.test(u))
       return url
     }
 
-    const messageAttachments = message.attachments;
+    const messageAttachments = message.attachments
     if (messageAttachments.size) {
-      if (!this.acceptAttachment) throw new Error(this.errors.notAcceptAttachment)
+      if (!this.acceptAttachment) { throw new Error(this.errors.notAcceptAttachment) }
       return messageAttachments.first().url
     }
   }

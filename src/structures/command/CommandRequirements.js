@@ -1,8 +1,8 @@
-const CommandError = require("./CommandError.js");
-const PermissionUtils = require('../../utils/PermissionUtils.js');
+const CommandError = require('./CommandError.js')
+const PermissionUtils = require('../../utils/PermissionUtils.js')
 
 module.exports = class CommandRequirements {
-  static parseOptions(options = {}) {
+  static parseOptions (options = {}) {
     return {
       permissions: options.permissions,
       botPermissions: options.botPermissions,
@@ -22,6 +22,7 @@ module.exports = class CommandRequirements {
 
       errors: {
         databaseOnly: 'errors:databaseOnly',
+        playerManagerOnly: 'errors:playerManagerOnly',
         devOnly: 'errors:developerOnly',
         guildOnly: 'errors:guildOnly',
         cooldown: 'errors:cooldown',
@@ -37,12 +38,16 @@ module.exports = class CommandRequirements {
     }
   }
 
-  static handle({
-    t, author, channel, client, command, guild, voiceChannel, member
-  }, options) {
-    const opts = this.parseOptions(options);
+  static handle (
+    { t, author, channel, client, command, guild, voiceChannel, member },
+    options
+  ) {
+    const opts = this.parseOptions(options)
 
-    if (command.cooldownFeedback && !PermissionUtils.isDeveloper(client, author)) {
+    if (
+      command.cooldownFeedback &&
+      !PermissionUtils.isDeveloper(client, author)
+    ) {
       if (command.cooldown.has(author.id)) {
         throw new CommandError(t(opts.errors.cooldown))
       }
@@ -60,37 +65,59 @@ module.exports = class CommandRequirements {
       throw new CommandError(t(opts.errors.databaseOnly))
     }
 
-    if (opts.playerManagerOnly && !client.playerManager) {
+    if (
+      opts.playerManagerOnly &&
+      !(client.playerManager && client.playerManager.isOnline(guild.region))
+    ) {
       throw new CommandError(t(opts.errors.playerManagerOnly))
     }
 
     if (opts.apis && opts.apis.some(api => !client.apis[api])) {
-      const count = opts.apis.filter(api => !client.apis[api]).length;
-      throw new CommandError(t((count > 1 ? opts.errors.api.multiple : opts.errors.api.one), { count }))
+      const count = opts.apis.filter(api => !client.apis[api]).length
+      throw new CommandError(
+        t(count > 1 ? opts.errors.api.multiple : opts.errors.api.one, { count })
+      )
     }
 
     if (opts.permissions && opts.permissions.length > 0) {
       if (!channel.permissionsFor(member).has(opts.permissions)) {
-        const permission = opts.permissions.map(p => t(`permissions:${p}`)).map(p => `**"${p}"**`).join(', ')
-        const sentence = opts.permissions.length >= 1 ? 'errors:missingOnePermission' : 'errors:missingMultiplePermissions'
+        const permission = opts.permissions
+          .map(p => t(`permissions:${p}`))
+          .map(p => `**"${p}"**`)
+          .join(', ')
+        const sentence =
+          opts.permissions.length >= 1
+            ? 'errors:missingOnePermission'
+            : 'errors:missingMultiplePermissions'
         throw new CommandError(t(sentence, { permission }))
       }
     }
 
     if (opts.botPermissions && opts.botPermissions.length > 0) {
       if (!channel.permissionsFor(guild.me).has(opts.permissions)) {
-        const permission = opts.botPermissions.map(p => t(`permissions:${p}`)).map(p => `**"${p}"**`).join(', ')
-        const sentence = opts.botPermissions.length >= 1 ? 'errors:botMissingOnePermission' : 'errors:botMissingMultiplePermissions'
+        const permission = opts.botPermissions
+          .map(p => t(`permissions:${p}`))
+          .map(p => `**"${p}"**`)
+          .join(', ')
+        const sentence =
+          opts.botPermissions.length >= 1
+            ? 'errors:botMissingOnePermission'
+            : 'errors:botMissingMultiplePermissions'
         throw new CommandError(t(sentence, { permission }))
       }
     }
 
-    const guildPlayer = client.playerManager && client.playerManager.get(guild.id)
+    const guildPlayer =
+      client.playerManager && client.playerManager.get(guild.id)
     if (opts.guildPlaying && (!guildPlayer || !guildPlayer.playing)) {
       throw new CommandError(t(opts.errors.guildPlaying))
     }
 
-    if (opts.sameVoiceChannelOnly && guild.me.voiceChannelID && (!voiceChannel || guild.me.voiceChannelID !== voiceChannel.id)) {
+    if (
+      opts.sameVoiceChannelOnly &&
+      guild.me.voiceChannelID &&
+      (!voiceChannel || guild.me.voiceChannelID !== voiceChannel.id)
+    ) {
       throw new CommandError(t(opts.errors.sameVoiceChannelOnly))
     }
 

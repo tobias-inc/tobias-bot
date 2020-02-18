@@ -1,17 +1,20 @@
 {
   "name": "tobias",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Discord Bot with multiple functions, which values ​​above all, delivering quality!",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon --exec node -r dotenv/config index.js",
-    "test": "mocha tests"
+    "start": "node  index.js",
+    "dev": "nodemon --exec node index.js",
+    "test": "mocha src/tests --recursive",
+    "fix": "standard --fix"
   },
   "engines": {
     "node": ">=12"
   },
   "author": "Tobias Team",
+  "repository": "git+ssh://git@github.com/tobias-inc/TobiasRework.git",
+  "license": "ISC",
   "keywords": [
     "nodejs",
     "javascript",
@@ -19,10 +22,19 @@
     "discord-bot",
     "bot"
   ],
-  "repository": "git+ssh://git@github.com/tobias-inc/TobiasRework.git",
-  "license": "ISC",
+  "nodemonConfig": {
+    "ignore": [
+      "locales/*"
+    ]
+  },
+  "standard": {
+    "env": [
+      "mocha"
+    ]
+  },
   "dependencies": {
     "@hapi/joi": "^17.1.0",
+    "ascii-table": "^0.0.9",
     "canvas": "^2.6.1",
     "chalk": "^3.0.0",
     "cors": "^2.8.5",
@@ -37,18 +49,27 @@
     "i18next-node-fs-backend": "^2.1.3",
     "icecast-parser": "^3.2.1",
     "intl": "^1.2.5",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
-    "mongoose": "^5.8.10",
+    "mongoose": "^5.9.1",
     "morgan": "^1.9.1",
     "node-fetch": "^2.6.0",
-    "request": "^2.88.0",
+    "request": "^2.88.2",
     "transform-props": "^1.0.1",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
+    "auto-install": "^1.7.4",
     "eslint": "^6.8.0",
-    "mocha": "^7.0.1"
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "mocha": "^7.0.1",
+    "mocha-standard": "^1.0.0",
+    "standard": "^14.3.1"
   }
 }

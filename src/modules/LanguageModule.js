@@ -1,8 +1,8 @@
-const Joi = require("@hapi/joi");
-const { Module, Constants } = require("../");
+const Joi = require('@hapi/joi')
+const { Module, Constants } = require('../')
 
 module.exports = class LanguageModule extends Module {
-  constructor(client) {
+  constructor (client) {
     super('language', client)
     this.displayName = 'Language'
 
@@ -11,14 +11,19 @@ module.exports = class LanguageModule extends Module {
 
     this.specialInput = {
       language: {
-        whitelist: this.client.language && this.client.language.langs.map(a => a.type)
+        whitelist:
+          this.client.language && this.client.language.langs.map(a => a.type)
       }
     }
   }
 
-  validateValues(entity) {
-    return Joi.object().keys({
-      language: Joi.string().valid(...this.client.language.langs.map(a => a.type))
-    }).validate(entity)
+  validateValues (entity) {
+    return Joi.object()
+      .keys({
+        language: Joi.string().valid(
+          ...this.client.language.langs.map(a => a.type)
+        )
+      })
+      .validate(entity)
   }
 }

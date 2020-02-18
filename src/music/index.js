@@ -1,3 +1,3 @@
 module.exports = {
-  PlayerManager: require("./PlayerManager.js")
+  PlayerManager: require('./PlayerManager.js')
 }

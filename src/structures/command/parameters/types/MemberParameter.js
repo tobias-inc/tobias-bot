@@ -1,14 +1,14 @@
-const UserParameter = require("./UserParameter.js");
+const UserParameter = require('./UserParameter.js')
 
 module.exports = class MemberParameter extends UserParameter {
-  static parseOptions(options = {}) {
+  static parseOptions (options = {}) {
     return {
       ...super.parseOptions(options),
       fetchUser: false
     }
   }
 
-  static parse(arg, context) {
+  static parse (arg, context) {
     if (!arg) return
 
     const { guild } = context

@@ -25,34 +25,20 @@
     "invite": "Convite",
     "additional": "Adicional"
   },
-  "timeResponses": [
-    {
-      "s": "segundo",
-      "s_plural": "segundos"
-    },
-    {
-      "m": "minuto",
-      "m_plural": "minutos"
-    },
-    {
-      "h": "hora",
-      "h_plural": "horas"
-    },
-    {
-      "d": "dia",
-      "d_plural": "dias"
-    },
-    {
-      "w": "semana",
-      "w_plural": "semanas"
-    },
-    {
-      "mo": "mês",
-      "mo_plural": "mêses"
-    },
-    {
-      "y": "ano",
-      "y_plural": "anos"
-    }
-  ]
+  "timeResponses": {
+    "s": "segundo",
+    "s_plural": "segundos",
+    "m": "minuto",
+    "m_plural": "minutos",
+    "h": "hora",
+    "h_plural": "horas",
+    "d": "dia",
+    "d_plural": "dias",
+    "w": "semana",
+    "w_plural": "semanas",
+    "mo": "mês",
+    "mo_plural": "mêses",
+    "y": "ano",
+    "y_plural": "anos"
+  }
 }

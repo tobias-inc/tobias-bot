@@ -1,10 +1,10 @@
-const { EventEmitter } = require("events");
-const moment = require("moment");
+const { EventEmitter } = require('events')
+const moment = require('moment')
 
-const Constants = require("../../utils/Constants.js");
+const Constants = require('../../utils/Constants.js')
 
 module.exports = class Song extends EventEmitter {
-  constructor(data = {}, requestedBy) {
+  constructor (data = {}, requestedBy) {
     super()
 
     this.title = data.info.title
@@ -23,7 +23,9 @@ module.exports = class Song extends EventEmitter {
 
     this.color = Constants.DEFAULT_COLOR
 
-    Object.defineProperty(this, 'requestedBy', { get: () => requestedBy || data.requestedBy })
+    Object.defineProperty(this, 'requestedBy', {
+      get: () => requestedBy || data.requestedBy
+    })
     Object.defineProperty(this, 'track', { get: () => data.track })
 
     this.on('stop', () => this.removeAllListeners())
@@ -31,36 +33,36 @@ module.exports = class Song extends EventEmitter {
     this.on('start', () => this.handleStart())
   }
 
-  get formattedDuration() {
+  get formattedDuration () {
     if (this.isStream) return ''
     return moment.duration(this.ms).format('hh:mm:ss', { stopTrim: 'm' })
   }
 
-  get addedFormat() {
+  get addedFormat () {
     return moment(this.addedAt).calendar()
   }
 
-  get backgroundImage() {
+  get backgroundImage () {
     return this.artwork
   }
 
-  loadInfo() {
+  loadInfo () {
     return this
   }
 
-  handleStart() {
+  handleStart () {
     this.removeAllListeners('queue')
     this.startedAt = new Date()
   }
 
-  setMessage(m) {
+  setMessage (m) {
     this.message = m
   }
 
-  async deleteMessage() {
+  async deleteMessage () {
     try {
       await this.message.delete()
-    } catch (e) { }
+    } catch (e) {}
     return true
   }
 }

@@ -1,7 +1,7 @@
-const { Command, ClientEmbed, Constants } = require("../../");
+const { Command, ClientEmbed, Constants } = require('../../')
 
 module.exports = class Background extends Command {
-  constructor(client, path) {
+  constructor (client, path) {
     super(client, path, {
       name: 'background',
       category: 'social',
@@ -12,24 +12,26 @@ module.exports = class Background extends Command {
     })
   }
 
-  async run({ t, author, channel }, image) {
-    const embed = new ClientEmbed(author);
+  async run ({ t, author, channel }, image) {
+    const embed = new ClientEmbed(author)
 
     try {
-      const { image: thumbnail } = await this.client.controllers.social.setBackground(author.id, image);
+      const {
+        image: thumbnail
+      } = await this.client.controllers.social.setBackground(author.id, image)
       embed.setTitle(t('commands:background.updateBackgroundSucess'))
-      embed.setThumbnail(thumbnail);
+      embed.setThumbnail(thumbnail)
     } catch (e) {
-      embed.setColor(Constants.ERROR_COLOR);
+      embed.setColor(Constants.ERROR_COLOR)
       switch (e.message) {
         case 'URL_INVALID':
           embed.setTitle(t('commands:background.updateBackgroundError'))
-          break;
+          break
         default:
           embed.setTitle(t('errors:generic'))
       }
     }
 
-    channel.send(embed);
+    channel.send(embed)
   }
 }

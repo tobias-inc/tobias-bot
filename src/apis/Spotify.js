@@ -1,84 +1,104 @@
-const fetch = require("node-fetch");
-const { Wrapper } = require("../");
+const fetch = require('node-fetch')
+const { Wrapper } = require('../')
 
-const TOKEN_URL = 'https://accounts.spotify.com/api/token';
-const API_URL = 'https://api.spotify.com/v1';
+const TOKEN_URL = 'https://accounts.spotify.com/api/token'
+const API_URL = 'https://api.spotify.com/v1'
 
 module.exports = class SpotifyWrapper extends Wrapper {
-  constructor() {
+  constructor () {
     super('spotify')
     this.envVars = ['SPOTIFY_CLIENT_ID', 'SPOTIFY_CLIENT_SECRET']
 
     Object.defineProperty(this, 'token', { writable: true })
   }
 
-  get isTokenExpired() {
+  get isTokenExpired () {
     return this.token ? this.token.expiresAt - new Date() <= 0 : true
   }
 
-  get tokenHeaders() {
-    return this.token ? { 'Authorization': `${this.token.tokenType} ${this.token.accessToken}` } : {}
+  get tokenHeaders () {
+    return this.token
+      ? { Authorization: `${this.token.tokenType} ${this.token.accessToken}` }
+      : {}
   }
 
-  get credentialHeaders() {
-    const credential = Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64')
-    return { 'Authorization': `Basic ${credential}`, 'Content-Type': 'application/x-www-form-urlencoded' }
+  get credentialHeaders () {
+    const credential = Buffer.from(
+      `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
+    ).toString('base64')
+    return {
+      Authorization: `Basic ${credential}`,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
   }
 
-  searchTracks(query, limit = 20) {
-    return this.search(query, 'track', limit).then(res => res.tracks && res.tracks.total > 0 ? res.tracks.items : [])
+  searchTracks (query, limit = 20) {
+    return this.search(query, 'track', limit).then(res =>
+      res.tracks && res.tracks.total > 0 ? res.tracks.items : []
+    )
   }
 
-  searchAlbums(query, limit = 20) {
-    return this.search(query, 'album', limit).then(res => res.albums && res.albums.total > 0 ? res.albums.items : [])
+  searchAlbums (query, limit = 20) {
+    return this.search(query, 'album', limit).then(res =>
+      res.albums && res.albums.total > 0 ? res.albums.items : []
+    )
   }
 
-  searchArtists(query, limit = 20) {
-    return this.search(query, 'artist', limit).then(res => res.artists && res.artists.total > 0 ? res.artists.items : [])
+  searchArtists (query, limit = 20) {
+    return this.search(query, 'artist', limit).then(res =>
+      res.artists && res.artists.total > 0 ? res.artists.items : []
+    )
   }
 
-  searchPlaylists(query, limit = 20) {
-    return this.search(query, 'playlist', limit).then(res => res.playlists && res.playlists.total > 0 ? res.playlists.items : [])
+  searchPlaylists (query, limit = 20) {
+    return this.search(query, 'playlist', limit).then(res =>
+      res.playlists && res.playlists.total > 0 ? res.playlists.items : []
+    )
   }
 
-  search(query, type, limit = 20) {
-    return this.request('/search', { q: query, type, limit }).then(u => u && u.data ? u.data[0] : u)
+  search (query, type, limit = 20) {
+    return this.request('/search', { q: query, type, limit }).then(u =>
+      u && u.data ? u.data[0] : u
+    )
   }
 
-  getUser(user) {
+  getUser (user) {
     return this.request(`/users/${user}`)
   }
 
-  getAlbum(id) {
+  getAlbum (id) {
     return this.request(`/albums/${id}`)
   }
 
-  getAlbumTracks(id, limit = 50) {
+  getAlbumTracks (id, limit = 50) {
     return this.request(`/albums/${id}/tracks`, { limit })
   }
 
-  getPlaylist(id) {
+  getPlaylist (id) {
     return this.request(`/playlists/${id}`)
   }
 
-  getPlaylistTracks(id, fields = 'fields=items(track(name,artists(name)))') {
+  getPlaylistTracks (id, fields = 'fields=items(track(name,artists(name)))') {
     return this.request(`/playlists/${id}/tracks`, { fields })
   }
 
-  getTrack(id) {
+  getTrack (id) {
     return this.request(`/tracks/${id}`)
   }
 
-  getArtist(id) {
+  getArtist (id) {
     return this.request(`/artists/${id}`)
   }
 
-  getArtistAlbums(id, limit = 50, include = ['album', 'single']) {
-    return this.request(`/artists/${id}/albums`, { limit, include_groups: include.join() })
+  getArtistAlbums (id, limit = 50, include = ['album', 'single']) {
+    return this.request(`/artists/${id}/albums`, {
+      limit,
+      include_groups: include.join()
+    })
   }
 
-  async getToken() {
-    const grantPar = new URLSearchParams({ 'grant_type': 'client_credentials' });
+  async getToken () {
+    const grantPar = new URLSearchParams({ grant_type: 'client_credentials' })
     const {
       access_token: accessToken,
       token_type: tokenType,
@@ -93,11 +113,11 @@ module.exports = class SpotifyWrapper extends Wrapper {
       accessToken,
       tokenType,
       expiresIn,
-      expiresAt: new Date(now.getTime() + (expiresIn * 1000))
+      expiresAt: new Date(now.getTime() + expiresIn * 1000)
     }
   }
 
-  async request(endpoint, queryParams = {}) {
+  async request (endpoint, queryParams = {}) {
     if (this.isTokenExpired) await this.getToken()
     const qParams = new URLSearchParams(queryParams)
     return fetch(`${API_URL}${endpoint}?${qParams.toString()}`, {

@@ -1,7 +1,7 @@
-const { Command, CommandError, ClientEmbed } = require("../../../");
+const { Command, CommandError, ClientEmbed } = require('../../../')
 
 module.exports = class Queue extends Command {
-  constructor(client, path) {
+  constructor (client, path) {
     super(client, path, {
       name: 'queue',
       category: 'music',
@@ -11,19 +11,33 @@ module.exports = class Queue extends Command {
     })
   }
 
-  run({ t, author, channel, guild }) {
-    const guildPlayer = this.client.playerManager.get(guild.id);
-    const more = guildPlayer.queue.size > 10 && t('music:andMore', { missing: guildPlayer.queue.size - 10 })
+  run ({ t, author, channel, guild }) {
+    const guildPlayer = this.client.playerManager.get(guild.id)
+    const more =
+      guildPlayer.queue.size > 10 &&
+      t('music:andMore', { missing: guildPlayer.queue.size - 10 })
 
     if (guildPlayer.nextSong) {
-      channel.send(new ClientEmbed(author, { author: [this.client.user], thumbnail: guild.iconURL })
-        .setDescription([
-          guildPlayer.queue
-            .slice(0, 10)
-            .map((s, i) => `**\`${i + 1}.\` [${s.title}](${s.uri}) \`(${s.addedFormat})\`** ${s.requestedBy.toString()}`)
-            .join('\n'),
-          more
-        ].filter(m => m).join('\n'))
+      channel.send(
+        new ClientEmbed(author, {
+          author: [this.client.user],
+          thumbnail: guild.iconURL
+        }).setDescription(
+          [
+            guildPlayer.queue
+              .slice(0, 10)
+              .map(
+                (s, i) =>
+                  `**\`${i + 1}.\` [${s.title}](${s.uri}) \`(${
+                    s.addedFormat
+                  })\`** ${s.requestedBy.toString()}`
+              )
+              .join('\n'),
+            more
+          ]
+            .filter(m => m)
+            .join('\n')
+        )
       )
     } else {
       throw new CommandError(t('music:noneAfterCurrent'))

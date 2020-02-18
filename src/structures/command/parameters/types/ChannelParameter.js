@@ -1,25 +1,20 @@
-const Parameter = require("./Parameter");
-const CommandError = require("../../CommandError");
+const Parameter = require('./Parameter')
+const CommandError = require('../../CommandError')
 
 const MENTION_REGEX = /(<#)?([0-9]{16,18})>?$/
-const defVal = (o, k, d) => typeof o[k] === 'undefined' ? d : o[k]
+const defVal = (o, k, d) => (typeof o[k] === 'undefined' ? d : o[k])
 
-const searchOn = (local, id, arg) => (
-  local.channels.get(id) || local.channels.find(
-    c => (c.name.toLowerCase() === arg)
-  ) || local.channels.find(
-    c => c.name.toLowerCase().includes(arg.toLowerCase()
-    )
-  )
-)
+const searchOn = (local, id, arg) =>
+  local.channels.get(id) ||
+  local.channels.find(c => c.name.toLowerCase() === arg) ||
+  local.channels.find(c => c.name.toLowerCase().includes(arg.toLowerCase()))
 
 module.exports = class ChannelParameter extends Parameter {
-  static parseOptions(options = {}) {
+  static parseOptions (options = {}) {
     return {
       ...super.parseOptions(options),
       acceptDM: defVal(options, 'acceptDM', false),
       acceptGroup: defVal(options, 'acceptGroup', false),
-
       onlySameGuild: defVal(options, 'onlySameGuild', true),
       acceptText: defVal(options, 'acceptText', false),
       acceptVoice: defVal(options, 'acceptVoice', false),
@@ -29,9 +24,9 @@ module.exports = class ChannelParameter extends Parameter {
     }
   }
 
-  static parse(arg, { t, client, guild }) {
+  static parse (arg, { t, client, guild }) {
     const check = (option, type) => {
-      if (!option && channel.type === type) throw new CommandError(t('errors:invalidChannelType', { type }))
+      if (!option && channel.type === type) { throw new CommandError(t('errors:invalidChannelType', { type })) }
     }
 
     if (!arg) return

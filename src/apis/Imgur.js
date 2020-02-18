@@ -1,24 +1,29 @@
-const fetch = require("node-fetch");
-const { Wrapper } = require("../");
+const fetch = require('node-fetch')
+const { Wrapper } = require('../')
 
-const API_URL = 'https://api.imgur.com/3';
+const API_URL = 'https://api.imgur.com/3'
 
 module.exports = class ImgurWrapper extends Wrapper {
-  constructor() {
+  constructor () {
     super('imgur')
     this.envVars = ['IMGUR_CLIENT_ID']
   }
 
-  postImage(image) {
+  postImage (image) {
     return this.request('/image', 'POST', { image })
   }
 
-  getImage(id) {
-    return this.request(`/image/${id}`);
+  getImage (id) {
+    return this.request(`/image/${id}`)
   }
 
-  request(endpoint, method = 'GET', body) {
-    body = method.toUpperCase() !== 'GET' ? body ? JSON.stringify(body) : null : null
+  request (endpoint, method = 'GET', body) {
+    body =
+      method.toUpperCase() !== 'GET'
+        ? body
+          ? JSON.stringify(body)
+          : null
+        : null
 
     return fetch(`${API_URL}${endpoint}`, {
       method,

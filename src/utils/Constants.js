@@ -1,6 +1,5 @@
 module.exports = {
-  // Colors 
-
+  // Colors
   EMBED_COLOR: '#43cea2',
   ERROR_COLOR: '#fc0303',
   FAV_COLOR: '#ff0000',
@@ -19,11 +18,9 @@ module.exports = {
   DEFAULT_COLOR: '#43cea2',
 
   // Assets
-
   PROFILE_IMAGE: 'src/assets/img/png/profile.png',
 
-  // Player 
-
+  // Player
   DEFAULT_PLAYER_BACKGROUND: 'src/assets/img/jpg/default-background.jpg',
   PLAYER_SOURCES_BACKGROUND: {
     soundcloud: 'src/assets/img/jpg/music_sources/soundcloud.jpg',
@@ -34,15 +31,13 @@ module.exports = {
     http: 'src/assets/img/jpg/music_sources/http.jpg'
   },
 
-  // EconomyF
-
+  // Economy
   DEFAULT_BACKGROUND: 'src/assets/img/jpg/default-background.jpg',
   DEFAULT_PERSONAL_TEXT: 'Nothing inserted...',
 
   // Bot Settings
-
   CLIENT_ID: '539853186572222464',
-  DEFAULT_PREFIX: 'tc!',
+  DEFAULT_PREFIX: 'tc.',
   DEFAULT_LANGUAGE: 'pt-BR',
   BOT_GUILD: '500452776770535444',
   DEVELOPER_ROLE: '671404243449544704',
@@ -52,7 +47,6 @@ module.exports = {
   },
 
   // Discord Wrapper
-
   Errors: {
     NOT_A_PERMISSION: 'Invalid permission string or number.'
   }

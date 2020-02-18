@@ -1,29 +1,26 @@
-const { Channel, Attachment } = require("discord.js");
-const { CanvasTemplates, Listener, Utils } = require("../../");
+const { Channel, Attachment } = require('discord.js')
+const { CanvasTemplates, Listener, Utils } = require('../../')
 
 module.exports = class UserResponses extends Listener {
-  constructor(client) {
+  constructor (client) {
     super(client)
     this.events = ['userLevelUp']
   }
 
-  get module() {
-    return this.client.database.guilds
+  get database () {
+    return this.client.database
   }
 
-  get social() {
-    return this.client.database.users
-  }
-
-  async onUserLevelUp(user, userDocument) {
-    const level = userDocument.level;
-    const channel = user.channel;
+  async onUserLevelUp (user, userDocument) {
+    const level = userDocument.level
+    const channel = user.channel
 
     try {
-      const insertNewLevel = await this.social.update(user.id, {
+      const insertNewLevel = await this.database.users.update(user.id, {
         $push: {
           'economy.levels': {
-            level, maxXp: Utils.XPtoNextLevel(userDocument.level)
+            level,
+            maxXp: Utils.XPtoNextLevel(userDocument.level)
           }
         }
       })
@@ -31,14 +28,24 @@ module.exports = class UserResponses extends Listener {
       // Send
 
       if (channel instanceof Channel) {
-        const { systemsDisabled } = await this.module.findOne(channel.guild.id, 'systemsDisabled');
+        const { systemsDisabled } = await this.database.guilds.findOne(
+          channel.guild.id,
+          'systemsDisabled'
+        )
+        if (
+          systemsDisabled.some(
+            system => system.name.toUpperCase() === 'LEVEL_UP'
+          )
+        ) { return }
 
-        if (systemsDisabled.some(system => system.name.toUpperCase() === 'LEVEL_UP')) return;
+        const t = this.client.language.lang(user.language)
+        const updateImage = await CanvasTemplates.levelUpdated(
+          user.user,
+          t,
+          userDocument
+        )
 
-        const t = this.client.language.lang(user.language);
-        const updateImage = await CanvasTemplates.levelUpdated(user.user, t, userDocument)
-
-        channel
+        await channel
           .send(
             t('economy:levelup', { level, username: user.username }),
             new Attachment(updateImage, 'levelup.jpg')
@@ -48,7 +55,7 @@ module.exports = class UserResponses extends Listener {
         return insertNewLevel
       }
     } catch (e) {
-      this.client.console(true, (e.stack || e), this.constructor.name);
+      this.client.console(true, e.stack || e, this.constructor.name)
     }
 
     return false

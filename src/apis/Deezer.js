@@ -1,79 +1,81 @@
-const fetch = require("node-fetch");
-const { Wrapper } = require("../");
+const fetch = require('node-fetch')
+const { Wrapper } = require('../')
 
-const API_URL = 'https://api.deezer.com';
+const API_URL = 'https://api.deezer.com'
 
 module.exports = class DeezerWrapper extends Wrapper {
-  constructor() {
+  constructor () {
     super('deezer')
   }
 
-  getTrack(id) {
+  getTrack (id) {
     return this.request(`/track/${id}`)
   }
 
-  getAlbum(id) {
+  getAlbum (id) {
     return this.request(`/album/${id}`)
   }
 
-  getArtist(id) {
+  getArtist (id) {
     return this.request(`/artist/${id}`)
   }
 
-  getArtistAlbums(id, limit = 10) {
+  getArtistAlbums (id, limit = 10) {
     return this.request(`/artist/${id}/albums`, { limit })
   }
 
-  getArtistRelated(id) {
+  getArtistRelated (id) {
     return this.request(`/artist/${id}/related`)
   }
 
-  getPlaylist(id) {
+  getPlaylist (id) {
     return this.request(`/playlist/${id}`)
   }
 
-  getUserFollowers(id) {
+  getUserFollowers (id) {
     return this.request(`/user/${id}/followers`)
   }
 
-  getUserFollowings(id) {
+  getUserFollowings (id) {
     return this.request(`/user/${id}/followings`)
   }
 
-  getUserChart(id, chart = 'artists') {
+  getUserChart (id, chart = 'artists') {
     return this.request(`/user/${id}/charts/${chart}`)
   }
 
-  getPodcastEpisodes(id) {
+  getPodcastEpisodes (id) {
     return this.request(`/podcast/${id}/episodes`)
   }
 
-  findTracks(q) {
+  findTracks (q) {
     return this.request('/search', { q })
   }
 
-  findAlbums(q) {
+  findAlbums (q) {
     return this.request('/search/album', { q })
   }
 
-  findArtists(q) {
+  findArtists (q) {
     return this.request('/search/artist', { q })
   }
 
-  findPlaylists(q) {
+  findPlaylists (q) {
     return this.request('/search/playlist', { q })
   }
 
-  findPodcasts(q) {
+  findPodcasts (q) {
     return this.request('/search/podcast', { q })
   }
 
-  findUser(q) {
+  findUser (q) {
     return this.request('/search/user', { q })
   }
 
-  request(endpoint, queryParams = {}) {
+  request (endpoint, queryParams = {}) {
     const qParams = new URLSearchParams(queryParams)
-    return fetch(`${API_URL}${endpoint}?${qParams.toString()}`).then(res => res.json())
+    return fetch(`${API_URL}${endpoint}?${qParams.toString()}`).then(res =>
+      res.json()
+    )
   }
 }

@@ -1,9 +1,9 @@
-const { Command, ClientEmbed } = require("../../");
+const { Command, ClientEmbed } = require('../../')
 
-const MAX_VOLUME = 150;
+const MAX_VOLUME = 150
 
 module.exports = class Volume extends Command {
-  constructor(client, path) {
+  constructor (client, path) {
     super(client, path, {
       name: 'volume',
       category: 'music',
@@ -17,26 +17,32 @@ module.exports = class Volume extends Command {
             guildPlaying: 'commands:volume.notPlaying'
           }
         },
-        parameters: [{
-          type: 'number',
-          full: true,
-          min: 0,
-          max: MAX_VOLUME,
-          forceMin: true,
-          forceMax: true,
-          missingError: 'commands:volume.missingVolumeParameter'
-        }]
+        parameters: [
+          {
+            type: 'number',
+            full: true,
+            min: 0,
+            max: MAX_VOLUME,
+            forceMin: true,
+            forceMax: true,
+            missingError: 'commands:volume.missingVolumeParameter'
+          }
+        ]
       }
     })
   }
 
-  run({ t, author, channel, guild }, volume) {
-    const guildPlayer = this.client.playerManager.get(guild.id);
+  run ({ t, author, channel, guild }, volume) {
+    const guildPlayer = this.client.playerManager.get(guild.id)
 
-    if (volume !== MAX_VOLUME && guildPlayer.bassboosted) guildPlayer.bassboost(false);
+    if (volume !== MAX_VOLUME && guildPlayer.bassboosted) { guildPlayer.bassboost(false) }
 
-    channel.send(new ClientEmbed(author)
-      .setDescription(t('commands:volume.volumeSet', { volume }))
-    ).then(() => guildPlayer.volume(volume))
+    channel
+      .send(
+        new ClientEmbed(author).setDescription(
+          t('commands:volume.volumeSet', { volume })
+        )
+      )
+      .then(() => guildPlayer.volume(volume))
   }
 }

@@ -1,8 +1,8 @@
-const { Command } = require("../../");
-const util = require("util");
+const { Command } = require('../../')
+const util = require('util')
 
 module.exports = class Eval extends Command {
-  constructor(client, path) {
+  constructor (client, path) {
     super(client, path, {
       name: 'eval',
       category: 'developer',
@@ -10,13 +10,16 @@ module.exports = class Eval extends Command {
       hidden: true,
       utils: {
         requirements: { devOnly: true },
-        parameters: [{ type: 'string', full: true, missingError: 'errors:invalidString' }]
+        parameters: [
+          { type: 'string', full: true, missingError: 'errors:invalidString' }
+        ]
       }
     })
   }
 
-  async run({ channel, t, args, guild, message, author }, expr) {
+  async run ({ channel, t, args, guild, message, author }, expr) {
     try {
+      // eslint-disable-next-line no-eval
       const evaled = await eval(expr.replace(/(^`{3}(\w+)?|`{3}$)/g, ''))
       const cleanEvaled = this.clean(util.inspect(evaled, { depth: 0 }))
       await channel.send(cleanEvaled, { code: 'js' })
@@ -25,8 +28,10 @@ module.exports = class Eval extends Command {
     }
   }
 
-  clean(text) {
+  clean (text) {
     const blankSpace = String.fromCharCode(8203)
-    return typeof text === 'string' ? text.replace(/`/g, '`' + blankSpace).replace(/@/g, '@' + blankSpace) : text
+    return typeof text === 'string'
+      ? text.replace(/`/g, '`' + blankSpace).replace(/@/g, '@' + blankSpace)
+      : text
   }
 }

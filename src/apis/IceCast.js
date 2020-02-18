@@ -1,12 +1,12 @@
-const IcecastParser = require("icecast-parser");
-const { Wrapper } = require("../");
+const IcecastParser = require('icecast-parser')
+const { Wrapper } = require('../')
 
 module.exports = class IceCastWrapper extends Wrapper {
-  constructor() {
+  constructor () {
     super('icecast')
   }
 
-  fetchMetadata(url) {
+  fetchMetadata (url) {
     return new Promise((resolve, reject) => {
       if (url.startsWith('https://')) return reject(new Error('HTTPS'))
       try {

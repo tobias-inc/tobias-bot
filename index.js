@@ -1,19 +1,19 @@
-if (process.env.NODE_ENV !== 'development') require('dotenv').config()
+require('dotenv/config')
 
-require("moment");
-require("moment-duration-format");
+require('moment')
+require('moment-duration-format')
 
 let canvasLoaded = false
 try {
-  require("canvas")
-  require("./src/utils/canvas/CanvasUtils.js").initializeHelpers()
+  require('canvas')
+  require('./src/utils/canvas/CanvasUtils.js').initializeHelpers()
   canvasLoaded = true
 } catch (e) {
   console.log(e)
 }
 
 const CLIENT_OPTIONS = {
-  disabledEvents: ["TYPING_START", "TYPING_STOP", "USER_NOTE_UPDATE"],
+  disabledEvents: ['TYPING_START', 'TYPING_STOP', 'USER_NOTE_UPDATE'],
   disableEveryone: true,
   fetchAllMembers: true,
   autoReconnect: true,
@@ -25,6 +25,10 @@ const CLIENT_OPTIONS = {
   canvasLoaded
 }
 
-const tobias = require('./src/TobiasClient.js');
-const client = new tobias(CLIENT_OPTIONS);
-client.login().then(() => client.console(false, 'I successfully connected!', 'LOGIN', 'DISCORD API'))
+const TobiasClient = require('./src/TobiasClient.js')
+const client = new TobiasClient(CLIENT_OPTIONS)
+client
+  .login()
+  .then(() =>
+    client.console(false, 'I successfully connected!', 'LOGIN', 'DISCORD API')
+  )

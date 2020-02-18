@@ -1,32 +1,35 @@
-const { Attachment } = require("discord.js");
-const { Command, CanvasTemplates } = require("../../");
+const { Attachment } = require('discord.js')
+const { Command, CanvasTemplates } = require('../../')
 
 module.exports = class Profile extends Command {
-  constructor(client, path) {
+  constructor (client, path) {
     super(client, path, {
       name: 'profile',
       category: 'social',
       aliases: ['perfil'],
       utils: {
         requirements: { databaseOnly: true, canvasOnly: true },
-        parameters: [{ type: 'user', fetchAll: true, required: false, acceptSelf: true }]
+        parameters: [
+          { type: 'user', fetchAll: true, required: false, acceptSelf: true }
+        ]
       }
     })
   }
 
-  async run({ channel, t, author }, user = author) {
+  async run ({ channel, t, author }, user = author) {
     channel.startTyping()
-    const informations = Promise.all([
-      this.client.controllers.social.retrieveProfile(user.id, 'economy'),
-      this.client.controllers.social.getRank(user.id)
-    ])
+    const social = this.client.controllers.social
 
-    const [profile, rank] = await informations;
-    const currentXp = await this.client.controllers.social.currentXp(profile)
+    const rank = await social.getRank(user.id)
+    const profile = await social.retrieveProfile(user.id, 'economy')
+    const currentXp = await social.currentXp(profile)
+
     const profileImage = await CanvasTemplates.profile(user, t, {
-      ...({ profile: profile.economy, rank, currentXp })
-    });
+      ...{ profile: profile.economy, rank, currentXp }
+    })
 
-    return channel.send(new Attachment(profileImage, 'profile.jpg')).then(() => channel.stopTyping());
+    return channel
+      .send(new Attachment(profileImage, 'profile.png'))
+      .then(() => channel.stopTyping())
   }
 }

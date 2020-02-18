@@ -1,41 +1,41 @@
-const fetch = require("node-fetch");
-const { Wrapper } = require("../");
+const fetch = require('node-fetch')
+const { Wrapper } = require('../')
 
-const API_URL = 'http://api.soundcloud.com';
+const API_URL = 'http://api.soundcloud.com'
 
 const CLIENT_ID_REFRESH_INTERVAL = 60 * 60 * 1000
 const PAGE_APP_SCRIPT_REGEX = /https:\/\/[A-Za-z0-9-.]+\/assets\/[a-f3-7-]+\.js/
 const APP_SCRIPT_CLIENT_ID_REGEX = /client_id:"([a-zA-Z0-9]+)"/
 
 module.exports = class SoundCloudWrapper extends Wrapper {
-  constructor() {
+  constructor () {
     super('soundcloud')
 
     this.lastClientIdUpdate = 0
     Object.defineProperty(this, 'clientId', { writable: true })
   }
 
-  load() {
+  load () {
     // this.updateClientId()
     return this
   }
 
-  getTrack(id, secret) {
+  getTrack (id, secret) {
     return this.request(`/tracks/${id}`, { secret_token: secret })
   }
 
-  getUser(id) {
+  getUser (id) {
     return this.request(`/users/${id}`)
   }
 
-  getPlaylist(id) {
+  getPlaylist (id) {
     return this.request(`/playlists/${id}`)
   }
 
-  async request(endpoint, queryParams = {}, tries = 0) {
+  async request (endpoint, queryParams = {}, tries = 0) {
     await this.updateClientId()
 
-    queryParams['client_id'] = this.clientId
+    queryParams.client_id = this.clientId
     const qParams = new URLSearchParams(queryParams)
     return fetch(`${API_URL}${endpoint}?${qParams.toString()}`)
       .then(res => res.json())
@@ -48,28 +48,35 @@ module.exports = class SoundCloudWrapper extends Wrapper {
       })
   }
 
-  updateClientId() {
+  updateClientId () {
     const now = Date.now()
     if (now - this.lastClientIdUpdate < CLIENT_ID_REFRESH_INTERVAL) return
 
     this.lastClientIdUpdate = now
-    return this.findClientIdFromSite().then(id => {
-      if (id) {
-        this.clientId = id
-        return id
-      }
-    }).catch(e => {
-      console.error('SoundCloud client ID request failed.', e.statusCode || e)
-    })
+    return this.findClientIdFromSite()
+      .then(id => {
+        if (id) {
+          this.clientId = id
+          return id
+        }
+      })
+      .catch(e => {
+        console.error('SoundCloud client ID request failed.', e.statusCode || e)
+      })
   }
 
-  findClientIdFromSite() {
-    return this.findApplicationScriptUrl().then(this.findClientIdFromApplicationScript).catch(e => {
-      console.error('Could not find application script from main page.', e.statusCode || e)
-    })
+  findClientIdFromSite () {
+    return this.findApplicationScriptUrl()
+      .then(this.findClientIdFromApplicationScript)
+      .catch(e => {
+        console.error(
+          'Could not find application script from main page.',
+          e.statusCode || e
+        )
+      })
   }
 
-  async findApplicationScriptUrl() {
+  async findApplicationScriptUrl () {
     return fetch('https://soundcloud.com').then(async res => {
       if (res.ok) {
         const body = await res.text()
@@ -82,7 +89,7 @@ module.exports = class SoundCloudWrapper extends Wrapper {
     })
   }
 
-  async findClientIdFromApplicationScript(url) {
+  async findClientIdFromApplicationScript (url) {
     return fetch(url).then(async res => {
       if (res.ok) {
         const body = await res.text()

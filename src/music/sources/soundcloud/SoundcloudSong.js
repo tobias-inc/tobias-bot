@@ -1,15 +1,15 @@
-const { Song } = require("../../structures");
-const Constants = require("../../../utils/Constants.js");
+const { Song } = require('../../structures')
+const Constants = require('../../../utils/Constants.js')
 
 module.exports = class SoundcloudSong extends Song {
-  constructor(data = {}, requestedBy, Soundcloud) {
+  constructor (data = {}, requestedBy, Soundcloud) {
     super(data, requestedBy)
     this._Soundcloud = Soundcloud
     this.color = Constants.SOUNDCLOUD_COLOR
     this.source = 'soundcloud'
   }
 
-  async loadInfo() {
+  async loadInfo () {
     const sc = this._Soundcloud
     const [id, secret] = this.identifier.split('|')
     const track = await sc.getTrack(id, secret)

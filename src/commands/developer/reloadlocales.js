@@ -1,7 +1,7 @@
-const { Command, CommandError, ClientEmbed } = require("../../");
+const { Command, CommandError, ClientEmbed } = require('../../')
 
 module.exports = class ReloadLocales extends Command {
-  constructor(client, path) {
+  constructor (client, path) {
     super(client, path, {
       name: 'reloadlocales',
       category: 'developer',
@@ -13,12 +13,16 @@ module.exports = class ReloadLocales extends Command {
     })
   }
 
-  async run({ channel, author, t }) {
+  async run ({ channel, author, t }) {
     try {
-      await this.client.language.reset();
-      channel.send(new ClientEmbed(author).setTitle(t('commands:reloadlocales.sucess')))
+      await this.client.language.reset()
+      channel.send(
+        new ClientEmbed(author).setTitle(t('commands:reloadlocales.sucess'))
+      )
     } catch (e) {
-      throw new CommandError(t('commands:reloadlocales.error', { error: e.message }))
+      throw new CommandError(
+        t('commands:reloadlocales.error', { error: e.message })
+      )
     }
   }
 }
