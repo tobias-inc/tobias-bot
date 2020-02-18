@@ -1,10 +1,10 @@
-const { EventEmitter } = require("events");
-const moment = require("moment");
+const { EventEmitter } = require('events')
+const moment = require('moment')
 
 const Song = require('./Song.js')
 
 module.exports = class Playlist extends EventEmitter {
-  constructor(data = {}, songs = [], requestedBy) {
+  constructor (data = {}, songs = [], requestedBy) {
     super()
 
     this.identifier = data.identifier
@@ -18,21 +18,23 @@ module.exports = class Playlist extends EventEmitter {
     }
   }
 
-  loadInfo() {
+  loadInfo () {
     this.songs = this.songs.map(s => new Song(s, this.requestedBy))
     return this
   }
 
-  get size() {
+  get size () {
     return this.songs.length
   }
 
-  get length() {
+  get length () {
     return this.songs.reduce((l, s) => l + s.ms, 0)
   }
 
-  get formattedDuration() {
+  get formattedDuration () {
     if (this.isStream) return ''
-    return moment.duration(this.length).format(this.length >= 3600000 ? 'hh:mm:ss' : 'mm:ss', { trim: false })
+    return moment
+      .duration(this.length)
+      .format(this.length >= 3600000 ? 'hh:mm:ss' : 'mm:ss', { trim: false })
   }
 }

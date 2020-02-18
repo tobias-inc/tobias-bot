@@ -1,47 +1,47 @@
-const fetch = require("node-fetch");
+const fetch = require('node-fetch')
 
-const API_URL = "https://discordapp.com/api";
+const API_URL = 'https://discordapp.com/api'
 
 module.exports = class EndPoints {
-  static getUser(accessToken) {
-    return this.request("/users/@me", accessToken);
+  static getUser (accessToken) {
+    return this.request('/users/@me', accessToken)
   }
 
-  static getGuild(client, guildId, accessToken) {
+  static getGuild (client, guildId, accessToken) {
     return this.request(
       `/users/@me/guilds/${guildId}`,
       accessToken
-    ).then(g => ({ ...g, common: client.guilds.has(g.id) }));
+    ).then(g => ({ ...g, common: client.guilds.has(g.id) }))
   }
 
-  static getGuilds(client, accessToken) {
-    return this.request("/users/@me/guilds", accessToken).then(gs =>
+  static getGuilds (client, accessToken) {
+    return this.request('/users/@me/guilds', accessToken).then(gs =>
       gs.map(g => {
-        g.common = client.guilds.has(g.id);
-        return g;
+        g.common = client.guilds.has(g.id)
+        return g
       })
-    );
+    )
   }
 
-  static getToken(code, scope = "identify guilds") {
+  static getToken (code, scope = 'identify guilds') {
     const config = {
-      grant_type: "authorization_code",
+      grant_type: 'authorization_code',
       client_id: process.env.DISCORD_ID,
       client_secret: process.env.DISCORD_SECRET,
       redirect_uri: process.env.DISCORD_REDIRECT,
       scope,
       code
-    };
+    }
 
     return fetch(`${API_URL}/oauth2/token`, {
-      method: "POST",
+      method: 'POST',
       body: new URLSearchParams(config)
-    }).then(res => (res.ok ? res.json() : Promise.reject(res)));
+    }).then(res => (res.ok ? res.json() : Promise.reject(res)))
   }
 
-  static request(endpoint, token) {
+  static request (endpoint, token) {
     return fetch(`${API_URL}${endpoint}`, {
       headers: { Authorization: `Bearer ${token}` }
-    }).then(res => (res.ok ? res.json() : Promise.reject(res)));
+    }).then(res => (res.ok ? res.json() : Promise.reject(res)))
   }
-};
+}

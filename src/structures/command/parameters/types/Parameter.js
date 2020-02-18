@@ -1,7 +1,7 @@
-const defVal = (o, k, d) => typeof o[k] === 'undefined' ? d : o[k]
+const defVal = (o, k, d) => (typeof o[k] === 'undefined' ? d : o[k])
 
 module.exports = class Parameter {
-  static parseOptions(options = {}) {
+  static parseOptions (options = {}) {
     return {
       required: defVal(options, 'required', true),
       showUsage: defVal(options, 'showUsage', true),
@@ -15,11 +15,11 @@ module.exports = class Parameter {
     }
   }
 
-  static _parse(arg, options, context) {
+  static _parse (arg, options, context) {
     return this.parse.call(options, arg, context)
   }
 
-  static parse(arg) {
+  static parse (arg) {
     return arg
   }
 }

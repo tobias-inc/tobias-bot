@@ -1,21 +1,23 @@
-const { Song } = require("../../structures");
-const MusicUtils = require("../../MusicUtils.js");
-const Constants = require("../../../utils/Constants.js");
+const { Song } = require('../../structures')
+const MusicUtils = require('../../MusicUtils.js')
+const Constants = require('../../../utils/Constants.js')
 
 module.exports = class TwitchSong extends Song {
-  constructor(data = {}, requestedBy, Twitch) {
+  constructor (data = {}, requestedBy, Twitch) {
     super(data, requestedBy)
     this._Twitch = Twitch
     this.color = Constants.TWITCH_COLOR
     this.source = 'twitch'
   }
 
-  async loadInfo() {
+  async loadInfo () {
     const tw = this._Twitch
     const userLogin = MusicUtils.twitchUserLogin(this.uri)
     const stream = await tw.getStreamByUsername(userLogin)
     if (stream) {
-      const thumbnailUrl = stream.thumbnail_url.replace('{width}', '1920').replace('{height}', '1080')
+      const thumbnailUrl = stream.thumbnail_url
+        .replace('{width}', '1920')
+        .replace('{height}', '1080')
       const user = await tw.getUser(stream.user_id)
       if (user) {
         this.artwork = user.profile_image_url
@@ -34,7 +36,7 @@ module.exports = class TwitchSong extends Song {
     return this
   }
 
-  get backgroundImage() {
+  get backgroundImage () {
     return this.richInfo.thumbnailUrl || this.artwork
   }
 }

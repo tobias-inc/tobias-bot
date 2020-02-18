@@ -1,11 +1,11 @@
-const { Collection } = require("discord.js");
-const { Player } = require("discord.js-lavalink");
-const moment = require("moment");
+const { Collection } = require('discord.js')
+const { Player } = require('discord.js-lavalink')
+const moment = require('moment')
 
-const Queue = require("./Queue.js");
+const Queue = require('./Queue.js')
 
 module.exports = class GuildPlayer extends Player {
-  constructor(options = {}) {
+  constructor (options = {}) {
     super(options)
 
     this.on('end', ({ reason }) => {
@@ -20,7 +20,7 @@ module.exports = class GuildPlayer extends Player {
     })
 
     this.on('forceStop', songError => {
-      if (songError) this.playingSong.emit('error');
+      if (songError) this.playingSong.emit('error')
       this.stop()
     })
 
@@ -33,13 +33,18 @@ module.exports = class GuildPlayer extends Player {
           switch (event) {
             case 'TrackExceptionEvent':
               if (inappropriateVideoErrors >= 5) this.emit('forceStop', true)
-              else if (error.includes('This video may be inappropriate for some users.')) {
+              else if (
+                error.includes(
+                  'This video may be inappropriate for some users.'
+                )
+              ) {
                 inappropriateVideoErrors += 1
               }
-              break;
+              break
           }
-          break;
-        default: this.emit('forceStop')
+          break
+        default:
+          this.emit('forceStop')
       }
 
       console.log(e)
@@ -56,15 +61,19 @@ module.exports = class GuildPlayer extends Player {
     Object.defineProperty(this, 'queue', { value: new Queue() })
   }
 
-  event(message) {
+  event (message) {
     if (message.op === 'playerUpdate') {
-      this.state = Object.assign(this.state, { volume: this._volume }, message.state)
+      this.state = Object.assign(
+        this.state,
+        { volume: this._volume },
+        message.state
+      )
     } else {
       super.event(message)
     }
   }
 
-  play(song, forcePlay = false, options = {}) {
+  play (song, forcePlay = false, options = {}) {
     if (this.playing && !forcePlay) {
       this.queueTrack(song)
       return false
@@ -78,19 +87,19 @@ module.exports = class GuildPlayer extends Player {
     return true
   }
 
-  stop() {
+  stop () {
     this.queue.purge()
     this._listening.clear()
     this.emit('stop')
     super.stop()
   }
 
-  leaveOnEmpty(user) {
+  leaveOnEmpty (user) {
     this.playingSong.emit('abruptStop', user)
     this.stop()
   }
 
-  next(user) {
+  next (user) {
     if (this._loop) this.queueTrack(this.playingSong, true)
     const nextSong = this.queue.shift()
     if (nextSong) {
@@ -103,77 +112,85 @@ module.exports = class GuildPlayer extends Player {
     }
   }
 
-  get nextSong() {
+  get nextSong () {
     return this.queue[0]
   }
 
-  queueTrack(song, silent = false) {
+  queueTrack (song, silent = false) {
     this.queueTracks([song], silent)
     return song
   }
 
-  queueTracks(songs, silent = false) {
+  queueTracks (songs, silent = false) {
     this.queue.push(...songs)
     if (!silent) songs.forEach(s => s.emit('queue'))
     return songs
   }
 
-  clearQueue() {
+  clearQueue () {
     return this.queue.purge()
   }
 
-  shuffleQueue() {
+  shuffleQueue () {
     return this.queue.shuffle()
   }
 
-  removeFromQueue(index) {
-    if (index < 0 || index >= this.queue.length) throw new Error('INDEX_OUT_OF_BOUNDS')
+  removeFromQueue (index) {
+    if (index < 0 || index >= this.queue.length) { throw new Error('INDEX_OUT_OF_BOUNDS') }
     return this.queue.remove(index)
   }
 
-  jumpToIndex(index, ignoreLoop = false) {
-    if (index < 0 || index >= this.queue.length) throw new Error('INDEX_OUT_OF_BOUNDS')
+  jumpToIndex (index, ignoreLoop = false) {
+    if (index < 0 || index >= this.queue.length) { throw new Error('INDEX_OUT_OF_BOUNDS') }
 
     const songs = this.queue.splice(0, index + 1)
     const song = songs.pop()
-    if (!ignoreLoop && this._loop) this.queueTracks([this.playingSong, ...songs])
+    if (!ignoreLoop && this._loop) { this.queueTracks([this.playingSong, ...songs]) }
     this.play(song, true)
 
     return song
   }
 
-  volume(volume = 50) {
+  volume (volume = 50) {
     this._volume = volume
     super.volume(volume)
   }
 
-  get bassboosted() {
+  get bassboosted () {
     return this._bassboost
   }
 
-  bassboost(state = true) {
+  bassboost (state = true) {
     this._bassboost = state
     if (state) {
       this._previousVolume = this._volume
       this.volume(150)
-      this.setEQ(Array(6).fill(0).map((n, i) => ({ band: i, gain: 1 })))
+      this.setEQ(
+        Array(6)
+          .fill(0)
+          .map((n, i) => ({ band: i, gain: 1 }))
+      )
       return true
     }
 
     if (this._previousVolume !== null) this.volume(this._previousVolume)
-    this.setEQ(Array(6).fill(0).map((n, i) => ({ band: i, gain: 0 })))
+    this.setEQ(
+      Array(6)
+        .fill(0)
+        .map((n, i) => ({ band: i, gain: 0 }))
+    )
     return false
   }
 
-  get looping() {
+  get looping () {
     return this._loop
   }
 
-  loop(loop = true) {
+  loop (loop = true) {
     this._loop = !!loop
   }
 
-  graveEqualizer() {
+  graveEqualizer () {
     return this.setEQ([
       { band: 0, gain: 0 },
       { band: 1, gain: 0 },
@@ -184,16 +201,18 @@ module.exports = class GuildPlayer extends Player {
     ])
   }
 
-  get formattedElapsed() {
+  get formattedElapsed () {
     if (!this.playingSong || this.playingSong.isStream) return ''
-    return moment.duration(this.state.position).format('hh:mm:ss', { stopTrim: 'm' })
+    return moment
+      .duration(this.state.position)
+      .format('hh:mm:ss', { stopTrim: 'm' })
   }
 
-  get voiceChannel() {
+  get voiceChannel () {
     return this.client.channels.get(this.channel)
   }
 
-  setEQ(bands) {
+  setEQ (bands) {
     this.node.send({
       op: 'equalizer',
       guildId: this.id,
@@ -202,7 +221,7 @@ module.exports = class GuildPlayer extends Player {
     return this
   }
 
-  async updateVoiceState(oldMember, newMember) {
+  async updateVoiceState (oldMember, newMember) {
     const switchId = newMember.guild.me.user.id
     if (newMember.user.bot && newMember.user.id !== switchId) return
     const { voiceChannel: oldChannel } = oldMember
@@ -215,15 +234,17 @@ module.exports = class GuildPlayer extends Player {
     }
 
     if (oldChannel && !newChannel) {
-      if (isSwitch) oldChannel.members.filter(m => !m.user.bot).forEach(m => this._listening.delete(m.user.id))
-      if (oldChannel.members.size === 1 && oldChannel.members.has(switchId)) this.leaveOnEmpty(newMember.user.id)
-      else if (oldChannel.members.has(switchId)) this._listening.delete(newMember.user.id)
-      else return
+      if (isSwitch) {
+        oldChannel.members
+          .filter(m => !m.user.bot)
+          .forEach(m => this._listening.delete(m.user.id))
+      }
+      if (oldChannel.members.size === 1 && oldChannel.members.has(switchId)) { this.leaveOnEmpty(newMember.user.id) } else if (oldChannel.members.has(switchId)) { this._listening.delete(newMember.user.id) } else return
     }
     if (oldChannel && newChannel) {
       if (oldChannel.id === newChannel.id) return
       else if (!oldChannel.equals(newChannel)) {
-        if (oldChannel.members.has(switchId)) this._listening.delete(newMember.user.id)
+        if (oldChannel.members.has(switchId)) { this._listening.delete(newMember.user.id) }
       }
     }
   }

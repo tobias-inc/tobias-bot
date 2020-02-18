@@ -1,31 +1,36 @@
-const { FileUtils, Module, Loader } = require("../");
+const { FileUtils, Module, Loader } = require('../')
 
 module.exports = class ModulesLoader extends Loader {
-  constructor(client) {
+  constructor (client) {
     super('ModulesLoader', client)
     this.critical = true
     this.modules = {}
   }
 
-  async start() {
+  async start () {
     this.client.modules = await this.loadModules()
     return true
   }
 
-  loadModules() {
+  loadModules () {
     return FileUtils.requireDirectory(
       'src/modules',
       this.validateModule.bind(this)
     ).then(() => this.modules)
   }
 
-  validateModule({ file, required }) {
+  validateModule ({ file, required }) {
     if (required.prototype instanceof Module) {
-      const module = new required(this.client);
+      const module = new required(this.client)
       this.modules[module.name] = module
-      this.client.console(false, 'Module was successfully loaded!', this.name, module.displayName);
+      this.client.console(
+        false,
+        'Module was successfully loaded!',
+        this.name,
+        module.displayName
+      )
     } else {
-      this.client.console(true, 'Not Module!', this.name, file);
+      this.client.console(true, 'Not Module!', this.name, file)
     }
     return true
   }

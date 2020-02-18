@@ -1,27 +1,33 @@
-const figlet = require("figlet");
-const { Command, CommandError } = require("../../");
+const figlet = require('figlet')
+const { Command, CommandError } = require('../../')
 
-const ASCII_MAX_LENGTH = 20;
+const ASCII_MAX_LENGTH = 20
 
 module.exports = class Ascii extends Command {
-  constructor(client, path) {
+  constructor (client, path) {
     super(client, path, {
       name: 'ascii',
       category: 'fun',
       utils: {
-        parameters: [{
-          type: 'string',
-          full: true,
-          maxLength: ASCII_MAX_LENGTH,
-          missingError: 'errors:invalidString'
-        }]
+        parameters: [
+          {
+            type: 'string',
+            full: true,
+            maxLength: ASCII_MAX_LENGTH,
+            missingError: 'errors:invalidString'
+          }
+        ]
       }
     })
   }
 
-  run({ t, channel }, ascii) {
+  run ({ t, channel }, ascii) {
     figlet(ascii, (err, data) => {
-      if (err) throw new CommandError(t('commands:ascii.emitedError', { error: err.name || err }))
+      if (err) {
+        throw new CommandError(
+          t('commands:ascii.emitedError', { error: err.name || err })
+        )
+      }
       channel.send(`\`\`\`${data}\`\`\``)
     })
   }

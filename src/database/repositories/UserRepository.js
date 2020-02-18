@@ -1,13 +1,13 @@
-const MongoRepository = require("../MongoRepository.js");
-const Constants = require("../../utils/Constants.js");
-const Utils = require("../../utils");
+const MongoRepository = require('../MongoRepository.js')
+const Constants = require('../../utils/Constants.js')
+const Utils = require('../../utils')
 
 module.exports = class UserRepository extends MongoRepository {
-  constructor(mongoose, model, style) {
+  constructor (mongoose, model, style) {
     super(mongoose, mongoose.model(style, model))
   }
 
-  parse(entity) {
+  parse (entity) {
     return {
       blacklisted: false,
       economy: {
@@ -30,7 +30,7 @@ module.exports = class UserRepository extends MongoRepository {
     }
   }
 
-  getParse() {
+  getParse () {
     return {
       economy: {
         createdAt: Date.now(),

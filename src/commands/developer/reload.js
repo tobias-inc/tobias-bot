@@ -1,19 +1,21 @@
-const { Command, ClientEmbed, Constants } = require("../../");
+const { Command, ClientEmbed, Constants } = require('../../')
 
 module.exports = class Reload extends Command {
-  constructor(client, path) {
+  constructor (client, path) {
     super(client, path, {
       name: 'reload',
       category: 'developer',
       hidden: true,
       utils: {
         requirements: { devOnly: true },
-        parameters: [{ type: 'command', missingError: 'commands:reload.missingCommand' }]
+        parameters: [
+          { type: 'command', missingError: 'commands:reload.missingCommand' }
+        ]
       }
     })
   }
 
-  async run({ channel, author, t }, command) {
+  async run ({ channel, author, t }, command) {
     const embed = new ClientEmbed(author)
     try {
       await command.reload()

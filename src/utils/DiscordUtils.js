@@ -1,5 +1,5 @@
 module.exports = class DiscordUtils {
-  static cleanContent(str, message) {
+  static cleanContent (str, message) {
     return str
       .replace(/@(everyone|here)/g, '@\u200b$1')
       .replace(/<@!?[0-9]+>/g, input => {
@@ -22,7 +22,9 @@ module.exports = class DiscordUtils {
         return channel ? `#${channel.name}` : input
       })
       .replace(/<@&[0-9]+>/g, input => {
-        if (message.channel.type === 'dm' || message.channel.type === 'group') return input
+        if (message.channel.type === 'dm' || message.channel.type === 'group') {
+          return input
+        }
         const role = message.guild.roles.get(input.replace(/<|@|>|&/g, ''))
         return role ? `@${role.name}` : input
       })

@@ -1,35 +1,39 @@
-const fetch = require("node-fetch");
-const { Wrapper } = require("../");
+const fetch = require('node-fetch')
+const { Wrapper } = require('../')
 
-const API_URL = 'https://api.twitch.tv/helix';
+const API_URL = 'https://api.twitch.tv/helix'
 
 module.exports = class TwitchWrapper extends Wrapper {
-  constructor() {
+  constructor () {
     super('twitch')
     this.envVars = ['TWITCH_CLIENT_ID']
   }
 
-  getUser(id) {
+  getUser (id) {
     return this.request('/users', { id }).then(u => u && u.data[0])
   }
 
-  getUserByUsername(login) {
+  getUserByUsername (login) {
     return this.request('/users', { login }).then(u => u && u.data[0])
   }
 
-  getFollowersFromId(id) {
+  getFollowersFromId (id) {
     return this.request('/users/follows', { to_id: id }).then(u => u && u.total)
   }
 
-  getGameNameFromId(id) {
-    return this.request('/games', { id }).then(u => u && u.data[0] && u.data[0].name)
+  getGameNameFromId (id) {
+    return this.request('/games', { id }).then(
+      u => u && u.data[0] && u.data[0].name
+    )
   }
 
-  getStreamByUsername(username) {
-    return this.request('/streams', { user_login: username }).then(s => s && s.data[0])
+  getStreamByUsername (username) {
+    return this.request('/streams', { user_login: username }).then(
+      s => s && s.data[0]
+    )
   }
 
-  request(endpoint, queryParams = {}) {
+  request (endpoint, queryParams = {}) {
     const qParams = new URLSearchParams(queryParams)
     return fetch(`${API_URL}${endpoint}?${qParams.toString()}`, {
       headers: {

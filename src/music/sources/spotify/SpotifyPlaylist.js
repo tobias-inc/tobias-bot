@@ -1,7 +1,7 @@
-const { Playlist } = require("../../structures");
+const { Playlist } = require('../../structures')
 
 module.exports = class SpotifyPlaylist extends Playlist {
-  constructor(data = {}, songs = [], requestedBy) {
+  constructor (data = {}, songs = [], requestedBy) {
     super(data, songs, requestedBy)
 
     this.identifier = data.id

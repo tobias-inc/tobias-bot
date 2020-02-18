@@ -1,33 +1,33 @@
-const { Loader, FileUtils, Router } = require("../");
+const { Loader, FileUtils, Router } = require('../')
 
-const express = require("express");
-const chalk = require("chalk");
-const cors = require("cors");
-const morgan = require("morgan");
+const express = require('express')
+const chalk = require('chalk')
+const cors = require('cors')
+const morgan = require('morgan')
 
 module.exports = class HTTPLoader extends Loader {
-  constructor(client) {
-    super("HTTPLoader", client);
+  constructor (client) {
+    super('HTTPLoader', client)
 
-    this.routes = [];
-    this.express = express();
+    this.routes = []
+    this.express = express()
   }
 
-  async start() {
-    this.client.express = this.loadServer();
-    this.client.routes = await this.loadRoutes();
-    return true;
+  async start () {
+    this.client.express = this.loadServer()
+    this.client.routes = await this.loadRoutes()
+    return true
   }
 
-  loadServer() {
-    const PORT = process.env.PORT || 5000;
+  loadServer () {
+    const PORT = process.env.PORT || 5000
 
     this.express
       .use(cors())
       .use(
         morgan(
-          `${chalk.cyan("[HTTP]")} ${chalk.green(
-            ":method :url - IP :remote-addr - Code :status - Size :res[content-length] B - Handled in :response-time ms"
+          `${chalk.cyan('[HTTP]')} ${chalk.green(
+            ':method :url - IP :remote-addr - Code :status - Size :res[content-length] B - Handled in :response-time ms'
           )}`
         )
       )
@@ -37,28 +37,28 @@ module.exports = class HTTPLoader extends Loader {
           false,
           `Operando na Porta: "${PORT}"`,
           this.name,
-          "LISTEN"
+          'LISTEN'
         )
-      );
+      )
 
-    return this.express;
+    return this.express
   }
 
-  loadRoutes() {
+  loadRoutes () {
     return FileUtils.requireDirectory(
-      "src/http/controllers",
+      'src/http/controllers',
       this.validateRouter.bind(this),
       (e, file) => this.client.console(true, e.stack || e, this.name, file)
-    ).then(() => this.routes);
+    ).then(() => this.routes)
   }
 
-  validateRouter({ file, required: router }) {
+  validateRouter ({ file, required: router }) {
     if (router.prototype instanceof Router) {
-      const Router = new router(this.client);
-      this.routes[Router.name] = Router.load();
+      const Router = new router(this.client)
+      this.routes[Router.name] = Router.load()
     } else {
-      this.client.console(true, "Not Router!", this.name, file);
+      this.client.console(true, 'Not Router!', this.name, file)
     }
-    return true;
+    return true
   }
-};
+}

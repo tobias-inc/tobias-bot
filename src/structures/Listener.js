@@ -1,10 +1,10 @@
 module.exports = class Listener {
-  constructor(client) {
+  constructor (client) {
     this.client = client
     this.events = []
   }
 
-  get realEvents() {
+  get realEvents () {
     return this.events.obj((e) => [e, this[`on${e.capitalize()}`]])
   }
-} 
+}

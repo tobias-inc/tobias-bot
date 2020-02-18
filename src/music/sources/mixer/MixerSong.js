@@ -1,5 +1,5 @@
-const { Song } = require("../../structures");
-const Constants = require("../../../utils/Constants.js");
+const { Song } = require('../../structures')
+const Constants = require('../../../utils/Constants.js')
 
 module.exports = class MixerSong extends Song {
   constructor (data = {}, requestedBy, Mixer) {
@@ -10,7 +10,7 @@ module.exports = class MixerSong extends Song {
   }
 
   async loadInfo () {
-    const [ channelId ] = this.identifier.split('|')
+    const [channelId] = this.identifier.split('|')
     const channel = await this._Mixer.getChannel(channelId)
     if (channel) {
       this.richInfo = {
@@ -25,7 +25,10 @@ module.exports = class MixerSong extends Song {
         userAvatarUrl: channel.user ? channel.user.avatarUrl : null,
         coverUrl: channel.cover ? channel.cover.url : null
       }
-      this.artwork = this.richInfo.userAvatarUrl || this.richInfo.bannerUrl || this.richInfo.coverUrl
+      this.artwork =
+        this.richInfo.userAvatarUrl ||
+        this.richInfo.bannerUrl ||
+        this.richInfo.coverUrl
     }
     return this
   }

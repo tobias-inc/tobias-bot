@@ -1,8 +1,8 @@
-const { Schema } = require("mongoose");
+const { Schema } = require('mongoose')
 
-const Constants = require("../../utils/Constants.js");
+const Constants = require('../../utils/Constants.js')
 
-const vipTypes = ['dbl', 'bpd'];
+const vipTypes = ['dbl', 'bpd']
 
 const BlacklistedSchema = new Schema({
   reason: String,
@@ -56,20 +56,20 @@ const UserSchema = new Schema({
   blacklisted: BlacklistedSchema,
   economy: EconomySchema,
   premium: PremiumSchema,
-  vip: [VipSchema],
+  vip: [VipSchema]
 })
 
 module.exports = {
   name: 'users',
   style: 'Users',
-  repositorie: require("../repositories/UserRepository.js"),
+  repositorie: require('../repositories/UserRepository.js'),
   model: UserSchema
 }
 
 VipSchema.pre('save', function (next) {
   if (!vipTypes
     .some(type => type.toLowerCase() === this.type)
-  ) throw new Error('The type you entered is not valid');
+  ) throw new Error('The type you entered is not valid')
 
   this.type = this.type.toUpperCase()
   return next()

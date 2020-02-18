@@ -1,12 +1,16 @@
-const Constants = require("./Constants");
+const Constants = require('./Constants')
 
 class Permissions {
-  static resolve(permission) {
-    if (permission instanceof Array) return permission.map(p => this.resolve(p)).reduce((prev, p) => prev | p, 0);
-    if (permission instanceof Permissions) return permission.bitfield;
-    if (typeof permission === 'string') permission = this.FLAGS[permission];
-    if (typeof permission !== 'number' || permission < 0) throw new RangeError(Constants.Errors.NOT_A_PERMISSION);
-    return permission;
+  static resolve (permission) {
+    if (permission instanceof Array) {
+      return permission
+        .map(p => this.resolve(p))
+        .reduce((prev, p) => prev | p, 0)
+    }
+    if (permission instanceof Permissions) return permission.bitfield
+    if (typeof permission === 'string') permission = this.FLAGS[permission]
+    if (typeof permission !== 'number' || permission < 0) { throw new RangeError(Constants.Errors.NOT_A_PERMISSION) }
+    return permission
   }
 }
 
@@ -46,10 +50,13 @@ Permissions.FLAGS = {
   MANAGE_ROLES: 1 << 28,
   MANAGE_ROLES_OR_PERMISSIONS: 1 << 28,
   MANAGE_WEBHOOKS: 1 << 29,
-  MANAGE_EMOJIS: 1 << 30,
+  MANAGE_EMOJIS: 1 << 30
 }
 
-Permissions.ALL = Object.keys(Permissions.FLAGS).reduce((all, p) => all | Permissions.FLAGS[p], 0);
-Permissions.DEFAULT = 104324673;
+Permissions.ALL = Object.keys(Permissions.FLAGS).reduce(
+  (all, p) => all | Permissions.FLAGS[p],
+  0
+)
+Permissions.DEFAULT = 104324673
 
-module.exports = Permissions;
+module.exports = Permissions

@@ -1,31 +1,31 @@
-const { FileUtils, Listener, Loader } = require("../");
+const { FileUtils, Listener, Loader } = require('../')
 
 module.exports = class ListenersLoader extends Loader {
-  constructor(client) {
+  constructor (client) {
     super('ListenersLoader', client)
     this.critical = true
   }
 
-  start() {
+  start () {
     return this.loadListeners()
   }
 
-  loadListeners() {
-    return FileUtils
-      .requireDirectory(
-        'src/client/listeners',
-        this.validateListener.bind(this)
-      )
-      .then(() => true)
+  loadListeners () {
+    return FileUtils.requireDirectory(
+      'src/client/listeners',
+      this.validateListener.bind(this)
+    ).then(() => true)
   }
 
-  validateListener({ file, required }) {
+  validateListener ({ file, required }) {
     if (required.prototype instanceof Listener) {
-      const listener = new required(this.client);
+      const listener = new required(this.client)
       listener.events.forEach(event => {
-        const hasFunction = listener.realEvents[event];
+        const hasFunction = listener.realEvents[event]
         if (hasFunction) {
-          this.client.on(event, (...args) => listener[`on${event.capitalize()}`](...args))
+          this.client.on(event, (...args) =>
+            listener[`on${event.capitalize()}`](...args)
+          )
           this.client.console(
             false,
             'Listener function was successfully loaded!',
@@ -35,7 +35,7 @@ module.exports = class ListenersLoader extends Loader {
         }
       })
     } else {
-      this.client.console(true, 'Not Listener!', this.name, file);
+      this.client.console(true, 'Not Listener!', this.name, file)
     }
     return true
   }

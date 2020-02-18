@@ -4,14 +4,17 @@
   "description": "Discord Bot with multiple functions, which values ​​above all, delivering quality!",
   "main": "index.js",
   "scripts": {
-    "start": "node -r dotenv/config index.js",
-    "dev": "nodemon --exec node -r dotenv/config index.js",
-    "test": "mocha tests"
+    "start": "node  index.js",
+    "dev": "nodemon --exec node index.js",
+    "test": "mocha src/tests --recursive",
+    "fix": "standard --fix"
   },
   "engines": {
     "node": ">=12"
   },
   "author": "Tobias Team",
+  "repository": "git+ssh://git@github.com/tobias-inc/TobiasRework.git",
+  "license": "ISC",
   "keywords": [
     "nodejs",
     "javascript",
@@ -19,8 +22,16 @@
     "discord-bot",
     "bot"
   ],
-  "repository": "git+ssh://git@github.com/tobias-inc/TobiasRework.git",
-  "license": "ISC",
+  "nodemonConfig": {
+    "ignore": [
+      "locales/*"
+    ]
+  },
+  "standard": {
+    "env": [
+      "mocha"
+    ]
+  },
   "dependencies": {
     "@hapi/joi": "^17.1.0",
     "ascii-table": "^0.0.9",
@@ -51,6 +62,7 @@
   },
   "devDependencies": {
     "eslint": "^6.8.0",
-    "mocha": "^7.0.1"
+    "mocha": "^7.0.1",
+    "standard": "^14.3.1"
   }
 }

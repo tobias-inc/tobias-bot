@@ -1,12 +1,13 @@
 module.exports = class CommandContext {
-  constructor(options = {}) {
+  constructor (options = {}) {
     this.client = options.client
     this.message = options.message
     this.author = options.message.author
     this.member = options.message.member
     this.guild = options.message.guild
     this.channel = options.message.channel
-    this.voiceChannel = options.message.member && options.message.member.voiceChannel
+    this.voiceChannel =
+      options.message.member && options.message.member.voiceChannel
 
     this.language = options.language
     this.prefix = options.prefix
@@ -18,15 +19,17 @@ module.exports = class CommandContext {
 
     this.instancedTimestamp = options.instancedTimestamp
 
-    this.t = () => { throw new Error('Invalid FixedT') }
+    this.t = () => {
+      throw new Error('Invalid FixedT')
+    }
     this.flags = {}
   }
 
-  setFixedT(translate) {
+  setFixedT (translate) {
     this.t = translate
   }
 
-  setFlags(flags) {
+  setFlags (flags) {
     this.flags = flags
   }
 }

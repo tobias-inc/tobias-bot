@@ -1,7 +1,7 @@
-const { Command, ClientEmbed, Constants } = require("../../");
+const { Command, ClientEmbed, Constants } = require('../../')
 
 module.exports = class Daily extends Command {
-  constructor(client, path) {
+  constructor (client, path) {
     super(client, path, {
       name: 'daily',
       category: 'economy',
@@ -11,23 +11,31 @@ module.exports = class Daily extends Command {
     })
   }
 
-  async run({ t, author, channel }) {
-    const embed = new ClientEmbed(author);
+  async run ({ t, author, channel }) {
+    const embed = new ClientEmbed(author)
 
     try {
-      const { collectedMoney } = await this.client.controllers.economy.bonus.claimDaily(author.id)
-      embed.setDescription(t('commands:daily.claimedSuccessfully', { count: collectedMoney }))
+      const {
+        collectedMoney
+      } = await this.client.controllers.economy.bonus.claimDaily(author.id)
+      embed.setDescription(
+        t('commands:daily.claimedSuccessfully', { count: collectedMoney })
+      )
     } catch (e) {
       embed.setColor(Constants.ERROR_COLOR)
       switch (e.message) {
         case 'ALREADY_CLAIMED':
-          embed.setDescription(t('commands:daily.alreadyClaimedDescription', { time: e.formattedCooldown }))
+          embed.setDescription(
+            t('commands:daily.alreadyClaimedDescription', {
+              time: e.formattedCooldown
+            })
+          )
           break
         default:
           embed.setTitle(t('errors:generic'))
       }
     }
 
-    channel.send(embed);
+    channel.send(embed)
   }
 }

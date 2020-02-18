@@ -1,7 +1,7 @@
-const { Command, CommandError } = require("../../../");
+const { Command, CommandError } = require('../../../')
 
 module.exports = class QueueJump extends Command {
-  constructor(client, path) {
+  constructor (client, path) {
     super(client, path, {
       name: 'jump',
       category: 'music',
@@ -19,8 +19,8 @@ module.exports = class QueueJump extends Command {
     })
   }
 
-  run({ t, guild, message }, index) {
-    const guildPlayer = this.client.playerManager.get(guild.id);
+  run ({ t, guild, message }, index) {
+    const guildPlayer = this.client.playerManager.get(guild.id)
 
     if (guildPlayer.nextSong) {
       try {

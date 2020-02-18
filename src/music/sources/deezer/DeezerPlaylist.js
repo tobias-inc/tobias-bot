@@ -1,4 +1,4 @@
-const { Playlist } = require("../../structures");
+const { Playlist } = require('../../structures')
 
 module.exports = class DeezerPlaylist extends Playlist {
   constructor (data = {}, songs = [], requestedBy) {

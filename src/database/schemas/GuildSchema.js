@@ -1,4 +1,4 @@
-const { Schema } = require("mongoose");
+const { Schema } = require('mongoose')
 
 const ModuleSchema = new Schema({
   active: { type: Boolean, required: true },
@@ -21,7 +21,7 @@ const SystemsConfigurableSchema = new Schema({
 module.exports = {
   name: 'guilds',
   style: 'Guild',
-  repositorie: require("../repositories/GuildRepository.js"),
+  repositorie: require('../repositories/GuildRepository.js'),
   model: new Schema({
     _id: String,
     prefix: String,

@@ -1,7 +1,7 @@
-const Parameter = require("./Parameter.js");
+const Parameter = require('./Parameter.js')
 
 module.exports = class BooleanFlagParameter extends Parameter {
-  static parse() {
+  static parse () {
     return true
   }
 }
