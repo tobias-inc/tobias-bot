@@ -1,8 +1,4 @@
 module.exports = class GuildQueue extends Array {
-  constructor () {
-    super()
-  }
-
   get size () {
     return this.length
   }
@@ -12,7 +8,7 @@ module.exports = class GuildQueue extends Array {
   }
 
   shuffle () {
-    return this.sort(() => Math.random() > 0.5 ? -1 : 1)
+    return this.sort(() => (Math.random() > 0.5 ? -1 : 1))
   }
 
   remove (index) {
@@ -21,8 +17,7 @@ module.exports = class GuildQueue extends Array {
 
   removeSong (num) {
     const song = this[num - 1]
-
-    if (song > -1) this.splice((num - 1), 1)
+    if (song > -1) this.splice(num - 1, 1)
     return num
   }
 }

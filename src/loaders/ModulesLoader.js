@@ -19,9 +19,9 @@ module.exports = class ModulesLoader extends Loader {
     ).then(() => this.modules)
   }
 
-  validateModule ({ file, required }) {
-    if (required.prototype instanceof Module) {
-      const module = new required(this.client)
+  validateModule ({ file, required: NewModule }) {
+    if (NewModule.prototype instanceof Module) {
+      const module = new NewModule(this.client)
       this.modules[module.name] = module
       this.client.console(
         false,

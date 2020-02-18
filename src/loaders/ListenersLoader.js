@@ -17,9 +17,9 @@ module.exports = class ListenersLoader extends Loader {
     ).then(() => true)
   }
 
-  validateListener ({ file, required }) {
-    if (required.prototype instanceof Listener) {
-      const listener = new required(this.client)
+  validateListener ({ file, required: NewListener }) {
+    if (NewListener.prototype instanceof Listener) {
+      const listener = new NewListener(this.client)
       listener.events.forEach(event => {
         const hasFunction = listener.realEvents[event]
         if (hasFunction) {

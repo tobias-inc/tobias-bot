@@ -25,8 +25,8 @@ const CLIENT_OPTIONS = {
   canvasLoaded
 }
 
-const tobias = require('./src/TobiasClient.js')
-const client = new tobias(CLIENT_OPTIONS)
+const TobiasClient = require('./src/TobiasClient.js')
+const client = new TobiasClient(CLIENT_OPTIONS)
 client
   .login()
   .then(() =>

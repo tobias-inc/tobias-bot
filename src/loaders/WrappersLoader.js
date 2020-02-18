@@ -19,9 +19,9 @@ module.exports = class WrappersLoader extends Loader {
     ).then(() => this.apis)
   }
 
-  validateApi ({ file, required }) {
-    if (required.prototype instanceof Wrapper) {
-      const api = new required()
+  validateApi ({ file, required: NewWrapper }) {
+    if (NewWrapper.prototype instanceof Wrapper) {
+      const api = new NewWrapper()
 
       if (
         !api.envVars.every(variable => {
@@ -35,7 +35,9 @@ module.exports = class WrappersLoader extends Loader {
           }
           return !!process.env[variable]
         })
-      ) { return false }
+      ) {
+        return false
+      }
 
       this.apis[api.name] = api.load()
       this.client.console(

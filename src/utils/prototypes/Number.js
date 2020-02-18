@@ -9,7 +9,8 @@ module.exports = class NumberPrototypes extends Prototype {
      * @param {string} lang Language code.
      * @returns {number} Respective number in locale inserted.
      */
-    Number.prototype.localeNumber = function localeNumber (lang) {
+    // eslint-disable-next-line no-extend-native
+    Number.prototype.localeNumber = function (lang) {
       return FormatNumber.localeNumber(this, lang)
     }
 

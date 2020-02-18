@@ -87,18 +87,18 @@ module.exports = class Command {
 
   reload () {
     delete require.cache[require.resolve(this.fullPath)]
-    const cmd = require(this.fullPath)
-    const command = new cmd(this.client, this.fullPath)
+    const Cmd = require(this.fullPath)
+    const command = new Cmd(this.client, this.fullPath)
 
     this.subcommands.forEach(s => {
       delete require.cache[require.resolve(s.fullPath)]
-      const subcommandRequired = require(s.fullPath)
-      const subcommand = new subcommandRequired(this.client, s.fullPath)
+      const SubcommandRequired = require(s.fullPath)
+      const subcommand = new SubcommandRequired(this.client, s.fullPath)
       subcommand.referenceCommand = command
       command.subcommands.push(subcommand)
     })
     return this.client.commands.splice(
-      this.client.commands.findIndex(c => c.name == this.name),
+      this.client.commands.findIndex(c => c.name === this.name),
       1,
       command
     )

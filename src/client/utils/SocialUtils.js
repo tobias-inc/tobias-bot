@@ -8,7 +8,9 @@ const multiplique = l => {
 
 class UserWrapper {
   constructor (user, channel, language) {
-    if (!(user instanceof User)) { throw new Error('The user you entered is not a valid user.') }
+    if (!(user instanceof User)) {
+      throw new Error('The user you entered is not a valid user.')
+    }
 
     this.channel = channel
     this.language = language
@@ -102,4 +104,4 @@ module.exports = class SocialUtils {
   }
 }
 
-module.exports.userWrapper = UserWrapper
+module.exports.UserWrapper = UserWrapper

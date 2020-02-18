@@ -18,10 +18,12 @@ module.exports = class ControllersLoader extends Loader {
     ).then(() => this.controllers)
   }
 
-  validateController ({ file, required }) {
-    if (required.prototype instanceof Controller) {
-      const controller = new required(this.client)
-      if (controller.canLoad() !== true) { throw new Error('Controller needs another component to load!') }
+  validateController ({ file, required: NewController }) {
+    if (NewController.prototype instanceof Controller) {
+      const controller = new NewController(this.client)
+      if (controller.canLoad() !== true) {
+        throw new Error('Controller needs another component to load!')
+      }
 
       this.controllers[controller.name] = controller.load()
     } else {

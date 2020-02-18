@@ -52,9 +52,9 @@ module.exports = class HTTPLoader extends Loader {
     ).then(() => this.routes)
   }
 
-  validateRouter ({ file, required: router }) {
-    if (router.prototype instanceof Router) {
-      const Router = new router(this.client)
+  validateRouter ({ file, required: NewRoute }) {
+    if (NewRoute.prototype instanceof Router) {
+      const Router = new NewRoute(this.client)
       this.routes[Router.name] = Router.load()
     } else {
       this.client.console(true, 'Not Router!', this.name, file)

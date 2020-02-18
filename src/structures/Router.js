@@ -12,7 +12,7 @@ module.exports = class Router {
 
   load () {
     this.register(this.client.express)
-    this.subroutes = this.subroutes.map(subroute => new subroute(this.client))
+    this.subroutes = this.subroutes.map(SubRoute => new SubRoute(this.client))
     return this
   }
 

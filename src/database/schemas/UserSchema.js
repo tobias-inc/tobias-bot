@@ -67,9 +67,7 @@ module.exports = {
 }
 
 VipSchema.pre('save', function (next) {
-  if (!vipTypes
-    .some(type => type.toLowerCase() === this.type)
-  ) throw new Error('The type you entered is not valid')
+  if (!vipTypes.some(type => type.toLowerCase() === this.type)) { throw new Error('The type you entered is not valid') }
 
   this.type = this.type.toUpperCase()
   return next()

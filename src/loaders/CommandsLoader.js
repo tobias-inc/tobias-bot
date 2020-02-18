@@ -28,8 +28,8 @@ module.exports = class CommandsLoader extends Loader {
         )
         if (commands.length) {
           commands.forEach(cmd => {
-            const subcommandRequired = require(s.fullPath)
-            const subcommand = new subcommandRequired(this.client, s.fullPath)
+            const SubcommandRequired = require(s.fullPath)
+            const subcommand = new SubcommandRequired(this.client, s.fullPath)
             subcommand.referenceCommand = cmd
             cmd.subcommands.push(subcommand)
           })
@@ -39,9 +39,9 @@ module.exports = class CommandsLoader extends Loader {
     })
   }
 
-  validateCommand ({ file, required, fullPath }) {
-    if (required.prototype instanceof Command) {
-      const command = new required(this.client, fullPath)
+  validateCommand ({ file, fullPath, required: NewCommand }) {
+    if (NewCommand.prototype instanceof Command) {
+      const command = new NewCommand(this.client, fullPath)
       if (!command.referenceCommand) this.commands.push(command)
       else this.subcommands.push(command)
     } else {

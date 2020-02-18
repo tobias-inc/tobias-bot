@@ -1,23 +1,23 @@
 module.exports = class Repository {
   constructor () {
-    if (this.constructor === Repository) throw new Error('Cannot instantiate abstract class')
+    if (this.constructor === Repository) { throw new Error('Cannot instantiate abstract class') }
   }
 
   getParse () {
     return {}
   }
 
-  parse () { }
+  parse () {}
 
-  add () { }
+  add () {}
 
-  get () { }
+  get () {}
 
-  remove () { }
+  remove () {}
 
-  findOne () { }
+  findOne () {}
 
-  findAll () { }
+  findAll () {}
 
-  update () { }
+  update () {}
 }

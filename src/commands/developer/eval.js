@@ -19,6 +19,7 @@ module.exports = class Eval extends Command {
 
   async run ({ channel, t, args, guild, message, author }, expr) {
     try {
+      // eslint-disable-next-line no-eval
       const evaled = await eval(expr.replace(/(^`{3}(\w+)?|`{3}$)/g, ''))
       const cleanEvaled = this.clean(util.inspect(evaled, { depth: 0 }))
       await channel.send(cleanEvaled, { code: 'js' })

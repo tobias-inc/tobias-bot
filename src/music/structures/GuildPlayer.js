@@ -136,16 +136,22 @@ module.exports = class GuildPlayer extends Player {
   }
 
   removeFromQueue (index) {
-    if (index < 0 || index >= this.queue.length) { throw new Error('INDEX_OUT_OF_BOUNDS') }
+    if (index < 0 || index >= this.queue.length) {
+      throw new Error('INDEX_OUT_OF_BOUNDS')
+    }
     return this.queue.remove(index)
   }
 
   jumpToIndex (index, ignoreLoop = false) {
-    if (index < 0 || index >= this.queue.length) { throw new Error('INDEX_OUT_OF_BOUNDS') }
+    if (index < 0 || index >= this.queue.length) {
+      throw new Error('INDEX_OUT_OF_BOUNDS')
+    }
 
     const songs = this.queue.splice(0, index + 1)
     const song = songs.pop()
-    if (!ignoreLoop && this._loop) { this.queueTracks([this.playingSong, ...songs]) }
+    if (!ignoreLoop && this._loop) {
+      this.queueTracks([this.playingSong, ...songs])
+    }
     this.play(song, true)
 
     return song
@@ -224,8 +230,10 @@ module.exports = class GuildPlayer extends Player {
   async updateVoiceState (oldMember, newMember) {
     const switchId = newMember.guild.me.user.id
     if (newMember.user.bot && newMember.user.id !== switchId) return
+
     const { voiceChannel: oldChannel } = oldMember
     const { voiceChannel: newChannel } = newMember
+
     const isSwitch = newMember.user.id === switchId
     if (newMember.user.bot && !isSwitch) return
 
@@ -239,12 +247,19 @@ module.exports = class GuildPlayer extends Player {
           .filter(m => !m.user.bot)
           .forEach(m => this._listening.delete(m.user.id))
       }
-      if (oldChannel.members.size === 1 && oldChannel.members.has(switchId)) { this.leaveOnEmpty(newMember.user.id) } else if (oldChannel.members.has(switchId)) { this._listening.delete(newMember.user.id) } else return
+      if (oldChannel.members.size === 1 && oldChannel.members.has(switchId)) {
+        this.leaveOnEmpty(newMember.user.id)
+      } else if (oldChannel.members.has(switchId)) {
+        this._listening.delete(newMember.user.id)
+      } else return
     }
+
     if (oldChannel && newChannel) {
       if (oldChannel.id === newChannel.id) return
-      else if (!oldChannel.equals(newChannel)) {
-        if (oldChannel.members.has(switchId)) { this._listening.delete(newMember.user.id) }
+      if (!oldChannel.equals(newChannel)) {
+        if (oldChannel.members.has(switchId)) {
+          this._listening.delete(newMember.user.id)
+        }
       }
     }
   }

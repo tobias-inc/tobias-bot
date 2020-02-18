@@ -109,7 +109,7 @@ module.exports = class MessageResponses extends Listener {
     }
 
     if (!emited && message.guild && this.client.database) {
-      const user = new SocialUtils.userWrapper(
+      const user = new SocialUtils.UserWrapper(
         message.author,
         message.channel,
         language

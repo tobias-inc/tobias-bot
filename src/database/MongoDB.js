@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
-const schemas = (call) => require('../').FileUtils.requireDirectory('src/database/schemas', call)
+const schemas = call =>
+  require('../').FileUtils.requireDirectory('src/database/schemas', call)
 
 module.exports = class MongoDB {
   constructor (options = {}) {
@@ -9,12 +10,16 @@ module.exports = class MongoDB {
   }
 
   async connect () {
-    return mongoose.connect(process.env.MONGODB_URI, this.options).then(() => this.loadSchemas())
+    return mongoose
+      .connect(process.env.MONGODB_URI, this.options)
+      .then(() => this.loadSchemas())
   }
 
   loadSchemas () {
-    return schemas(({ required: { name, style, model, repositorie } }) => {
-      this[name] = new repositorie(mongoose, model, style)
-    })
+    return schemas(
+      ({ required: { name, style, model, repositorie: Repositorie } }) => {
+        this[name] = new Repositorie(mongoose, model, style)
+      }
+    )
   }
 }
