@@ -56,10 +56,15 @@ module.exports = class WebController extends ClientRouter {
 
           const { prefix: prefixM, language: languageM } = this.client.modules
           if (prefix) await prefixM.updateValues(guild.id, { prefix })
-          if (language) await languageM.updateValues(guild.id, { language })
+          if (language) {
+            await languageM.updateValues(guild.id, {
+              language: language.toLowerCase()
+            })
+          }
 
           return res.json({ ok: true })
         } catch (e) {
+          console.log(e)
           return res.status(400).json({ error: 'Bad request!' })
         }
       }
