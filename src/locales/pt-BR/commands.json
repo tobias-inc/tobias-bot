@@ -114,7 +114,7 @@
   },
   "play": {
     "commandDescription": "Toca música em um canal de voz.",
-    "commandUsage": "<link  [playlist | song] | nome>",
+    "commandUsage": "<link | nome>",
     "noTrackIdentifier": "Por favor insira a música que deseja reproduzir!"
   },
   "stop": {
@@ -216,7 +216,7 @@
   },
   "bugreport": {
     "commandDescription": "Esclarece um bug para o time de desenvolvedores do bot.",
-    "commandUsage": "<bug> [--screenshots <prints url>]",
+    "commandUsage": "<bug> [--screenshots +prints url]",
     "missingBug": "Desculpe, você precisa inserir o bug.",
     "screenshots": "Capturas de tela",
     "view": "Ver"
