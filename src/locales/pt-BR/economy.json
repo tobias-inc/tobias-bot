@@ -1,8 +1,8 @@
 {
   "levelup": "Parabéns **{{username}}**, você acaba de passar para o level **{{level}}**!",
-  "currencyWithCount": "{{count}} pockets",
+  "currencyWithCount": "{{count}} dinheiro",
   "totalXp": "XP TOTAL",
-  "pockets": "POCKETS",
+  "pockets": "DINEHIRO",
   "level": "LEVEL",
   "leveluped": "SUBIU DE LEVEL!",
   "lvl": "LVL",
