@@ -1,5 +1,5 @@
 const {
-  Discord = require("discord.js"),
+  Discord = require('discord.js'),
   Attachment = Discord.Attachment,
   Command, ClientEmbed, Constants
 } = require('../..')
@@ -13,24 +13,24 @@ module.exports = class AddEmoji extends Command {
     })
   }
 
-  async run ({ channel, guild, args }, t) {
+  run ({ channel, guild, args, author, message }, t) {
     const embed = new ClientEmbed(author, { author: [this.client.user] })
 
     if (!args) {
       return embed
-        .setDescription(Emojis.Errado + "**" + author.username + "**" + t('comandos:emojiinfo.noArgs'))
+        .setDescription(`**${author.username}** ${t('comandos:emojiinfo.noArgs')}`)
         .setColor(Constants.ERROR_COLOR)
     }
 
-    let emojo = false
-
-    emojo = await this.GetEmoji(args[0], guild)
+    const emojo = message.attachments.first().url
 
     if (!emojo) {
       return embed
-        .setDescription(Emojis.Errado + "**" + author.username + "**" + t('comandos:emojiinfo.noEmoji', { searsh: args[0] }))
+        .setDescription(`**${author.username}** ${t('comandos:emojiinfo.noEmoji', { searsh: args[0] })}`)
         .setColor(Constants.ERROR_COLOR)
     }
+
+    guild.createEmoji(emojo, args[0])
     const type = emojo.animated ? '.gif' : '.png'
     const emoji = new Attachment(emojo.url, emojo.name + type)
     channel.send(`\`${emojo.name}\``, emoji || embed)

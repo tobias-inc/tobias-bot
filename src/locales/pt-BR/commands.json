@@ -1,4 +1,10 @@
 {
+  "money": {
+    "commandDescription": "Ver as suas moedas atuais.",
+    "commandUsage": "[usuário]",
+    "authorMoney": "Você possui **{{balance}} moedas** atualmente.",
+    "userMoney": "O usuário `{{user}}` possui **{{balance}} moedas** atualmente."
+  },
   "eval": {
     "commandDescription": "Avalia uma string JS.",
     "commandUsage": "<texto>"
