@@ -85,6 +85,12 @@
     "alreadyClaimedDescription": "Você já reivindicou sua recompensa diária. Você pode pegar novamente em **{{time}}**.",
     "claimedSuccessfully": "Você recebeu **$t(economy:currencyWithCount, { 'count': {{count}} })** como sua recompensa diária!"
   },
+  "money": {
+    "commandDescription": "Ver as suas moedas atuais.",
+    "commandUsage": "[usuário]",
+    "authorMoney": "Você possui **{{balance}} moedas** atualmente.",
+    "userMoney": "O usuário `{{user}}` possui **$t(economy:lowerPocket, { 'count': {{balance}} })** atualmente."
+  },
   "rep": {
     "commandDescription": "Da um ponto de reputação para um usuário.",
     "commandUsage": "<usuário>",
@@ -114,7 +120,7 @@
   },
   "play": {
     "commandDescription": "Toca música em um canal de voz.",
-    "commandUsage": "<link  [playlist | song] | nome>",
+    "commandUsage": "<link | nome>",
     "noTrackIdentifier": "Por favor insira a música que deseja reproduzir!"
   },
   "stop": {
@@ -216,9 +222,15 @@
   },
   "bugreport": {
     "commandDescription": "Esclarece um bug para o time de desenvolvedores do bot.",
-    "commandUsage": "<bug> [--screenshots <prints url>]",
+    "commandUsage": "<bug> [--screenshots +prints url]",
     "missingBug": "Desculpe, você precisa inserir o bug.",
     "screenshots": "Capturas de tela",
     "view": "Ver"
+  },
+  "addemoji": {
+    "commandDescription": "Adiciona um emoji novo ao servidor",
+    "commandUsage": "<imagem | url> <nome>",
+    "successfullyAdded": "O emoji **{{name}}** foi adicionado com sucesso!",
+    "createEmojiError": "Ocorreu um erro ao criar o emoji!"
   }
 }
