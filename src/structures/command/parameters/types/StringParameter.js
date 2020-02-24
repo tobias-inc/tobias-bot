@@ -6,6 +6,7 @@ module.exports = class StringParameter extends Parameter {
   static parseOptions (options = {}) {
     return {
       ...super.parseOptions(options),
+      removeSpaces: !!options.clean,
       clean: !!options.clean,
       maxLength: options.maxLength || 0,
       truncate: !!options.truncate
@@ -20,6 +21,8 @@ module.exports = class StringParameter extends Parameter {
       (typeof this.maxLength === 'object'
         ? this.maxLength[command.name]
         : this.maxLength) || 0
+
+    if (this.removeSpaces) arg = arg.replace(/ +/gi, '')
     if (this.clean) arg = DiscordUtils.cleanContent(arg, message)
 
     if (maxLength > 0 && arg.length > maxLength) {
