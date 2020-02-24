@@ -22,13 +22,14 @@ module.exports = class ImageParameter extends Parameter {
     const regexResult = URL_REGEX.test(arg)
     if (regexResult) {
       if (!this.acceptUrl) throw new CommandError(t(this.errors.notAcceptUrl))
-      const url = args.find(u => URL_REGEX.test(u))
-      return url
+      return arg
     }
 
     const messageAttachments = message.attachments
     if (messageAttachments.size) {
-      if (!this.acceptAttachment) { throw new Error(this.errors.notAcceptAttachment) }
+      if (!this.acceptAttachment) {
+        throw new Error(this.errors.notAcceptAttachment)
+      }
       return messageAttachments.first().url
     }
   }
