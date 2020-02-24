@@ -29,7 +29,7 @@ module.exports = class AddEmoji extends Command {
         .setDescription(`**${author.username}** ${t('comandos:emojiinfo.noEmoji', { searsh: args[0] })}`)
         .setColor(Constants.ERROR_COLOR)
     }
-    console.log('AEPORÃa')
+
     guild.createEmoji(emojo, args[0])
     const type = emojo.animated ? '.gif' : '.png'
     const emoji = new Attachment(emojo.url, emojo.name + type)
