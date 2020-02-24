@@ -26,20 +26,30 @@ module.exports = class Weather extends Command {
       degreeType: 'C'
     })
 
-    if (cityWeather) {
-      const {
-        location: { timezone },
-        current: {
-          day,
-          humidity,
-          temperature,
-          imageUrl,
-          cityName,
-          thermalSensation,
-          windSpeed
-        }
-      } = cityWeather
+    if (!cityWeather) {
+      return channel.send(
+        channel.send(
+          embed
+            .setTitle(t('commands:weather.cityNotFound'))
+            .setColor(Constants.ERROR_COLOR)
+        )
+      )
+    }
 
+    const {
+      location: { timezone },
+      current: {
+        day,
+        humidity,
+        temperature,
+        imageUrl,
+        cityName,
+        thermalSensation,
+        windSpeed
+      }
+    } = cityWeather
+
+    channel.send(
       embed
         .setTitle(cityName)
         .setThumbnail(imageUrl)
@@ -53,12 +63,6 @@ module.exports = class Weather extends Command {
         .addField(t('commands:weather.wind'), windSpeed, true)
         .addField(t('commands:weather.humidity'), `${humidity}%`, true)
         .addField(t('commands:weather.day'), day.capitalize(), true)
-    } else {
-      embed
-        .setTitle(t('commands:weather.cityNotFound'))
-        .setColor(Constants.ERROR_COLOR)
-    }
-
-    channel.send(embed)
+    )
   }
 }
