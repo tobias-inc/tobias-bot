@@ -23,8 +23,13 @@ module.exports = class Money extends Command {
     const balance = await this.client.controllers.economy.balance(user.id)
 
     channel.send(
-      embed.setDescription(
-        t('commands:money.userMoney', { user: user.tag, balance })
+      embed.setTitle(
+        t(
+          `commands:money.${
+            user.id === author.id ? 'authorMoney' : 'userMoney'
+          }`,
+          { user: user.tag, balance }
+        )
       )
     )
   }
