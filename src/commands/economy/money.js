@@ -17,9 +17,9 @@ module.exports = class Money extends Command {
   async run ({ t, author, channel }, user) {
     const embed = new ClientEmbed(author)
 
-    const balance = await this.client.controllers.economy.balance(user.id)
-    if (author.id === user.id) embed.setDescription(t('commands:money.authorMoney', { balance }))
-    else { embed.setDescription(t('commands:money.userMoney', { user: user.tag, balance })) }
+    const balance = await this.client.controllers.economy.balance(user ? user.id : author.id)
+    if (user) embed.setDescription(t('commands:money.userMoney', { user: user.tag, balance }))
+    else { embed.setDescription(t('commands:money.authorMoney', { balance })) }
     return channel.send(
       embed
     )

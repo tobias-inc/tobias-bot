@@ -1,4 +1,8 @@
 {
+  "money":{
+    "userMoney": "{{user}} possui {{balance}} Biscoitos Tobias!",
+    "authorMoney": "Você possui {{balance}} Biscoitos Tobias!"
+  },
   "eval": {
     "commandDescription": "Avalia uma string JS.",
     "commandUsage": "<texto>"
