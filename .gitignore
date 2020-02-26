@@ -76,6 +76,7 @@ typings/
 .env
 .env.test
 .env.local
+.env.parent
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
