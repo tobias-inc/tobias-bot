@@ -2,8 +2,8 @@ const { Loader, FileUtils, Router } = require('../')
 
 const express = require('express')
 const chalk = require('chalk')
-const cors = require('cors')
 const morgan = require('morgan')
+const cors = require('cors')
 
 module.exports = class HTTPLoader extends Loader {
   constructor (client) {
@@ -20,7 +20,7 @@ module.exports = class HTTPLoader extends Loader {
   }
 
   loadServer () {
-    const PORT = process.env.PORT || 5000
+    const PORT = process.env.PORT || 3000
 
     this.express
       .use(cors())
