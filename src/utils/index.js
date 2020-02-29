@@ -1,7 +1,6 @@
-const { Message } = require('discord.js')
 const moment = require('moment')
+const { Message, Permissions } = require('discord.js')
 
-const Permissions = require('./Permissions.js')
 const Constants = require('./Constants')
 
 module.exports = class Utils {
@@ -110,11 +109,10 @@ module.exports = class Utils {
   // Website
 
   static get website () {
-    return process.env.WEBSITE_URL || Constants.WEBSITE_URL
+    return process.env.WEBSITE_URL || 'https://www.tobiasapp.tk'
   }
 
   static websiteUrl (path = '') {
-    path = path.startsWith('/') ? path.replace('/', '') : path
     return `${this.website}/${path}`
   }
 }

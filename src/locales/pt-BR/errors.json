@@ -32,7 +32,8 @@
   "invalidColor": "Você precisa me fornecer uma cor válida.",
   "invalidGuild": "Você precisa me fornecer uma guild válida.",
   "invalidEmoji": "Você precisa me fornecer um emoji válido.",
-  "invalidRole": "Você precisa me fornecer uma função válida.",
+  "invalidRole": "Você precisa me fornecer um cargo válida.",
+  "invalidCommand": "Você precisa me fornecer um comando válido.",
   "userCantBeDeveloper": "O usuário não pode ser um desenvolvedor.",
   "onlyOldAccounts": "Sua conta deve ter pelo menos um mês para fazer isso!",
   "voiceChannelJoin": "Não consigo entrar neste canal de voz!",
@@ -46,6 +47,5 @@
   "imageParsingError": "Ocorreu um erro ao analisar a imagem.",
   "musicReproducion": "Ocorreu um erro na reprodução. A lista será resetada!",
   "notAcceptUrl": "Desculpe, não aceito uma **url** como parâmetro!",
-  "acceptAttachment": "Desculpe, não posso aceitar um anexo!",
-  "commandNotFound": "O comando inserido não é valido!"
+  "acceptAttachment": "Desculpe, não posso aceitar um anexo!"
 }

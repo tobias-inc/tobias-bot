@@ -28,7 +28,7 @@ If you want to contribute, read this section carefully
 Fork the project [on GitHub][rep-github-url] and clone your fork
 locally.
 
-``` text
+```text
 $ git clone git@github.com:username/TobiasBot.git
 $ cd TobiasBot
 $ git remote add upstream https://github.com/tobias-inc/TobiasBot.git
@@ -36,22 +36,22 @@ $ git remote add upstream https://github.com/tobias-inc/TobiasBot.git
 
 <h4>Which branch?</h4>
 
-For developing new features and bug fixes, the `dev` branch should be pulled
+For developing new features and bug fixes, the `dev/features` branch should be pulled
 and built upon.
 
 <h3>Step 2: Branch</h3>
 
 Create a branch and start hacking:
 
-``` text
-$ git checkout -b my-branch -t origin/dev
+```text
+$ git checkout -b my-branch -t dev/features
 ```
 
 <h3>Step 3: Commit</h3>
 
 Make sure git knows your name and email address:
 
-``` text
+```text
 $ git config --global user.name "J. Random User"
 $ git config --global user.email "j.random.user@example.com"
 ```
@@ -79,7 +79,7 @@ $ git commit
 
 </div>
 
-[codacy-badge]: https://api.codacy.com/project/badge/Grade/89da164b077a4fcc83668ebb2eb2eaf4
+[codacy-badge]: https://api.codacy.com/project/badge/Grade/6eed0a4c464f4b48b51d3c7e9ee398b8
 [codacy-url]: https://app.codacy.com/gh/tobias-inc/TobiasBot?utm_source=github.com&utm_medium=referral&utm_content=tobias-inc/TobiasBot&utm_campaign=Badge_Grade_Dashboard
 [circleci-badge]: https://img.shields.io/circleci/build/github/tobias-inc/TobiasBot/master.svg?logo=circleci
 [circleci-url]: https://circleci.com/gh/tobias-inc/TobiasBot
@@ -107,6 +107,4 @@ $ git commit
 [stars-url]: https://github.com/tobias-inc/TobiasBot/stargazers
 [watchers-badge]: https://img.shields.io/github/watchers/tobias-inc/TobiasBot?label=WATCHERS&style=social
 [watchers-url]: https://github.com/tobias-inc/TobiasBot/watchers
-
 [rep-github-url]: https://github.com/tobias-inc/TobiasBot/
-
