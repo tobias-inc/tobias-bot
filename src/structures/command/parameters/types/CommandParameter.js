@@ -1,6 +1,7 @@
 const UserParameter = require('./UserParameter.js')
 
 const regexpSpecialChars = /([[\]^$|()\\+*?{}=!.])/gi
+
 const quoteRegex = text => text.replace(regexpSpecialChars, '\\$1')
 const prefixRegex = prefix => new RegExp(`^${quoteRegex(prefix)}`)
 
@@ -18,7 +19,7 @@ module.exports = class CommandParameter extends UserParameter {
     if (!arg) return
 
     arg = arg.replace(prefixRegex(prefix), '')
-    const [cmd, subcmd] = arg.split(' ')
+    const [cmd, subcmd] = arg.split(/ +/g)
 
     const command = client.commands
       .filter(c => this.validCommands && !c.hidden)
