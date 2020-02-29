@@ -1,6 +1,5 @@
 const { Command } = require('../../')
-
-const matches = ['@here', '@everyone']
+const { Util } = require('discord.js')
 
 module.exports = class Say extends Command {
   constructor (client, path) {
@@ -17,18 +16,6 @@ module.exports = class Say extends Command {
   }
 
   run ({ channel }, expr) {
-    return channel.send(this.replaceString(expr))
-  }
-
-  replaceString (char) {
-    matches.forEach(match => {
-      char = char.replace(new RegExp(match, 'gi'), m =>
-        m
-          .split('@')
-          .map(m => `@ ${m}`)
-          .join('')
-      )
-    })
-    return char
+    return channel.send(Util.removeMentions(expr))
   }
 }
