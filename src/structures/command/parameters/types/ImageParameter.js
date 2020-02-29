@@ -30,7 +30,7 @@ module.exports = class ImageParameter extends Parameter {
     }
   }
 
-  static async parse (arg, { message, t }) {
+  static async parse (arg, { t, message }) {
     const regexResult = URL_REGEX.test(arg)
     if (regexResult) {
       if (!this.acceptUrl) throw new CommandError(t(this.errors.notAcceptUrl))

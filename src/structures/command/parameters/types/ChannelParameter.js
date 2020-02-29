@@ -26,7 +26,9 @@ module.exports = class ChannelParameter extends Parameter {
 
   static parse (arg, { t, client, guild }) {
     const check = (option, type) => {
-      if (!option && channel.type === type) { throw new CommandError(t('errors:invalidChannelType', { type })) }
+      if (!option && channel.type === type) {
+        throw new CommandError(t('errors:invalidChannelType', { type }))
+      }
     }
 
     if (!arg) return
