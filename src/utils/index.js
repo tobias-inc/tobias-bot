@@ -1,7 +1,6 @@
-const { Message } = require('discord.js')
 const moment = require('moment')
+const { Message, Permissions } = require('discord.js')
 
-const Permissions = require('./Permissions.js')
 const Constants = require('./Constants')
 
 module.exports = class Utils {
