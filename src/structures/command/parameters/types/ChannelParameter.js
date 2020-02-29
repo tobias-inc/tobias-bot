@@ -2,6 +2,7 @@ const Parameter = require('./Parameter')
 const CommandError = require('../../CommandError')
 
 const MENTION_REGEX = /(<#)?([0-9]{16,18})>?$/
+
 const defVal = (o, k, d) => (typeof o[k] === 'undefined' ? d : o[k])
 
 const searchOn = (local, id, arg) =>
