@@ -22,7 +22,7 @@ module.exports = class StringParameter extends Parameter {
         ? this.maxLength[command.name]
         : this.maxLength) || 0
 
-    if (this.removeSpaces) arg = arg.replace(/ +/gi, '')
+    if (this.removeSpaces) arg = arg.replace(/ +/g, '')
     if (this.clean) arg = DiscordUtils.cleanContent(arg, message)
 
     if (maxLength > 0 && arg.length > maxLength) {
