@@ -14,27 +14,30 @@ module.exports = class AddEmoji extends Command {
           permissions: ['MANAGE_GUILD']
         },
         parameters: [
-          { type: 'image', missingError: 'errors:invalidImage' },
           {
             type: 'string',
-            full: true,
-            removeSpaces: true,
+            full: false,
             maxLength: EMOJI_NAME_MAX_LENGTH,
             missingError: 'errors:invalidString'
+          },
+          {
+            type: 'image',
+            acceptBuffer: true,
+            missingError: 'errors:invalidImage'
           }
         ]
       }
     })
   }
 
-  async run ({ channel, guild, author, t }, image, emojiName) {
+  async run ({ channel, guild, author, t }, emojiName, { buffer, url }) {
     const embed = new ClientEmbed(author)
     await guild
-      .createEmoji(image, emojiName)
+      .createEmoji(buffer, this.escapeTraced(emojiName))
       .then(({ name }) => {
         embed
           .setTitle(t('commands:addemoji.successfullyAdded', { name }))
-          .setThumbnail(image)
+          .setThumbnail(url)
       })
       .catch(err => {
         embed
@@ -43,5 +46,9 @@ module.exports = class AddEmoji extends Command {
           .setDescription(`\`${err}\``)
       })
     channel.send(embed)
+  }
+
+  escapeTraced (str) {
+    return str.replace(/-/g, '_')
   }
 }
