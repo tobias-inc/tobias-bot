@@ -1,4 +1,32 @@
 {
+  "userinfo": {
+    "name": "Nome",
+    "id": "Identificação",
+    "createdAt": "Data de Criação",
+    "joinedAt": "Entrou no servidor em",
+    "permissions": "Permissões",
+    "nickname": {
+      "ctx": "Apelido",
+      "none": "Nenhum"
+    },
+    "status": {
+      "ctx": "Status",
+      "dnd": "Não Pertube",
+      "idle": "Ausente",
+      "offline": "Indisponível",
+      "online": "Disponível"
+    },
+    "bot": {
+      "ctx": "Robô",
+      "true": "Sim",
+      "false": "Não"
+    },
+    "role": {
+      "ctx": "Cargos **({{size}})**",
+      "and": " e mais ***{{size}}***...",
+      "none": "Nenhum"
+    }
+  },
   "eval": {
     "commandDescription": "Avalia uma string JS.",
     "commandUsage": "<texto>"
