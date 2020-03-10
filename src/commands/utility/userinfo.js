@@ -1,14 +1,14 @@
 const moment = require('moment')
-const { Command, ClientEmbed, } = require('../../')
+const { Command, ClientEmbed } = require('../../')
 
 const msgTimeOut = async (msg, time) => {
   await new Promise(function (resolve, reject) {
     setTimeout(resolve, time)
   })
-  return msg.clearReactions().catch(() => { });
+  return msg.clearReactions().catch(() => { })
 }
 module.exports = class UserInfo extends Command {
-  constructor(client, path) {
+  constructor (client, path) {
     super(client, path, {
       name: 'userinfo',
       category: 'utility',
@@ -21,16 +21,16 @@ module.exports = class UserInfo extends Command {
     })
   }
 
-  async run({ channel, t, author,message,guild }, user = author) {
+  async run ({ channel, t, author, message, guild }, user = author) {
     const embed = new ClientEmbed(author)
-    let Status;
-    let language = this.client.database.guilds.get(message.guild.id).language
+    let Status
+    const language = this.client.database.guilds.get(message.guild.id).language
 
-    if (user.presence.status === "online") Status = "<:b_online:438399398808911882> "
-    if (user.presence.status === "dnd") Status = "<:b_dnd:438399396548313091> "
-    if (user.presence.status === "idle") Status = "<:b_idle:438399398796460032> "
-    if (user.presence.status === "offline") Status = "<:b_offline:438399398762905600> "
-    if (user.presence.status === "streaming") Status =  "<:b_stream:438399396963418131> "
+    if (user.presence.status === 'online') Status = '<:b_online:438399398808911882> '
+    if (user.presence.status === 'dnd') Status = '<:b_dnd:438399396548313091> '
+    if (user.presence.status === 'idle') Status = '<:b_idle:438399398796460032> '
+    if (user.presence.status === 'offline') Status = '<:b_offline:438399398762905600> '
+    if (user.presence.status === 'streaming') Status = '<:b_stream:438399396963418131> '
 
     channel.send(
       embed
@@ -43,53 +43,55 @@ module.exports = class UserInfo extends Command {
         .addField(t('commands:userinfo.bot.ctx'), t(`commands:userinfo.bot.${user.bot}`), true)
         .addField(t('commands:userinfo.role.ctx', { size: Number((guild.member(user.id).roles.size - 1)).localeNumber(language) }), (await this.Roles(user, guild, t, language)), false)
     ).then((msg) => {
-      msg.react("▶️");
+      msg.react('▶️')
       return ((N = 0) => {
         const initializeCollector = msg.createReactionCollector((reaction, user) => (
-          (reaction.emoji.name === "◀️" || reaction.emoji.name === "▶️") && (
+          (reaction.emoji.name === '◀️' || reaction.emoji.name === '▶️') && (
             user.id === author.id
-          )), { time: 120000 });
+          )), { time: 120000 })
 
-        msgTimeOut(msg, 120000);
+        msgTimeOut(msg, 120000)
         return initializeCollector.on('collect', async (r) => {
-          if (guild && channel.permissionsFor(this.client.user.id).has("MANAGE_MESSAGES")) await msg.clearReactions();
-          else r.remove(this.client.user.id);
+          if (guild && channel.permissionsFor(this.client.user.id).has('MANAGE_MESSAGES')) await msg.clearReactions()
+          else r.remove(this.client.user.id)
 
+          // eslint-disable-next-line eqeqeq
           if (N == 0) {
             this.newEmbed(msg, user, author, channel, t).catch(() => { })
-            msg.react("◀️")
+            msg.react('◀️')
           } else {
             msg.edit(embed).catch(() => { })
-            msg.react("▶️")
+            msg.react('▶️')
           }
 
-          return (N == 1 ? N = 0 : N = 1);
+          // eslint-disable-next-line no-return-assign
+          return (N === 1 ? N = 0 : N = 1)
         }).catch(async () => {
-          if (guild && channel.permissionsFor(this.client.user.id).has("MANAGE_MESSAGES")) await msg.clearReactions();
-          else r.remove(this.client.user.id);
+          if (guild && channel.permissionsFor(this.client.user.id).has('MANAGE_MESSAGES')) await msg.clearReactions()
+          else msg.user.reaction.remove(this.client.user.id)
 
-          msg.edit(embed.setColor(process.env.ERROR_COLOR));
-          return initializeCollector.stop();
+          msg.edit(embed.setColor(process.env.ERROR_COLOR))
+          return initializeCollector.stop()
         })
       })()
-    }).catch(() => { });
+    }).catch(() => { })
   }
 
-  Roles(user, guild, t, lang) {
-    const ROLES = guild.member(user.id).roles.map(role => role).slice(1);
-    if (!ROLES.length) return t('commands:userinfo.role.none');
+  Roles (user, guild, t, lang) {
+    const ROLES = guild.member(user.id).roles.map(role => role).slice(1)
+    if (!ROLES.length) return t('commands:userinfo.role.none')
     return [
       (ROLES.length > 10
-        ? ROLES.map(r => r).slice(0, 10).join(", ") + ` ${t('commands:userinfo.role.and'
+        ? ROLES.map(r => r).slice(0, 10).join(', ') + ` ${t('commands:userinfo.role.and'
           , {
             size: Number(ROLES.length - 10).localeNumber(lang)
           })}`
-        : ROLES.map(r => r).join(", ")
+        : ROLES.map(r => r).join(', ')
       )
     ]
   }
 
-  newEmbed(msg, user, author, channel, t, { displayAvatarURL } = this.client.user) {
+  newEmbed (msg, user, author, channel, t, { displayAvatarURL } = this.client.user) {
     return msg.edit(new ClientEmbed(author)
       .setAuthor(this.client.user.username, displayAvatarURL)
       .setThumbnail(user.avatarURL ? user.avatarURL : displayAvatarURL)
@@ -97,8 +99,8 @@ module.exports = class UserInfo extends Command {
     )
   }
 
-  Time(ms, language) {
-    moment.locale(language);
-    return moment(ms).format('LLLL');
+  Time (ms, language) {
+    moment.locale(language)
+    return moment(ms).format('LLLL')
   }
-};
+}
