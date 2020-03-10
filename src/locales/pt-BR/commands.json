@@ -1,4 +1,37 @@
 {
+  "serverinfo": {
+    "name": "Nome",
+    "region": "Região",
+    "createdAt": "Data de Criação",
+    "owner": "Dono",
+    "verify": {
+      "ctx": "Verificação",
+      "level": {
+        "0": "Nenhum **(0)**",
+        "1": "Baixo **(1)**",
+        "2": "Médio **(2)**",
+        "3": "Alto **(3)**",
+        "4": "Muito Alto **(4)**"
+      }
+    },
+    "members": {
+      "ctx": "Membros **({{size}})**",
+      "users": "Usuários: ",
+      "bots": "Robôs: "
+    },
+    "channels": {
+      "ctx": "Canais **({{length}})**",
+      "text": "Texto: ",
+      "voice": "Voz: ",
+      "category": "Categoria: "
+    },
+    "role": {
+      "ctx": "Cargos **({{length}})**",
+      "managed": "Gerenciáveis: ",
+      "noTags": "Nenhum",
+      "tags": "e mais **{{length}}**..."
+    }
+  },
   "userinfo": {
     "name": "Nome",
     "id": "Identificação",
