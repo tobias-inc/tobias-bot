@@ -1,4 +1,8 @@
 {
+  "lyrics": {
+    "noSong": "por favor insira o nome da **música** desejada!",
+    "footer": "Página {{page}} de {{total}}"
+},
   "serverinfo": {
     "name": "Nome",
     "region": "Região",
