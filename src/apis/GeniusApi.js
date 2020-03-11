@@ -1,5 +1,5 @@
-const genius = require('genius-api')
-const getLyrics = require('lyricist')
+const Genius = require('genius-api')
+const GetLyrics = require('lyricist')
 const { Wrapper } = require('../')
 
 module.exports = class GeniusWrapper extends Wrapper {
@@ -8,8 +8,8 @@ module.exports = class GeniusWrapper extends Wrapper {
   }
 
   load () {
-    this.api.genius = new genius(process.env.GENIUS_API)
-    this.api.lyrics = new getLyrics(process.env.GENIUS_API)
+    this.api.genius = new Genius(process.env.GENIUS_API)
+    this.api.lyrics = new GetLyrics(process.env.GENIUS_API)
     return true
   }
 
