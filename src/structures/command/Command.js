@@ -103,6 +103,23 @@ module.exports = class Command {
       command
     )
   }
+  
+  getEmoji(emojiString, options = []) {
+  if (!emojiString) throw new Error('Emoji are required.')
+  const botGuild = this.client.guilds.get(process.env.DISCORD_ID)
+  const emojiSearch = botGuild.emojis.find(e => e.name === emojiString || e.id === emojiString)
+  
+  if (options.length > 0) {
+    const object = {}
+    
+    // Loop
+     for (const option of options) {
+       object[option] = emojiSearch[option]
+      }
+    return object
+    }
+  return emojiSearch
+  }
 
   error ({ t, channel, author, prefix }, error) {
     if (error instanceof CommandError) {
