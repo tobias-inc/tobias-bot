@@ -35,7 +35,7 @@ module.exports = class HTTPLoader extends Loader {
       .listen(PORT, () =>
         this.client.console(
           false,
-          `Operando na Porta: "${PORT}"`,
+          `Listening in "http://localhost:${PORT}"!`,
           this.name,
           'LISTEN'
         )
