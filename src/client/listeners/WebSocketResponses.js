@@ -30,28 +30,36 @@ module.exports = class WebSocketResponses extends Listener {
       .replace('{musicServers}', playerManager ? playerManager.size : 0)
   }
 
-  parseNodesErrors () {
+  async parseNodesErrors () {
     this.client.playerManager.nodes.forEach(node => {
-      const listeners = node.ws.listeners('error')
-      listeners.forEach(listen => node.ws.removeListener('error', listen))
-      node.ws.on('error', () => {})
+      const disabledListeners = ['error', 'close']
+
+      disabledListeners.forEach(name => {
+        const listeners = node.ws.listeners(name)
+        listeners.forEach(listener => node.ws.removeListener(name, listener))
+        node.ws.on(name, () => {})
+      })
     })
+
+    return true
   }
 
   async onReady () {
     try {
       const nodes = JSON.parse(process.env.LAVALINK_NODES)
       if (!Array.isArray(nodes)) throw new Error('PARSE_ERROR')
+
       this.client.playerManager = new PlayerManager(this.client, nodes, {
         user: this.client.user.id,
         shards: 1
       })
-      this.parseNodesErrors()
-      this.client.console(
-        false,
-        'Lavalink connection established!',
-        'Ready',
-        'Music'
+      this.parseNodesErrors().then(() =>
+        this.client.console(
+          false,
+          'Lavalink connection established!',
+          'Ready',
+          'Music'
+        )
       )
     } catch (e) {
       this.client.console(
@@ -63,23 +71,19 @@ module.exports = class WebSocketResponses extends Listener {
     }
 
     const updateStatus = () => {
-      const presenceType = PRESENCE_TYPES.sort(() =>
-        Math.random() > 0.5 ? -1 : 1
-      )[0]
-      const presence =
-        Status[presenceType][
-          Math.floor(Math.random() * Status[presenceType].length)
-        ]
+      const presenceType = PRESENCE_TYPES.chooseTheSorted()
+      const presence = Status[presenceType].chooseTheSorted()
       this.client.user.setPresence(
         parseStatus(presenceType, this.replaceInformations(presence))
       )
     }
+
     setInterval(updateStatus, PRESENCE_INTERVAL)
     return updateStatus()
   }
 
   onError (err) {
-    console.log(err)
+    console.log(err.stack || err)
     process.exit(1)
   }
 }
