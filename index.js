@@ -6,7 +6,7 @@ require('moment-duration-format')
 let canvasLoaded = false
 try {
   require('canvas')
-  require('./src+/utils/canvas/CanvasUtils.js').initializeHelpers()
+  require('./src/utils/canvas/CanvasUtils.js').initializeHelpers()
   canvasLoaded = true
 } catch (e) {
   console.log(e)

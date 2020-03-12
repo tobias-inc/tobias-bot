@@ -1,13 +1,22 @@
+/* eslint-disable no-extend-native */
 const Prototype = require('../Prototype.js')
 
 module.exports = class ArrayPrototypes extends Prototype {
   static load () {
+    // pickSort
+
+    /**
+     * @returns {any}
+     */
+    Array.prototype.chooseTheSorted = function () {
+      return this.sort(() => (Math.random() > 0.5 ? -1 : 1))[0]
+    }
+
     // filterArraysOfInsert
 
     /**
      * @param {(value:string, index:number, array:[])} call
      */
-    // eslint-disable-next-line no-extend-native
     Array.prototype.filterArraysOfInsert = function (call) {
       const updateArray = []
       return this.forEach(value => {
@@ -24,7 +33,6 @@ module.exports = class ArrayPrototypes extends Prototype {
     /**
      * @param {(value:string, index:number, array:[])} call
      */
-    // eslint-disable-next-line no-extend-native
     Array.prototype.obj = function (call) {
       const obj = {}
       return (
@@ -46,7 +54,5 @@ module.exports = class ArrayPrototypes extends Prototype {
       }
       return Promise.all(this.map(value => call(value)))
     }
-
-    //
   }
 }
