@@ -5,16 +5,18 @@ const { Wrapper } = require('../')
 module.exports = class GeniusWrapper extends Wrapper {
   constructor () {
     super('geniusapi')
+    this.envVars = ['GENIUS_API']
   }
 
   load () {
-    this.api.genius = new Genius(process.env.GENIUS_API)
-    this.api.lyrics = new GetLyrics(process.env.GENIUS_API)
+    this.client.apis.geniusapi = new Genius(process.env.GENIUS_API)
+    this.client.apis.lyrics = new GetLyrics(process.env.GENIUS_API)
+    console.log(this)
     return true
   }
 
   findTrack (search) {
-    return this.api.genius.search(search).then(res => {
+    return this.api.Genius.search(search).then(res => {
       if (!res.hits.length) return res
       else {
         for (let i = 0; i < res.hits.length; i++) {
