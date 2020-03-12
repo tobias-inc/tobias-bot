@@ -10,9 +10,8 @@ module.exports = class ServerInfo extends Command {
     })
   }
 
-  async run ({ channel, t, author, message, guild }, user = author) {
+  async run ({ channel, language, t, author, message, guild }, user = author) {
     const embed = new ClientEmbed(author)
-    const language = this.client.database.guilds.get(message.guild.id).language
 
     channel.send(
 
@@ -41,7 +40,7 @@ module.exports = class ServerInfo extends Command {
   }
 
   Members (guild, t, lang) {
-    const USERS = (`**${Number(guild.memberCount - guild.members.filter(u => u.user.bot).size).localeNumber(lang)}**`)
+    const USERS = (`**${Number(guild.memberCount - guild.members.filter(u => !u.user.bot).size).localeNumber(lang)}**`)
     const BOTS = (`**${Number(guild.members.filter(u => u.user.bot).size).localeNumber(lang)}**`)
     return [
       t('commands:serverinfo.members.users') + USERS,
