@@ -16,14 +16,12 @@ module.exports = class WeatherWrapper extends Wrapper {
   }
 
   searchLocale (locale, { lang = 'en-US', degreeType = 'F' } = {}) {
-    const queryParams = {
+    return this.request('', {
+      src: 'outlook',
       culture: lang,
       weadegreetype: degreeType,
       weasearchstr: encodeURIComponent(locale)
-    }
-
-    const qParams = new URLSearchParams(queryParams)
-    return this.request(`?src=outlook&${qParams.toString()}`)
+    })
       .then(async res => {
         if (res.status === 200) {
           const xmlConvertedText = await res.text()
@@ -62,7 +60,8 @@ module.exports = class WeatherWrapper extends Wrapper {
       .catch(() => [])
   }
 
-  request (endpoint) {
-    return fetch(`${API_URL}${endpoint}`)
+  request (endpoint, queryParams = {}) {
+    const qParams = new URLSearchParams(queryParams)
+    return fetch(`${API_URL}${endpoint}?${qParams.toString()}`)
   }
 }
