@@ -1,4 +1,14 @@
 {
+  "dragracing":{
+    "commandDescription": "Faz uma corrida com outro usuario.",
+    "commandUsage": "<@usuario>",
+    "noUser": "**Você não mencionou o usuario com quem você deseja correr!**",
+    "maked": "O usuario {{author}} fez {{action}} metros 🏎 ...........",
+    "draw": "Aconteceu um empate tecnico melhor fazer outra disputa né?",
+    "win": "Corridas de arrancada 🏎 \n Dessa vez o ganhador foi **{{ganhador}}** sorte ou habilidade?",
+    "challenger": "Desafiante ",
+    "challenged": "Desafiado "
+},
   "color": {
     "commandDescription": "Mostra a cor que o usuario inserir.",
     "commandUsage": "<cor>",
@@ -248,6 +258,12 @@
     "commandUsage": "<usuário>",
     "missingUser": "Você precisa mencionar o usuário que deseja beijar!",
     "successKiss": "{{- author}} beijou {{- user}}!"
+  },
+  "pat": {
+    "commandDescription": "Acaricia um usuário.",
+    "commandUsage": "<usuário>",
+    "missingUser": "Você precisa mencionar o usuário que deseja beijar!",
+    "successPat": "{{- author}} Acariciou {{- user}}!"
   },
   "slap": {
     "commandDescription": "Da um tapa em um usuário.",
