@@ -73,6 +73,6 @@
     "mocha": "^7.1.0",
     "mocha-standard": "^1.0.0",
     "nodemon": "^2.0.2",
-    "standard": "^14.3.1"
+    "standard": "^14.3.3"
   }
 }
