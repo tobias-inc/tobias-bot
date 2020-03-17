@@ -1,4 +1,5 @@
 {
+  "clear": "O chat foi limpo por {{USER}}, e tambem foram excluidas {{COUNT}} mensagens!",
   "dragracing":{
     "commandDescription": "Faz uma corrida com outro usuario.",
     "commandUsage": "<@usuario>",

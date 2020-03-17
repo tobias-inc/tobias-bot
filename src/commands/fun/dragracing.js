@@ -8,7 +8,7 @@ module.exports = class DragRacing extends Command {
       aliases: ['race', 'corrida', 'arrancada'],
       utils: {
         requirements: { guildOnly: true },
-        parameters: [{ type: 'user', missingError: 'commands:dragracing.noUser' }]
+        parameters: [{ type: 'user', missingError: 'commands:dragracing.noUser', required: true }]
       }
     })
   }
@@ -30,8 +30,8 @@ module.exports = class DragRacing extends Command {
       embed
         .setTitle(t('commands:dragracing.win', { ganhador: winner.username }))
         .setThumbnail(winner.displayAvatarURL || winner.avatarURL)
-        .addField(t('commands:dragracing.challenger'), t('commands:dragracing.maked', { action: corrida, author: author }))
-        .addField(t('commands:dragracing.challenged'), t('commands:dragracing.maked', { action: corrida2, author: user }))
+        .addField(t('commands:dragracing.challenger'), t('commands:dragracing.maked', { action: corrida, author: user }))
+        .addField(t('commands:dragracing.challenged'), t('commands:dragracing.maked', { action: corrida2, author: author }))
     )
   }
 }
