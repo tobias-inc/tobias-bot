@@ -1,9 +1,29 @@
 {
+  "clear": "O chat foi limpo por {{USER}}, e tambem foram excluidas {{COUNT}} mensagens!",
+  "dragracing":{
+    "commandDescription": "Faz uma corrida com outro usuario.",
+    "commandUsage": "<@usuario>",
+    "noUser": "**Você não mencionou o usuario com quem você deseja correr!**",
+    "maked": "O usuario {{author}} fez {{action}} metros 🏎 ...........",
+    "draw": "Aconteceu um empate tecnico melhor fazer outra disputa né?",
+    "win": "Corridas de arrancada 🏎 \n Dessa vez o ganhador foi **{{ganhador}}** sorte ou habilidade?",
+    "challenger": "Desafiante ",
+    "challenged": "Desafiado "
+},
+  "color": {
+    "commandDescription": "Mostra a cor que o usuario inserir.",
+    "commandUsage": "<cor>",
+    "args": "Você precisa inserir uma cor.",
+    "format": "A cor tem que estar no formato **#RRGGBB** ou **#RGB**."
+  },
   "lyrics": {
+    "commandDescription": "Mostra a letra da musica que o usuario inserir.",
+    "commandUsage": "<cor>",
     "noSong": "por favor insira o nome da **música** desejada!",
-    "footer": "Página {{page}} de {{total}}"
+    "footer": "Página {{page}} de {{total}}."
 },
   "serverinfo": {
+    "commandDescription": "Mostra as informações do servidor em que o comando for execultado.",
     "name": "Nome",
     "region": "Região",
     "createdAt": "Data de Criação",
@@ -233,6 +253,18 @@
     "commandUsage": "<usuário>",
     "missingUser": "Você precisa mencionar o usuário que deseja abraçar!",
     "successHug": "{{- author}} abraçou {{- user}}!"
+  },
+  "kiss": {
+    "commandDescription": "Beija um usuário.",
+    "commandUsage": "<usuário>",
+    "missingUser": "Você precisa mencionar o usuário que deseja beijar!",
+    "successKiss": "{{- author}} beijou {{- user}}!"
+  },
+  "pat": {
+    "commandDescription": "Acaricia um usuário.",
+    "commandUsage": "<usuário>",
+    "missingUser": "Você precisa mencionar o usuário que deseja beijar!",
+    "successPat": "{{- author}} Acariciou {{- user}}!"
   },
   "slap": {
     "commandDescription": "Da um tapa em um usuário.",
