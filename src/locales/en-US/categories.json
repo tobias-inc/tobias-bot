@@ -1,0 +1,12 @@
+{
+  "bot": "Bot",
+  "configuration": "Configuration",
+  "information": "Information",
+  "general": "General",
+  "economy": "Economy",
+  "music": "Music",
+  "social": "Social",
+  "fun": "Fun",
+  "moderation": "Moderation",
+  "utility": "Utility"
+}
