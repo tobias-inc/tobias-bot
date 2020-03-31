@@ -80,7 +80,7 @@ $ git commit
 </div>
 
 [codacy-badge]: https://api.codacy.com/project/badge/Grade/6eed0a4c464f4b48b51d3c7e9ee398b8
-[codacy-url]: https://app.codacy.com/gh/tobias-inc/TobiasBot?utm_source=github.com&utm_medium=referral&utm_content=tobias-inc/TobiasBot&utm_campaign=Badge_Grade_Dashboard
+[codacy-url]: https://www.codacy.com/gh/tobias-inc/TobiasBot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tobias-inc/TobiasBot&amp;utm_campaign=Badge_Grade
 [circleci-badge]: https://img.shields.io/circleci/build/github/tobias-inc/TobiasBot/master.svg?logo=circleci
 [circleci-url]: https://circleci.com/gh/tobias-inc/TobiasBot
 [codefactor-badge]: https://www.codefactor.io/repository/github/tobias-inc/tobiasbot/badge
