@@ -9,11 +9,10 @@ const generateArtistSerch = artist =>
 module.exports = class GeniusWrapper extends Wrapper {
   constructor () {
     super('vagalume')
-    // this.envVars = ['VAGALUME_KEY']
   }
 
   getLyric (songName) {
-    return request('/search.artmus')
+    return this.request('/search.artmus')
   }
 
   getArtist (artist) {
@@ -22,6 +21,8 @@ module.exports = class GeniusWrapper extends Wrapper {
 
   request (endpoint, queryParams = {}) {
     const qParams = new URLSearchParams(queryParams)
-    return fetch(`${API_URL}${endpoint}?${qParams.toString()}`).then(res => res.json())
+    return fetch(`${API_URL}${endpoint}?${qParams.toString()}`).then(res =>
+      res.json()
+    )
   }
 }

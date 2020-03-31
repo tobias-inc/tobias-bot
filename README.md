@@ -6,14 +6,14 @@
 
 <div align="center">
 
-[![Codacy Badge][codacy-badge]][codacy-url]
+[![Codacy][codacy-badge]][codacy-url]
 [![CircleCI][circleci-badge]][circleci-url]
 [![CodeFactor][codefactor-badge]][codefactor-url]
 [![Maintainability][maintainability-badge]][maintainability-url]
-[![DeepScan grade][deepscan-badge]][deepscan-url]<br>
-[![Depfu][depfu-first-badge]][depfu-first-url]
-[![Depfu][depfu-att-badge]][depfu-att-url]
-[![Depfu][depfu-updates-badge]][depfu-updates-url]<br>
+[![DeepScan][deepscan-badge]][deepscan-url]<br>
+[![Depfu Status][depfu-first-badge]][depfu-first-url]
+[![Depfu Summary][depfu-att-badge]][depfu-att-url]
+[![Depfu Outdated][depfu-updates-badge]][depfu-updates-url]<br>
 [![DeepSource][deepsource-badge]][deepsource-url]
 
 <br>
@@ -80,15 +80,15 @@ $ git commit
 </div>
 
 [codacy-badge]: https://api.codacy.com/project/badge/Grade/6eed0a4c464f4b48b51d3c7e9ee398b8
-[codacy-url]: https://app.codacy.com/gh/tobias-inc/TobiasBot?utm_source=github.com&utm_medium=referral&utm_content=tobias-inc/TobiasBot&utm_campaign=Badge_Grade_Dashboard
+[codacy-url]: https://www.codacy.com/gh/tobias-inc/TobiasBot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tobias-inc/TobiasBot&amp;utm_campaign=Badge_Grade
 [circleci-badge]: https://img.shields.io/circleci/build/github/tobias-inc/TobiasBot/master.svg?logo=circleci
 [circleci-url]: https://circleci.com/gh/tobias-inc/TobiasBot
-[codefactor-badge]: https://www.codefactor.io/repository/github/tobias-inc/TobiasBot/badge
-[codefactor-url]: https://www.codefactor.io/repository/github/tobias-inc/TobiasBot
+[codefactor-badge]: https://www.codefactor.io/repository/github/tobias-inc/tobiasbot/badge
+[codefactor-url]: https://www.codefactor.io/repository/github/tobias-inc/tobiasbot
 [maintainability-badge]: https://api.codeclimate.com/v1/badges/6d471343b7e0438dd373/maintainability
 [maintainability-url]: https://codeclimate.com/github/tobias-inc/TobiasBot/maintainability
-[deepscan-badge]: https://deepscan.io/api/teams/7110/projects/9254/branches/117685/badge/grade.svg
-[deepscan-url]: https://deepscan.io/dashboard#view=project&tid=7110&pid=9254&bid=117685
+[deepscan-badge]: https://deepscan.io/api/teams/8362/projects/10512/branches/147323/badge/grade.svg
+[deepscan-url]: https://deepscan.io/dashboard#view=project&tid=8362&pid=10512&bid=147323
 [depfu-first-badge]: https://badges.depfu.com/badges/a2e6164631bd93b427015a48c5f16b5c/status.svg
 [depfu-first-url]: https://depfu.com
 [depfu-att-badge]: https://badges.depfu.com/badges/a2e6164631bd93b427015a48c5f16b5c/overview.svg
@@ -96,7 +96,7 @@ $ git commit
 [depfu-updates-badge]: https://badges.depfu.com/badges/a2e6164631bd93b427015a48c5f16b5c/count.svg
 [depfu-updates-url]: https://depfu.com/github/tobias-inc/TobiasBot?project_id=10620
 [deepsource-badge]: https://static.deepsource.io/deepsource-badge-light-mini.svg
-[deepsource-url]: https://deepsource.io/gh/tobias-inc/TobiasBot/
+[deepsource-url]: https://deepsource.io/gh/tobias-inc/TobiasBot/?ref=repository-badge
 [license-badge]: https://img.shields.io/github/license/tobias-inc/TobiasBot?label=LICENSE&style=flat-square
 [license-url]: https://github.com/tobias-inc/TobiasBot
 [lastcommit-badge]: https://img.shields.io/github/last-commit/tobias-inc/TobiasBot?label=LAST%20COMMIT&style=flat-square
