@@ -1,9 +1,9 @@
-const { RichEmbed, User } = require('discord.js')
+const { MessageEmbed, User } = require('discord.js')
 const Constants = require('../utils/Constants.js')
 
 const hasUser = U => U instanceof User
 
-module.exports = class ClientEmbed extends RichEmbed {
+module.exports = class ClientEmbed extends MessageEmbed {
   /**
    * @param {<User>} u Instanceof for discord.js User
    * @param {Object} [d] Data for embed.

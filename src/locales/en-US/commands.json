@@ -1,333 +1,333 @@
 {
-  "clear": "O chat foi limpo por {{USER}}, e tambem foram excluidas {{COUNT}} mensagens!",
+  "clear": "The chat was cleared by {{USER}}, and {{COUNT}} messages were also deleted!",
   "dragracing":{
-    "commandDescription": "Faz uma corrida com outro usuario.",
-    "commandUsage": "<@usuario>",
-    "noUser": "**Você não mencionou o usuario com quem você deseja correr!**",
-    "maked": "O usuario {{author}} fez {{action}} metros 🏎 ...........",
-    "draw": "Aconteceu um empate tecnico melhor fazer outra disputa né?",
-    "win": "Corridas de arrancada 🏎 \n Dessa vez o ganhador foi **{{ganhador}}** sorte ou habilidade?",
-    "challenger": "Desafiante ",
-    "challenged": "Desafiado "
+    "commandDescription": "Run a race with another user.",
+    "commandUsage": "<@user>",
+    "noUser": "**You didn't mention the user you want to run with!**",
+    "maked": "User {{author}} made {{action}} meters🏎 ...................",
+    "draw": "There was a technical draw better to make another dispute right?",
+    "win": "Drag racing 🏎 \n This time the winner was ** {{ganhador}} ** luck or skill?",
+    "challenger": "challenger ",
+    "challenged": "challenged "
 },
   "color": {
-    "commandDescription": "Mostra a cor que o usuario inserir.",
-    "commandUsage": "<cor>",
-    "args": "Você precisa inserir uma cor.",
-    "format": "A cor tem que estar no formato **#RRGGBB** ou **#RGB**."
+    "commandDescription": "Shows the color that the user enters.",
+    "commandUsage": "<#color>",
+    "args": "You need to enter a color.",
+    "format": "The color must be in the ** # RRGGBB ** or ** # RGB ** format."
   },
   "lyrics": {
-    "commandDescription": "Mostra a letra da musica que o usuario inserir.",
-    "commandUsage": "<cor>",
-    "noSong": "por favor insira o nome da **música** desejada!",
-    "footer": "Página {{page}} de {{total}}."
+    "commandDescription": "Shows the lyrics of the song that the user enters.",
+    "commandUsage": "<songname>",
+    "noSong": "Please enter the name of the desired ** song **!",
+    "footer": "Page {{page}} of {{total}}."
 },
   "serverinfo": {
-    "commandDescription": "Mostra as informações do servidor em que o comando for execultado.",
-    "name": "Nome",
-    "region": "Região",
-    "createdAt": "Data de Criação",
-    "owner": "Dono",
+    "commandDescription": "Shows the information of the server on which the command is run.",
+    "name": "Name",
+    "region": "Region",
+    "createdAt": "Created at",
+    "owner": "Owner",
     "verify": {
-      "ctx": "Verificação",
+      "ctx": "Verify",
       "level": {
-        "0": "Nenhum **(0)**",
-        "1": "Baixo **(1)**",
-        "2": "Médio **(2)**",
-        "3": "Alto **(3)**",
-        "4": "Muito Alto **(4)**"
+        "0": "None **(0)**",
+        "1": "Low **(1)**",
+        "2": "Medium **(2)**",
+        "3": "High **(3)**",
+        "4": "Very High **(4)**"
       }
     },
     "members": {
-      "ctx": "Membros **({{size}})**",
-      "users": "Usuários: ",
-      "bots": "Robôs: "
+      "ctx": "Members **({{size}})**",
+      "users": "Users: ",
+      "bots": "Bots: "
     },
     "channels": {
-      "ctx": "Canais **({{length}})**",
-      "text": "Texto: ",
-      "voice": "Voz: ",
-      "category": "Categoria: "
+      "ctx": "Channels **({{length}})**",
+      "text": "Text: ",
+      "voice": "Voice: ",
+      "category": "Category: "
     },
     "role": {
-      "ctx": "Cargos **({{length}})**",
-      "managed": "Gerenciáveis: ",
-      "noTags": "Nenhum",
-      "tags": "e mais **{{length}}**..."
+      "ctx": "Role **({{length}})**",
+      "managed": "Manageable: ",
+      "noTags": "None",
+      "tags": "and more **{{length}}**..."
     }
   },
   "userinfo": {
-    "name": "Nome",
-    "id": "Identificação",
-    "createdAt": "Data de Criação",
-    "joinedAt": "Entrou no servidor em",
-    "permissions": "Permissões",
+    "name": "Name",
+    "id": "Identify",
+    "createdAt": "Created at",
+    "joinedAt": "Joined at",
+    "permissions": "Permissions",
     "nickname": {
-      "ctx": "Apelido",
-      "none": "Nenhum"
+      "ctx": "Nickname",
+      "none": "none"
     },
     "status": {
       "ctx": "Status",
-      "dnd": "Não Pertube",
-      "idle": "Ausente",
-      "offline": "Indisponível",
-      "online": "Disponível"
+      "dnd": "Do not disturb",
+      "idle": "Idle",
+      "offline": "Offline",
+      "online": "Online"
     },
     "bot": {
-      "ctx": "Robô",
-      "true": "Sim",
-      "false": "Não"
+      "ctx": "Bot",
+      "true": "true",
+      "false": "false"
     },
     "role": {
-      "ctx": "Cargos **({{size}})**",
-      "and": " e mais ***{{size}}***...",
-      "none": "Nenhum"
+      "ctx": "Roles **({{size}})**",
+      "and": " and more ***{{size}}***...",
+      "none": "none"
     }
   },
   "eval": {
-    "commandDescription": "Avalia uma string JS.",
-    "commandUsage": "<texto>"
+    "commandDescription": "Evaluate a JS string.",
+    "commandUsage": "<text>"
   },
   "ping": {
-    "commandDescription": "Mostra o tempo de resposta do bot."
+    "commandDescription": "Show the time resnponse of bot."
   },
   "reload": {
-    "commandDescription": "Recarrega o comando inserido.",
-    "commandUsage": "<nome do comando>",
-    "error": "Ocorreu um erro ao recarregar o comando",
-    "sucess": "O comando **`{{commandName}}`** foi recarregado com sucesso!",
-    "missingCommand": "Por favor insira o `nome` ou uma `aliase` do comando a ser recarregado!"
+    "commandDescription": "Reload the command instert.",
+    "commandUsage": "<name of command>",
+    "error": "An error ocurred to reload the command",
+    "sucess": "The command **`{{commandName}}`** has been reloaded!",
+    "missingCommand": "Please insert the `name` or an `aliase` of command to be reloaded!"
   },
   "reloadlocales": {
-    "commandDescription": "Recarrega o sistema de Idiomas.",
-    "error": "Ocorreu um erro ao recarregar o sistema: **{{error}}**",
-    "sucess": "O sistema foi recarregado com **sucesso**!"
+    "commandDescription": "Reload language system.",
+    "error": "An error occurred while reloading the system: **{{error}}**",
+    "sucess": "The system has been reloaded with**success**!"
   },
   "say": {
-    "commandDescription": "Faz o bot enviar uma mensagem.",
-    "commandUsage": "<mensagem>"
+    "commandDescription": "Makes the bot send a message.",
+    "commandUsage": "<message>"
   },
   "config": {
-    "commandDescription": "Altera a configuração atual do servidor.",
-    "commandUsage": "[configuração a ser alterada]",
+    "commandDescription": "Changes the current server configuration.",
+    "commandUsage": "[setting to be changed]",
     "subcommands": {
       "language": {
-        "commandDescription": " Altera o idioma atual do servidor.",
-        "commandUsage": "<código do idioma>",
-        "missingTranslation": "Algumas traduções podem estar faltando",
-        "info": "**Para alterar o idioma do servidor**:",
-        "noCode": "Você tem que me dar um código de idioma!",
-        "availableLanguages": "Idiomas disponíveis",
-        "changedSuccessfully": "Idioma alterado para **{{lang}}**"
+        "commandDescription": "Change the current server language.",
+        "commandUsage": "<language code>",
+        "missingTranslation": "Some translations may be missing",
+        "info": "**To change the server language**:",
+        "noCode": "You need  to give me the language code!",
+        "availableLanguages": "Languages avaliable",
+        "changedSuccessfully": "Language changed to **{{lang}}**"
       },
       "prefix": {
-        "commandDescription": "Altera o prefixo do servidor atual.",
-        "commandUsage": "<novo prefixo>",
-        "info": "**Para alterar o prefixo do servidor**:",
-        "missingPrefix": "Você tem que me dar um prefixo!",
-        "changedSuccessfully": "O prefixo foi alterado para **`{{prefix}}`**"
+        "commandDescription": "Change the current server prefix.",
+        "commandUsage": "<new prefix>",
+        "info": "**to change the server prefix**:",
+        "missingPrefix": "you need to give me an prefix!",
+        "changedSuccessfully": "Prefix changed to **`{{prefix}}`**"
       }
     }
   },
   "commandchannel": {
-    "commandDescription": "Configura os canais que o bot aceita comandos.",
-    "commandUsage": "[configuração]",
+    "commandDescription": "Configures the channels that the bot accepts commands.",
+    "commandUsage": "[configuration]",
     "subcommands": {
       "set": {
-        "commandDescription": "Inseri um canal na lista branca.",
-        "commandUsage": "<canal>",
-        "info": "**Para inserir um canal**:",
-        "setChannelSuccessfully": "O canal **{{- name}}** foi setado com sucesso!"
+        "commandDescription": "I inset a channel in the whitelist.",
+        "commandUsage": "<channel>",
+        "info": "**To insert a channel**:",
+        "setChannelSuccessfully": "The channel **{{- name}}** has been insert whit success!"
       },
       "remove": {
-        "commandDescription": "Remove um canal da lista branca.",
-        "commandUsage": "<canal>",
-        "info": "**Para remover um canal**:",
-        "removeChannelSuccessfully": "Canal removido com sucesso!",
-        "channelInvalid": "Este canal não está setado!"
+        "commandDescription": "I remove a channel in the whitelist.",
+        "commandUsage": "<channel>",
+        "info": "**To remove a channel**:",
+        "removeChannelSuccessfully": "Channel has been removed with success",
+        "channelInvalid": "This channel is not seted!"
       },
       "list": {
-        "commandDescription": "Lista todos os comandos setados.",
-        "info": "**Para listar todos os canais**:",
-        "noChannels": "Nenhum canal setado!"
+        "commandDescription": "List of seted channels.",
+        "info": "**For list all channels**:",
+        "noChannels": "None channel seted!"
       }
     }
   },
   "rank": {
-    "commandDescription": "Mostra os rank global do bot.",
-    "commandUsage": "[usuário]",
-    "tableTitle": "Classificação Global"
+    "commandDescription": "Shows global rank into the bot.",
+    "commandUsage": "[user]",
+    "tableTitle": "Global Rank"
   },
   "help": {
-    "commandDescription": "Mostra as principais informações do bot.",
-    "commandUsage": "[nome do comando]",
-    "noDescriptionProvided": "Nenhuma descrição fornecida.",
-    "specificInformation": "Digite **{{helpString}}** para obter informações específicas do comando.",
-    "subcommandKnowMore": "Use **`{{usage}} [subcomando]`** para saber mais sobre um subcomando!"
+    "commandDescription": "Shows the principal bot info.",
+    "commandUsage": "[name of command]",
+    "noDescriptionProvided": "no description provided.",
+    "specificInformation": "Write **{{helpString}}** to get the especify help of command.",
+    "subcommandKnowMore": "Use **`{{usage}} [subcommand]`** to know more about a subcommand!"
   },
   "daily": {
-    "commandDescription": "Reivindica sua recompensa diária.",
-    "alreadyClaimedDescription": "Você já reivindicou sua recompensa diária. Você pode pegar novamente em **{{time}}**.",
-    "claimedSuccessfully": "Você recebeu **$t(economy:currencyWithCount, { 'count': {{count}} })** como sua recompensa diária!"
+    "commandDescription": "Claim your daily reward.",
+    "alreadyClaimedDescription": "You have already claimed your daily reward. You can pick up again at **{{time}}**.",
+    "claimedSuccessfully": "You recived **$t(economy:currencyWithCount, { 'count': {{count}} })**as your daily reward !"
   },
   "money": {
-    "commandDescription": "Ver as suas moedas atuais.",
-    "commandUsage": "[usuário]",
-    "authorMoney": "Você possui **{{balance}} moedas** atualmente.",
-    "userMoney": "O usuário `{{user}}` possui **$t(economy:lowerPocket, { 'count': {{balance}} })** atualmente."
+    "commandDescription": "See your actualy coins.",
+    "commandUsage": "[user]",
+    "authorMoney": "You have **{{balance}} coins** actualy.",
+    "userMoney": "The user `{{user}}` has **$t(economy:lowerPocket, { 'count': {{balance}} })** actualy."
   },
   "rep": {
-    "commandDescription": "Da um ponto de reputação para um usuário.",
-    "commandUsage": "<usuário>",
-    "alreadyDonateDescription": "Você já deu seu ponto de reputação diário. Aguarde **{{time}}** para dar novamente.",
-    "claimedSuccessfully": "Você deu **1** ponto de reputação para **{{tag}}**!"
+    "commandDescription": "Give a rep point to a user.",
+    "commandUsage": "<user>",
+    "alreadyDonateDescription": "You have already given your daily reputation point. Wait ** {{time}} ** to give again.",
+    "claimedSuccessfully": "You gave ** 1 ** reputation point for **{{tag}}**!"
   },
   "background": {
-    "commandDescription": "Altera o plano de fundo do perfil do usuário",
-    "commandUsage": "<imagem | url>",
-    "updateBackgroundSucess": "O plano de fundo de seu perfil foi alterado com sucesso!",
-    "updateBackgroundError": "Por favor insira uma imagem válida.",
+    "commandDescription": "Changes your profile background",
+    "commandUsage": "<image | url>",
+    "updateBackgroundSucess": "Your profile background has been successfully changed!",
+    "updateBackgroundError": "Please insert a valid image.",
     "subcommands": {
       "remove": {
-        "commandDescription": "Reseta o plano de fundo.",
-        "backgroundReset": "Seu plano de fundo foi resetado!"
+        "commandDescription": "Reset the background.",
+        "backgroundReset": "Your background has been reset!"
       }
     }
   },
   "profile": {
-    "commandDescription": "Mostra as informções do perfil do usuário.",
-    "commandUsage": "[usuário]"
+    "commandDescription": "Show the user info.",
+    "commandUsage": "[user]"
   },
   "favcolor": {
-    "commandDescription": "Define a cor do seu perfil.",
+    "commandDescription": "Define your profile color.",
     "commandUsage": "<#hexadecimal>",
-    "changedSuccessfully": "A cor de seu perfil foi alterada para **{{hexadecimal}}**."
+    "changedSuccessfully": "The color of your profile has been changed to **{{hexadecimal}}**."
   },
   "play": {
-    "commandDescription": "Toca música em um canal de voz.",
-    "commandUsage": "<link | nome>",
-    "noTrackIdentifier": "Por favor insira a música que deseja reproduzir!"
+    "commandDescription": "Play a music in a voice channel.",
+    "commandUsage": "<link | name>",
+    "noTrackIdentifier": "Please insert a music you like to listen!"
   },
   "stop": {
-    "commandDescription": "Para a reprodução da música.",
-    "stopped": "A reprodução foi interrompida, saindo do canal de voz..."
+    "commandDescription": "Stops the playlist.",
+    "stopped": "The playlist has been stoped,leaving the voicechannel..."
   },
   "volume": {
-    "commandDescription": "Ajusta o volume da reprodução da música.",
+    "commandDescription": "Adjusts the volume of music playback.",
     "commandUsage": "<0-150>",
-    "missingVolumeParameter": "Você precisa me fornecer um nível de volume!",
-    "invalidVolumeParameter": "Você precisa me dar um número válido!",
-    "notPlaying": "O volume não pode ser ajustado enquanto não estiver sendo reproduzido nada!",
-    "volumeSet": "Volume definido em **{{volume}}%**"
+    "missingVolumeParameter": "You need to provide me with a volume level!",
+    "invalidVolumeParameter": "You need to give me a valid number!",
+    "notPlaying": "The volume cannot be adjusted while nothing is playing!",
+    "volumeSet": "Volume set in**{{volume}}%**"
   },
   "skip": {
-    "commandDescription": "Pula para a próxima música."
+    "commandDescription": "Jumps to the next music."
   },
   "pause": {
-    "commandDescription": "Pausa|Reproduz a música que está sendo tocada."
+    "commandDescription": "Pause|Play the song being played."
   },
   "queue": {
-    "commandDescription": "Mostra a lista de reprodução.",
+    "commandDescription": "Shows the playlist",
     "subcommands": {
       "clear": {
-        "commandDescription": "Limpa a lista de reprodução.",
-        "queueCleared": "A lista de reprodução foi limpa com sucesso!"
+        "commandDescription": "Clear the playlist.",
+        "queueCleared": "The playlist was successfully cleared!"
       },
       "shuffle": {
-        "commandDescription": "Embaralha a lista de reprodução.",
-        "queueShuffled": "A lista de reprodução foi embaralhada!"
+        "commandDescription": "Shuffles the playlist.",
+        "queueShuffled": "The playlist has been shuffled!"
       },
       "jump": {
-        "commandDescription": "Pula para a música desejada.",
-        "commandUsage": "<numero da musica>",
-        "missingIndexParameter": "Você precisa me fornecer o número da música para a qual deseja pular.",
-        "jumpedToSong": "Saltou para {{- songName}}."
+        "commandDescription": "Jump to the desired song",
+        "commandUsage": "<music number>",
+        "missingIndexParameter": "You need to give me the number of the song you want to skip to.",
+        "jumpedToSong": "Jumped to {{- songName}}."
       }
     }
   },
   "nowplaying": {
-    "commandDescription": "Mostra a música que está sendo reproduzida."
+    "commandDescription": "Shows the song being played."
   },
   "hug": {
-    "commandDescription": "Abraça um usuário.",
-    "commandUsage": "<usuário>",
-    "missingUser": "Você precisa mencionar o usuário que deseja abraçar!",
-    "successHug": "{{- author}} abraçou {{- user}}!"
+    "commandDescription": "Hug an user.",
+    "commandUsage": "<user>",
+    "missingUser": "You need to mention the user you want to hug!",
+    "successHug": "{{- author}} hugged {{- user}}!"
   },
   "kiss": {
-    "commandDescription": "Beija um usuário.",
-    "commandUsage": "<usuário>",
-    "missingUser": "Você precisa mencionar o usuário que deseja beijar!",
-    "successKiss": "{{- author}} beijou {{- user}}!"
+    "commandDescription": "Kiss an user.",
+    "commandUsage": "<user>",
+    "missingUser": "You need to mention the user you want to kiss",
+    "successKiss": "{{- author}} kissed {{- user}}!"
   },
   "pat": {
-    "commandDescription": "Acaricia um usuário.",
-    "commandUsage": "<usuário>",
-    "missingUser": "Você precisa mencionar o usuário que deseja beijar!",
-    "successPat": "{{- author}} Acariciou {{- user}}!"
+    "commandDescription": "Pat an user.",
+    "commandUsage": "<user>",
+    "missingUser": "You need to mention the user you want to pat",
+    "successPat": "{{- author}} Pated {{- user}}!"
   },
   "slap": {
-    "commandDescription": "Da um tapa em um usuário.",
-    "commandUsage": "<usuário>",
-    "missingUser": "Você precisa mencionar o usuário que deseja estapear!",
-    "successSlap": "{{- author}} de um tapa em {{- user}}!"
+    "commandDescription": "Slap an user.",
+    "commandUsage": "<user>",
+    "missingUser": "You need to mention the user you want to slap",
+    "successSlap": "{{- author}} slaped {{- user}}!"
   },
   "ascii": {
-    "commandDescription": "Envia um texto em ascii no chat.",
-    "commandUsage": "<texto>",
-    "emitedError": "Ocorreu um error no processamento!\n`{{- error}}`"
+    "commandDescription": "Send an ascii text in the chat.",
+    "commandUsage": "<text>",
+    "emitedError": "An error ocurred !\n`{{- error}}`"
   },
   "ban": {
-    "commandDescription": "Bane um membro deste servidor.",
-    "commandUsage": "<membro> [razão]",
-    "missingUser": "Você precisa me dar um membro para banir!",
-    "missingReason": "Você precisa me dar um motivo para banir!",
-    "noPermission": "Estou com falta da permissão **$t(permissions: BAN_MEMBERS)** para banir este membro.",
-    "successTitle": "O membro foi banido!",
-    "cantBan": "Não posso banir este membro!"
+    "commandDescription": "Bans a member of this guild.",
+    "commandUsage": "<member> [reason]",
+    "missingUser": "You need to provide me a member to ban!",
+    "missingReason": "You need to provide me a reason to ban!",
+    "noPermission": "I not have the perms**$t(permissions: BAN_MEMBERS)** to ban this member.",
+    "successTitle": "The member has been banned!",
+    "cantBan": "I cant ban this member!"
   },
   "kick": {
-    "commandDescription": "Bane um membro deste servidor.",
-    "commandUsage": "<membro> [razão]",
-    "missingUser": "Você precisa me dar um membro para banir!",
-    "missingReason": "Você precisa me dar um motivo para banir!",
-    "noPermission": "Estou com falta da permissão **$t(permissions: KICK_MEMBERS)** para banir este membro.",
-    "successTitle": "O membro foi banido!",
-    "cantKick": "Não posso kickar este membro!"
+    "commandDescription": "Kicks a member of this server.",
+    "commandUsage": "<membro> [reason]",
+    "missingUser": "You need to provide me a member to kick!",
+    "missingReason": "you need to provide me a reason to kick!",
+    "noPermission": "I not have the perms**$t(permissions: KICK_MEMBERS)** to kick this member.",
+    "successTitle": "The member has been kicked!",
+    "cantKick": "I cant kick this member!"
   },
   "commands": {
-    "commandDescription": "Mostra todos os comandos do bot.",
-    "commandsTitle": "Possuo atualmente o total de **`{{count}}`** comando!",
-    "commandsTitle_plural": "Possuo atualmente o total de **`{{count}}`** comandos!"
+    "commandDescription": "Shows all bot commands.",
+    "commandsTitle": "I currently have the total**`{{count}}`** command!",
+    "commandsTitle_plural": "I currently have the total **`{{count}}`** commands!"
   },
   "weather": {
-    "commandDescription": "Mostra a o tempo da cidade inserida.",
-    "commandUsage": "<nome da cidade>",
-    "cityNotEntered": "Por favor insira o nome da cidade desejeada.",
-    "cityNotFound": "A cidade inserida não foi encontrada!",
-    "timezone": "Fuso Horário",
-    "temperature": "Temperatura",
-    "thermalSensation": "Sensação Térmica",
-    "wind": "Velocidade e Direção do vento",
-    "humidity": "Umidade do ar",
-    "day": "Dia da semana"
+    "commandDescription": "Shows the weather of the inserted city.",
+    "commandUsage": "<city name>",
+    "cityNotEntered": "Please enter the name of the desired city.",
+    "cityNotFound": "The city entered was not found!",
+    "timezone": "Timezone",
+    "temperature": "Temperature",
+    "thermalSensation": "Thermal Sensation",
+    "wind": "Wind speed and direction",
+    "humidity": "Humidity",
+    "day": "Day of week"
   },
   "personaltext": {
-    "commandDescription": "Altera o texto pessoal do perfil.",
-    "commandUsage": "<texto>",
-    "updateSucessTitle": "Texto pessoal alterado com sucesso!"
+    "commandDescription": "Changes the personal profile text.",
+    "commandUsage": "<text>",
+    "updateSucessTitle": "Personal text changed successfully!"
   },
   "bugreport": {
-    "commandDescription": "Esclarece um bug para o time de desenvolvedores do bot.",
+    "commandDescription": "Clarifies a bug for the bot developer team.",
     "commandUsage": "<bug> [--screenshots +prints url]",
-    "missingBug": "Desculpe, você precisa inserir o bug.",
-    "screenshots": "Capturas de tela",
-    "view": "Ver"
+    "missingBug": "Sorry, you need to provide the bug.",
+    "screenshots": "Screenshot",
+    "view": "See"
   },
   "addemoji": {
-    "commandDescription": "Adiciona um emoji novo ao servidor",
-    "commandUsage": "<imagem | url> <nome>",
-    "successfullyAdded": "O emoji **{{name}}** foi adicionado com sucesso!",
-    "createEmojiError": "Ocorreu um erro ao criar o emoji!"
+    "commandDescription": "Add a new emoji to the guild",
+    "commandUsage": "<image | url> <name>",
+    "successfullyAdded": "The emoji ** {{name}} ** has been successfully added!",
+    "createEmojiError": "There was an error creating the emoji!"
   }
 }
