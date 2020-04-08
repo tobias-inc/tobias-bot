@@ -1,0 +1,23 @@
+{
+  "songNotFound": "Has no result found!",
+  "hasEnded": "**{{- songName}}** has ended!",
+  "nowPlaying": "Playng now",
+  "queue": "Playlist",
+  "addedBy": "Added by {{- user}}",
+  "addedByCapitalize": "Added by {{- user}}",
+  "queueIsEmpty": "The Playlist has ended!",
+  "live": "LIVE",
+  "views": "Views",
+  "viewers": "Viewers",
+  "likes": "Likes",
+  "dislikes": "Dislikes",
+  "played": "Played",
+  "startedPlaying": "Starting to play **{{- songName}}**",
+  "addedToTheQueue": "**{{- songName}}** has added in PLaylist.",
+  "andMore": "and More **{{missing}}**...",
+  "noneAfterCurrent": "Has no one music after this music!",
+  "leftDueToInactivity": "Disconnected because the voice chat is inactive.",
+  "wasSkipped": "{{- songName}} has been skiped!",
+  "addedFromPlaylist": "**{{count}}** music of **{{- playlistName}}** has add in playlist! {{- duration}}.\n*($t(commons:processed) in **{{- loadTime}}**)*",
+  "addedFromPlaylist_plural": "**{{count}}** music of **{{- playlistName}}** has add in playlist! {{- duration}}.\n*($t(commons:processed_plural) in **{{- loadTime}}**)*"
+}

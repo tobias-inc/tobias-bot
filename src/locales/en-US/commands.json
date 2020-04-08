@@ -1,0 +1,333 @@
+{
+  "clear": "The chat was cleared by {{USER}}, and {{COUNT}} messages were also deleted!",
+  "dragracing":{
+    "commandDescription": "Run a race with another user.",
+    "commandUsage": "<@user>",
+    "noUser": "**You didn't mention the user you want to run with!**",
+    "maked": "User {{author}} made {{action}} meters🏎 ...................",
+    "draw": "There was a technical draw better to make another dispute right?",
+    "win": "Drag racing 🏎 \n This time the winner was ** {{ganhador}} ** luck or skill?",
+    "challenger": "challenger ",
+    "challenged": "challenged "
+},
+  "color": {
+    "commandDescription": "Shows the color that the user enters.",
+    "commandUsage": "<#color>",
+    "args": "You need to enter a color.",
+    "format": "The color must be in the ** # RRGGBB ** or ** # RGB ** format."
+  },
+  "lyrics": {
+    "commandDescription": "Shows the lyrics of the song that the user enters.",
+    "commandUsage": "<songname>",
+    "noSong": "Please enter the name of the desired ** song **!",
+    "footer": "Page {{page}} of {{total}}."
+},
+  "serverinfo": {
+    "commandDescription": "Shows the information of the server on which the command is run.",
+    "name": "Name",
+    "region": "Region",
+    "createdAt": "Created at",
+    "owner": "Owner",
+    "verify": {
+      "ctx": "Verify",
+      "level": {
+        "0": "None **(0)**",
+        "1": "Low **(1)**",
+        "2": "Medium **(2)**",
+        "3": "High **(3)**",
+        "4": "Very High **(4)**"
+      }
+    },
+    "members": {
+      "ctx": "Members **({{size}})**",
+      "users": "Users: ",
+      "bots": "Bots: "
+    },
+    "channels": {
+      "ctx": "Channels **({{length}})**",
+      "text": "Text: ",
+      "voice": "Voice: ",
+      "category": "Category: "
+    },
+    "role": {
+      "ctx": "Role **({{length}})**",
+      "managed": "Manageable: ",
+      "noTags": "None",
+      "tags": "and more **{{length}}**..."
+    }
+  },
+  "userinfo": {
+    "name": "Name",
+    "id": "Identify",
+    "createdAt": "Created at",
+    "joinedAt": "Joined at",
+    "permissions": "Permissions",
+    "nickname": {
+      "ctx": "Nickname",
+      "none": "none"
+    },
+    "status": {
+      "ctx": "Status",
+      "dnd": "Do not disturb",
+      "idle": "Idle",
+      "offline": "Offline",
+      "online": "Online"
+    },
+    "bot": {
+      "ctx": "Bot",
+      "true": "true",
+      "false": "false"
+    },
+    "role": {
+      "ctx": "Roles **({{size}})**",
+      "and": " and more ***{{size}}***...",
+      "none": "none"
+    }
+  },
+  "eval": {
+    "commandDescription": "Evaluate a JS string.",
+    "commandUsage": "<text>"
+  },
+  "ping": {
+    "commandDescription": "Show the time resnponse of bot."
+  },
+  "reload": {
+    "commandDescription": "Reload the command instert.",
+    "commandUsage": "<name of command>",
+    "error": "An error ocurred to reload the command",
+    "sucess": "The command **`{{commandName}}`** has been reloaded!",
+    "missingCommand": "Please insert the `name` or an `aliase` of command to be reloaded!"
+  },
+  "reloadlocales": {
+    "commandDescription": "Reload language system.",
+    "error": "An error occurred while reloading the system: **{{error}}**",
+    "sucess": "The system has been reloaded with**success**!"
+  },
+  "say": {
+    "commandDescription": "Makes the bot send a message.",
+    "commandUsage": "<message>"
+  },
+  "config": {
+    "commandDescription": "Changes the current server configuration.",
+    "commandUsage": "[setting to be changed]",
+    "subcommands": {
+      "language": {
+        "commandDescription": "Change the current server language.",
+        "commandUsage": "<language code>",
+        "missingTranslation": "Some translations may be missing",
+        "info": "**To change the server language**:",
+        "noCode": "You need  to give me the language code!",
+        "availableLanguages": "Languages avaliable",
+        "changedSuccessfully": "Language changed to **{{lang}}**"
+      },
+      "prefix": {
+        "commandDescription": "Change the current server prefix.",
+        "commandUsage": "<new prefix>",
+        "info": "**to change the server prefix**:",
+        "missingPrefix": "you need to give me an prefix!",
+        "changedSuccessfully": "Prefix changed to **`{{prefix}}`**"
+      }
+    }
+  },
+  "commandchannel": {
+    "commandDescription": "Configures the channels that the bot accepts commands.",
+    "commandUsage": "[configuration]",
+    "subcommands": {
+      "set": {
+        "commandDescription": "I inset a channel in the whitelist.",
+        "commandUsage": "<channel>",
+        "info": "**To insert a channel**:",
+        "setChannelSuccessfully": "The channel **{{- name}}** has been insert whit success!"
+      },
+      "remove": {
+        "commandDescription": "I remove a channel in the whitelist.",
+        "commandUsage": "<channel>",
+        "info": "**To remove a channel**:",
+        "removeChannelSuccessfully": "Channel has been removed with success",
+        "channelInvalid": "This channel is not seted!"
+      },
+      "list": {
+        "commandDescription": "List of seted channels.",
+        "info": "**For list all channels**:",
+        "noChannels": "None channel seted!"
+      }
+    }
+  },
+  "rank": {
+    "commandDescription": "Shows global rank into the bot.",
+    "commandUsage": "[user]",
+    "tableTitle": "Global Rank"
+  },
+  "help": {
+    "commandDescription": "Shows the principal bot info.",
+    "commandUsage": "[name of command]",
+    "noDescriptionProvided": "no description provided.",
+    "specificInformation": "Write **{{helpString}}** to get the especify help of command.",
+    "subcommandKnowMore": "Use **`{{usage}} [subcommand]`** to know more about a subcommand!"
+  },
+  "daily": {
+    "commandDescription": "Claim your daily reward.",
+    "alreadyClaimedDescription": "You have already claimed your daily reward. You can pick up again at **{{time}}**.",
+    "claimedSuccessfully": "You recived **$t(economy:currencyWithCount, { 'count': {{count}} })**as your daily reward !"
+  },
+  "money": {
+    "commandDescription": "See your actualy coins.",
+    "commandUsage": "[user]",
+    "authorMoney": "You have **{{balance}} coins** actualy.",
+    "userMoney": "The user `{{user}}` has **$t(economy:lowerPocket, { 'count': {{balance}} })** actualy."
+  },
+  "rep": {
+    "commandDescription": "Give a rep point to a user.",
+    "commandUsage": "<user>",
+    "alreadyDonateDescription": "You have already given your daily reputation point. Wait ** {{time}} ** to give again.",
+    "claimedSuccessfully": "You gave ** 1 ** reputation point for **{{tag}}**!"
+  },
+  "background": {
+    "commandDescription": "Changes your profile background",
+    "commandUsage": "<image | url>",
+    "updateBackgroundSucess": "Your profile background has been successfully changed!",
+    "updateBackgroundError": "Please insert a valid image.",
+    "subcommands": {
+      "remove": {
+        "commandDescription": "Reset the background.",
+        "backgroundReset": "Your background has been reset!"
+      }
+    }
+  },
+  "profile": {
+    "commandDescription": "Show the user info.",
+    "commandUsage": "[user]"
+  },
+  "favcolor": {
+    "commandDescription": "Define your profile color.",
+    "commandUsage": "<#hexadecimal>",
+    "changedSuccessfully": "The color of your profile has been changed to **{{hexadecimal}}**."
+  },
+  "play": {
+    "commandDescription": "Play a music in a voice channel.",
+    "commandUsage": "<link | name>",
+    "noTrackIdentifier": "Please insert a music you like to listen!"
+  },
+  "stop": {
+    "commandDescription": "Stops the playlist.",
+    "stopped": "The playlist has been stoped,leaving the voicechannel..."
+  },
+  "volume": {
+    "commandDescription": "Adjusts the volume of music playback.",
+    "commandUsage": "<0-150>",
+    "missingVolumeParameter": "You need to provide me with a volume level!",
+    "invalidVolumeParameter": "You need to give me a valid number!",
+    "notPlaying": "The volume cannot be adjusted while nothing is playing!",
+    "volumeSet": "Volume set in**{{volume}}%**"
+  },
+  "skip": {
+    "commandDescription": "Jumps to the next music."
+  },
+  "pause": {
+    "commandDescription": "Pause|Play the song being played."
+  },
+  "queue": {
+    "commandDescription": "Shows the playlist",
+    "subcommands": {
+      "clear": {
+        "commandDescription": "Clear the playlist.",
+        "queueCleared": "The playlist was successfully cleared!"
+      },
+      "shuffle": {
+        "commandDescription": "Shuffles the playlist.",
+        "queueShuffled": "The playlist has been shuffled!"
+      },
+      "jump": {
+        "commandDescription": "Jump to the desired song",
+        "commandUsage": "<music number>",
+        "missingIndexParameter": "You need to give me the number of the song you want to skip to.",
+        "jumpedToSong": "Jumped to {{- songName}}."
+      }
+    }
+  },
+  "nowplaying": {
+    "commandDescription": "Shows the song being played."
+  },
+  "hug": {
+    "commandDescription": "Hug an user.",
+    "commandUsage": "<user>",
+    "missingUser": "You need to mention the user you want to hug!",
+    "successHug": "{{- author}} hugged {{- user}}!"
+  },
+  "kiss": {
+    "commandDescription": "Kiss an user.",
+    "commandUsage": "<user>",
+    "missingUser": "You need to mention the user you want to kiss",
+    "successKiss": "{{- author}} kissed {{- user}}!"
+  },
+  "pat": {
+    "commandDescription": "Pat an user.",
+    "commandUsage": "<user>",
+    "missingUser": "You need to mention the user you want to pat",
+    "successPat": "{{- author}} Pated {{- user}}!"
+  },
+  "slap": {
+    "commandDescription": "Slap an user.",
+    "commandUsage": "<user>",
+    "missingUser": "You need to mention the user you want to slap",
+    "successSlap": "{{- author}} slaped {{- user}}!"
+  },
+  "ascii": {
+    "commandDescription": "Send an ascii text in the chat.",
+    "commandUsage": "<text>",
+    "emitedError": "An error ocurred !\n`{{- error}}`"
+  },
+  "ban": {
+    "commandDescription": "Bans a member of this guild.",
+    "commandUsage": "<member> [reason]",
+    "missingUser": "You need to provide me a member to ban!",
+    "missingReason": "You need to provide me a reason to ban!",
+    "noPermission": "I not have the perms**$t(permissions: BAN_MEMBERS)** to ban this member.",
+    "successTitle": "The member has been banned!",
+    "cantBan": "I cant ban this member!"
+  },
+  "kick": {
+    "commandDescription": "Kicks a member of this server.",
+    "commandUsage": "<membro> [reason]",
+    "missingUser": "You need to provide me a member to kick!",
+    "missingReason": "you need to provide me a reason to kick!",
+    "noPermission": "I not have the perms**$t(permissions: KICK_MEMBERS)** to kick this member.",
+    "successTitle": "The member has been kicked!",
+    "cantKick": "I cant kick this member!"
+  },
+  "commands": {
+    "commandDescription": "Shows all bot commands.",
+    "commandsTitle": "I currently have the total**`{{count}}`** command!",
+    "commandsTitle_plural": "I currently have the total **`{{count}}`** commands!"
+  },
+  "weather": {
+    "commandDescription": "Shows the weather of the inserted city.",
+    "commandUsage": "<city name>",
+    "cityNotEntered": "Please enter the name of the desired city.",
+    "cityNotFound": "The city entered was not found!",
+    "timezone": "Timezone",
+    "temperature": "Temperature",
+    "thermalSensation": "Thermal Sensation",
+    "wind": "Wind speed and direction",
+    "humidity": "Humidity",
+    "day": "Day of week"
+  },
+  "personaltext": {
+    "commandDescription": "Changes the personal profile text.",
+    "commandUsage": "<text>",
+    "updateSucessTitle": "Personal text changed successfully!"
+  },
+  "bugreport": {
+    "commandDescription": "Clarifies a bug for the bot developer team.",
+    "commandUsage": "<bug> [--screenshots +prints url]",
+    "missingBug": "Sorry, you need to provide the bug.",
+    "screenshots": "Screenshot",
+    "view": "See"
+  },
+  "addemoji": {
+    "commandDescription": "Add a new emoji to the guild",
+    "commandUsage": "<image | url> <name>",
+    "successfullyAdded": "The emoji ** {{name}} ** has been successfully added!",
+    "createEmojiError": "There was an error creating the emoji!"
+  }
+}

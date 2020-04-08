@@ -1,0 +1,44 @@
+{
+  "usage": "Usage",
+  "aliases": "Aliases",
+  "enabled": "Enabled",
+  "disabled": "Disabled",
+  "permissions": "Permissions",
+  "botPermissions": "Bot Permissions",
+  "none": "None",
+  "none_a": "None",
+  "processed": "Processed",
+  "processed_plural": "Processed",
+  "channelTypes": {
+    "text": "Text",
+    "category": "Category",
+    "voice": "Voice"
+  },
+  "texts": {
+    "subcommands": "Subcommands",
+    "versions": "Versions",
+    "about": "About",
+    "notDefined": "Not Defined"
+  },
+  "utils": {
+    "website": "Website",
+    "invite": "Invite",
+    "additional": "Additional"
+  },
+  "timeResponses": {
+    "s": "second",
+    "s_plural": "seconds",
+    "m": "minute",
+    "m_plural": "minutes",
+    "h": "hour",
+    "h_plural": "hours",
+    "d": "day",
+    "d_plural": "days",
+    "w": "week",
+    "w_plural": "weeks",
+    "mo": "month",
+    "mo_plural": "months",
+    "y": "year",
+    "y_plural": "years"
+  }
+}

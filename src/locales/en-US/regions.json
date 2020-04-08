@@ -1,0 +1,22 @@
+{
+  "regions": {
+    "brazil": "🇧🇷 Brazil",
+    "india": "🇮🇳 Índia",
+    "hongkong": "🇭🇰 Hong Kong",
+    "japan": "🇯🇵 Japan",
+    "russia": "🇷🇺 Russia",
+    "singapore": "🇸🇬 Singapure",
+    "southafrica": "🇿🇦 South Africa",
+    "Sydney": "🇦🇺 Sydney",
+    "eu-central": "🇪🇺 Central Europe",
+    "eu-west": "🇺🇸 Western Europe",
+    "us-central": "🇺🇸 Central EUA",
+    "us-east": "🇺🇸 East EUA",
+    "us-south": "🇺🇸 South dos EUA",
+    "us-west": "🇺🇸 West dos EUA"
+  },
+  "replaces": {
+    "pt-BR": "🇧🇷 Português (Brasileiro)",
+    "en-US": "🇺🇸 English (USA)"
+  }
+}

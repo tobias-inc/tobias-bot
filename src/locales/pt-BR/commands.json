@@ -263,7 +263,7 @@
   "pat": {
     "commandDescription": "Acaricia um usuário.",
     "commandUsage": "<usuário>",
-    "missingUser": "Você precisa mencionar o usuário que deseja beijar!",
+    "missingUser": "Você precisa mencionar o usuário que deseja acariciar!",
     "successPat": "{{- author}} Acariciou {{- user}}!"
   },
   "slap": {
@@ -287,12 +287,12 @@
     "cantBan": "Não posso banir este membro!"
   },
   "kick": {
-    "commandDescription": "Bane um membro deste servidor.",
+    "commandDescription": "Chuta um membro deste servidor.",
     "commandUsage": "<membro> [razão]",
-    "missingUser": "Você precisa me dar um membro para banir!",
-    "missingReason": "Você precisa me dar um motivo para banir!",
-    "noPermission": "Estou com falta da permissão **$t(permissions: KICK_MEMBERS)** para banir este membro.",
-    "successTitle": "O membro foi banido!",
+    "missingUser": "Você precisa me dar um membro para chutar!",
+    "missingReason": "Você precisa me dar um motivo para chutar!",
+    "noPermission": "Estou com falta da permissão **$t(permissions: KICK_MEMBERS)** para chutar este membro.",
+    "successTitle": "O membro foi chutado!",
     "cantKick": "Não posso kickar este membro!"
   },
   "commands": {

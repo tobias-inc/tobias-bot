@@ -107,8 +107,7 @@ module.exports = class CommandRequirements {
       }
     }
 
-    const guildPlayer =
-      client.playerManager && client.playerManager.get(guild.id)
+    const guildPlayer = client.playerManager && client.playerManager.get(guild.id)
     if (opts.guildPlaying && (!guildPlayer || !guildPlayer.playing)) {
       throw new CommandError(t(opts.errors.guildPlaying))
     }

@@ -1,0 +1,9 @@
+{
+  "description": "Tobias is a bot with multiple functions, which values, above all, delivering quality to its users",
+  "viewCommandList": "See my commands list",
+  "toKnowMoreHelp": "To see the complete list`{{commandString}}` or access:",
+  "aboutHelping": "how about helping me", 
+  "configureYourServer": "Configure your guild here!",
+  "timeOnline": "Activity time",
+  "clientUserHelp": "{{- clientUser.username}} - Help"
+}
