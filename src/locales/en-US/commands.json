@@ -1,5 +1,10 @@
 {
-  "clear": "The chat was cleared by {{USER}}, and {{COUNT}} messages were also deleted!",
+  "clear": {
+    "commandDescription": "Delete many messages.",
+    "commandUsage": "<number>",
+    "cleared":"The chat was cleared by {{USER}}, and {{COUNT}} messages were also deleted!",
+    "noNumber": "You need to provide me the number of messages you want to delete"
+  },
   "dragracing":{
     "commandDescription": "Run a race with another user.",
     "commandUsage": "<@user>",
@@ -116,7 +121,7 @@
         "commandUsage": "<language code>",
         "missingTranslation": "Some translations may be missing",
         "info": "**To change the server language**:",
-        "noCode": "You need  to give me the language code!",
+        "noCode": "You need  to provide me the language code!",
         "availableLanguages": "Languages avaliable",
         "changedSuccessfully": "Language changed to **{{lang}}**"
       },
@@ -124,7 +129,7 @@
         "commandDescription": "Change the current server prefix.",
         "commandUsage": "<new prefix>",
         "info": "**to change the server prefix**:",
-        "missingPrefix": "you need to give me an prefix!",
+        "missingPrefix": "you need to provide me a prefix!",
         "changedSuccessfully": "Prefix changed to **`{{prefix}}`**"
       }
     }
@@ -216,7 +221,7 @@
     "commandDescription": "Adjusts the volume of music playback.",
     "commandUsage": "<0-150>",
     "missingVolumeParameter": "You need to provide me with a volume level!",
-    "invalidVolumeParameter": "You need to give me a valid number!",
+    "invalidVolumeParameter": "You need to provide me a valid number!",
     "notPlaying": "The volume cannot be adjusted while nothing is playing!",
     "volumeSet": "Volume set in**{{volume}}%**"
   },
@@ -240,7 +245,7 @@
       "jump": {
         "commandDescription": "Jump to the desired song",
         "commandUsage": "<music number>",
-        "missingIndexParameter": "You need to give me the number of the song you want to skip to.",
+        "missingIndexParameter": "You need to provide me the number of the song you want to skip to.",
         "jumpedToSong": "Jumped to {{- songName}}."
       }
     }

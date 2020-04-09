@@ -1,5 +1,10 @@
 {
-  "clear": "O chat foi limpo por {{USER}}, e tambem foram excluidas {{COUNT}} mensagens!",
+  "clear": {
+    "commandDescription": "Apaga muitas mensagens.",
+    "commandUsage": "<number>",
+    "cleared":"O chat foi limpo por {{USER}}, e tambem foram excluidas {{COUNT}} mensagens!",
+    "noNumber": "Você precisa me dizer o numero de mensagens que vo^ce deseja apagar"
+  },
   "dragracing":{
     "commandDescription": "Faz uma corrida com outro usuario.",
     "commandUsage": "<@usuario>",
