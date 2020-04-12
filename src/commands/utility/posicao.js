@@ -4,7 +4,7 @@ const msgTimeOut = async (msg, time) => {
   await new Promise(function (resolve, reject) {
     setTimeout(resolve, time)
   })
-  return msg.clearReactions().catch(() => { })
+  return msg.reactions.removeAll().catch(() => { })
 }
 // eslint-disable-next-line no-extend-native
 Array.prototype.chunk = function (chunkSize) {
@@ -23,7 +23,7 @@ module.exports = class Posicao extends Command {
     })
   }
 
-  async run ({ channel, t, author, guild }) {
+  async run ({ channel, t, author, guild, message }) {
     const body = await guild.members.fetch().then(member => {
       return member.sort(function (a, b) {
         return a.joinedTimestamp - b.joinedTimestamp
@@ -31,33 +31,33 @@ module.exports = class Posicao extends Command {
     })
     const embed = new ClientEmbed(author)
 
-    let inPage = 1
+    let inPage = 0
     const pages = body.chunk(10)
 
-    channel.send(
-      embed
-        .setDescription(pages[0])
-        .setFooter(t('commands:lyrics.footer', {
-          page: 1,
-          total: pages.length
-        }), author.displayAvatarURL)
-    )
+    embed
+      .setDescription(pages[0])
+      .setFooter(t('commands:lyrics.footer', {
+        page: 1,
+        total: pages.length
+      }), author.displayAvatarURL)
 
     return channel.send(embed).then(async (msg) => {
       if (pages.length > 1) {
         await msg.react('◀️')
         await msg.react('▶️')
         const initializeCollector = (msg.createReactionCollector(
-          (reaction, user) => ['♻', '◀️', '▶️'].includes(reaction.emoji.name) &&
+          (reaction, user) => ['◀️', '▶️'].includes(reaction.emoji.name) &&
                         user.id === author.id,
           { time: 120000 })
         )
 
         msgTimeOut(msg, 120000)
         return initializeCollector.on('collect', async (r) => {
-          await r.remove(author.id).catch(() => { })
-          if (r.emoji.name === '▶️') {
-            if ((inPage + 1) === pages.length) {
+          // await r.remove(author.id).catch(() => { })
+          // eslint-disable-next-line eqeqeq
+          if (r.emoji.name == '▶️') {
+            // eslint-disable-next-line eqeqeq
+            if ((inPage + 1) == pages.length) {
               inPage = 0
               msg.edit(embed.setDescription(pages[inPage]).setFooter(t('commands:lyrics.footer', {
                 page: (inPage + 1),
@@ -70,14 +70,16 @@ module.exports = class Posicao extends Command {
                 total: pages.length
               }), author.displayAvatarURL))
             }
-          } else if (r.emoji.name === '◀️') {
-            if ((inPage - 1) === pages.length) {
+          // eslint-disable-next-line eqeqeq
+          } else if (r.emoji.name == '◀️') {
+            // eslint-disable-next-line eqeqeq
+            if ((inPage - 1) == pages.length) {
               inPage = 0
               msg.edit(embed.setDescription(pages[inPage]).setFooter(t('commands:lyrics.footer', {
                 page: (inPage + 1),
                 total: pages.length
               }), author.displayAvatarURL))
-            } else {
+            } else if (inPage > 0) {
               inPage -= 1
               msg.edit(embed.setDescription(pages[inPage]).setFooter(t('commands:lyrics.footer', {
                 page: (inPage + 1),
