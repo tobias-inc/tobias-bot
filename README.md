@@ -108,3 +108,9 @@ $ git commit
 [watchers-badge]: https://img.shields.io/github/watchers/tobias-inc/TobiasBot?label=WATCHERS&style=social
 [watchers-url]: https://github.com/tobias-inc/TobiasBot/watchers
 [rep-github-url]: https://github.com/tobias-inc/TobiasBot/
+
+Copyright:
+
+```text
+Todos os direitos reservados a Switchblade e afiliados
+```
