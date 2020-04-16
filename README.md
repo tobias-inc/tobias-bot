@@ -111,6 +111,6 @@ $ git commit
 
 Copyright © :
 
-```text
+
 Direitos reservados a Switchblade[https://github.com/SwitchbladeBot/switchblade] e afiliados.
-```
+
