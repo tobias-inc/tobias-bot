@@ -109,7 +109,7 @@ $ git commit
 [watchers-url]: https://github.com/tobias-inc/TobiasBot/watchers
 [rep-github-url]: https://github.com/tobias-inc/TobiasBot/
 
-Copyright:
+Copyright © :
 
 ```text
 Todos os direitos reservados a Switchblade e afiliados
