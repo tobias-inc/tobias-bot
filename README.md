@@ -112,5 +112,5 @@ $ git commit
 Copyright © :
 
 ```text
-Todos os direitos reservados a Switchblade e afiliados
+Direitos reservados a Switchblade e afiliados.
 ```
