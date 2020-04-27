@@ -1,4 +1,4 @@
-const { Playlist } = require('../../structures')
+const { Playlist } = require('../../musicStructures')
 const SoundcloudSong = require('./SoundcloudSong.js')
 
 module.exports = class SoundcloudPlaylist extends Playlist {

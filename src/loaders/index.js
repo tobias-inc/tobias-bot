@@ -9,7 +9,5 @@ module.exports = {
   ControllersLoader: require('./ControllersLoader.js'),
   ModulesLoader: require('./ModulesLoader.js'),
 
-  WrappersLoader: require('./WrappersLoader.js'),
-
-  HTTPLoader: require('./HTTPLoader.js')
+  WrappersLoader: require('./ApisLoader.js')
 }

@@ -1,4 +1,4 @@
-const { SongSource } = require('../../structures')
+const { SongSource } = require('../../musicStructures')
 const DeezerPlaylist = require('./DeezerPlaylist.js')
 const DeezerSong = require('./DeezerSong.js')
 

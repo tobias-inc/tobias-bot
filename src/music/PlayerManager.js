@@ -9,7 +9,7 @@ const {
   SongSearchResult,
   SongSource,
   Playlist
-} = require('./structures')
+} = require('./musicStructures')
 const {
   Songs: {
     HTTPSong,

@@ -1,25 +1,27 @@
+/* eslint-disable no-unused-vars */
 const { PlayerManager, Status, Listener, Constants } = require('../../')
 
 const PRESENCE_TYPES = Object.keys(Status)
 const PRESENCE_INTERVAL = 60 * 1000
 
-const parseStatus = (type, status) => {
+/* const parseStatus = (type, status) => {
   return {
-    status: 'online',
+    status: 'idle',
     game: {
       name: status,
-      url: 'https://www.twitch.tv/monstercat',
+      url: 'https://www.twitch.tv/asynchronous301',
       type: type.toUpperCase()
     }
   }
 }
-
+*/
 module.exports = class WebSocketResponses extends Listener {
   constructor (client) {
     super(client)
     this.events = ['ready', 'error']
   }
 
+  /*
   replaceInformations (expr = '@{client} help') {
     const { guilds, users, user, playerManager } = this.client
     return expr
@@ -29,7 +31,7 @@ module.exports = class WebSocketResponses extends Listener {
       .replace('{prefix}', Constants.DEFAULT_PREFIX)
       .replace('{musicServers}', playerManager ? playerManager.size : 0)
   }
-
+*/
   async parseNodesErrors () {
     this.client.playerManager.nodes.forEach(node => {
       const disabledListeners = ['error', 'close']
@@ -66,10 +68,18 @@ module.exports = class WebSocketResponses extends Listener {
         true,
         'Failed to establish Lavalink connection - Failed to parse LAVALINK_NODES environment variable',
         'Ready',
-        'Music'
+        'No Music'
       )
     }
+    this.client.user.setPresence({
+      status: 'idle',
+      game: {
+        name: 'Recomeçando do Zero!',
+        url: 'https://www.twitch.tv/asynchronous301'
+      }
+    })
 
+    /*
     const updateStatus = () => {
       const presenceType = PRESENCE_TYPES.chooseTheSorted()
       const presence = Status[presenceType].chooseTheSorted()
@@ -80,6 +90,7 @@ module.exports = class WebSocketResponses extends Listener {
 
     setInterval(updateStatus, PRESENCE_INTERVAL)
     return updateStatus()
+    */
   }
 
   onError (err) {

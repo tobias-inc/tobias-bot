@@ -1,4 +1,4 @@
-const { Playlist } = require('../../structures')
+const { Playlist } = require('../../musicStructures')
 const YoutubeSong = require('./YoutubeSong.js')
 
 const PLAYLIST_URI = 'https://www.youtube.com/playlist?list='

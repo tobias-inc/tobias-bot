@@ -2,7 +2,7 @@ const { FileUtils, Wrapper, Loader } = require('../')
 
 module.exports = class WrappersLoader extends Loader {
   constructor (client) {
-    super('WrappersLoader', client)
+    super('ApisLoader', client)
     this.apis = {}
   }
 
