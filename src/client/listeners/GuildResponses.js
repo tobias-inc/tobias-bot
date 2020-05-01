@@ -30,19 +30,19 @@ module.exports = class GuildResponses extends Listener {
     if (dados.d.message_id != '705817634809053194') return
 
     const servidor = this.client.guilds.resolve('500452776770535444')
-    const membro = servidor.members.fetch(dados.d.user_id)
-    const cargo = servidor.roles.fetch('671400506245120030')
+    const membro = await servidor.members.fetch(dados.d.user_id)
+    const cargo = await servidor.roles.fetch('671400506245120030')
 
     if (dados.t === 'MESSAGE_REACTION_ADD') {
       if (dados.d.emoji.id == '547392151043178506') {
-        if (await membro.roles.has(cargo)) return
-        await membro.roles.add(cargo)
+        if (membro.roles.has(cargo)) return
+        membro.roles.add(cargo)
       }
     }
     if (dados.t === 'MESSAGE_REACTION_REMOVE') {
       if (dados.d.emoji.id === '547392151043178506') {
-        if (await membro.roles.has(cargo)) return
-        await membro.roles.remove(cargo)
+        if (membro.roles.has(cargo)) return
+        membro.roles.remove(cargo)
       }
     }
   }
