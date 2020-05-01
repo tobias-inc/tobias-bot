@@ -4,7 +4,7 @@ const msgTimeOut = async (msg, time) => {
   await new Promise(function (resolve, reject) {
     setTimeout(resolve, time)
   })
-  return msg.clearReactions().catch(() => { })
+  return msg.reactions.removeAll().catch(() => { })
 }
 
 module.exports = class Lyrics extends Command {

@@ -5,7 +5,7 @@ const msgTimeOut = async (msg, time) => {
   await new Promise(resolve => {
     setTimeout(resolve, time)
   })
-  return msg.clearReactions().catch(() => {})
+  return msg.reactions.removeAll().catch(() => {})
 }
 
 module.exports = class UserInfo extends Command {
@@ -81,7 +81,7 @@ module.exports = class UserInfo extends Command {
           )
           .addField(
             t('commands:userinfo.role.ctx', {
-              size: Number(guild.member(user.id).roles.size - 1).localeNumber(
+              size: Number(guild.member(user.id).roles.cache.size - 1).localeNumber(
                 language
               )
             }),
@@ -108,7 +108,7 @@ module.exports = class UserInfo extends Command {
                   .permissionsFor(this.client.user.id)
                   .has('MANAGE_MESSAGES')
               ) {
-                await msg.clearReactions()
+                await msg.reactions.removeAll()
               } else r.remove(this.client.user.id)
 
               // eslint-disable-next-line eqeqeq
@@ -130,7 +130,7 @@ module.exports = class UserInfo extends Command {
                   .permissionsFor(this.client.user.id)
                   .has('MANAGE_MESSAGES')
               ) {
-                await msg.clearReactions()
+                await msg.reactions.removeAll()
               } else msg.user.reaction.remove(this.client.user.id)
 
               msg.edit(embed.setColor(process.env.ERROR_COLOR))
@@ -144,7 +144,8 @@ module.exports = class UserInfo extends Command {
   Roles (user, guild, t, lang) {
     const ROLES = guild
       .member(user.id)
-      .roles.map(role => role)
+      .roles
+      .cache.map(role => role)
       .slice(1)
     if (!ROLES.length) return t('commands:userinfo.role.none')
     return [
