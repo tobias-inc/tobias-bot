@@ -51,7 +51,7 @@
     "intl": "^1.2.5",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "^2.25.0",
     "moment-duration-format": "^2.3.2",
     "mongoose": "^5.9.7",
     "morgan": "^1.10.0",
