@@ -7,7 +7,6 @@ const PRESENCE_INTERVAL = 60 * 1000
 const parseStatus = (type, name) => {
   return {
     status: 'online',
-    clientStatus: { mobile: 'online' },
     userID: '539853186572222464',
     activity: { name, url: 'https://www.twitch.tv/asynchronous301', type }
   }
