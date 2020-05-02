@@ -7,9 +7,9 @@ const PRESENCE_INTERVAL = 60 * 1000
 const parseStatus = (type, name) => {
   return {
     status: 'online',
-    clientStatus: { desktop: 'online' },
+    clientStatus: { mobile: 'online' },
     userID: '539853186572222464',
-    activities: { name: name, url: 'https://www.twitch.tv/asynchronous301', type: type }
+    activity: { name, url: 'https://www.twitch.tv/asynchronous301', type }
   }
 }
 module.exports = class WebSocketResponses extends Listener {
@@ -71,8 +71,8 @@ module.exports = class WebSocketResponses extends Listener {
     const updateStatus = () => {
       const presenceType = PRESENCE_TYPES.chooseTheSorted()
       const presence = Status[presenceType].chooseTheSorted()
-      this.client.user.setActivity(
-        parseStatus(presenceType.toString(), this.replaceInformations(presence).toString())
+      this.client.user.setPresence(
+        parseStatus(presenceType, this.replaceInformations(presence))
       )
     }
 
