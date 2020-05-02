@@ -1,9 +1,9 @@
 {
-  "listening": [
+  "LISTENING": [
     "Spotify",
     "Pyotr Ilyich Tchaikovsky"
   ],
-  "watching": [
+  "WATCHING": [
     "Tobias Team fixing-me",
     "CSI: Crime Scene Investigation",
     "House",
@@ -11,10 +11,10 @@
     "{guilds} Servers | Prefix: {prefix}",
     "{users} Users in {guilds} Servers"
   ],
-  "streaming": [
+  "STREAMING": [
     "Music in {musicServers} servers!"
   ],
-  "playing": [
+  "PLAYING": [
     "Battlefield 4",
     "Fortnite",
     "PUBG Lite",

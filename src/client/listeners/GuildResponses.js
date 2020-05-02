@@ -35,13 +35,13 @@ module.exports = class GuildResponses extends Listener {
 
     if (dados.t === 'MESSAGE_REACTION_ADD') {
       if (dados.d.emoji.id == '547392151043178506') {
-        if (membro.roles.has(cargo)) return
+        if (membro.roles.cache.get(cargo)) return
         membro.roles.add(cargo)
       }
     }
     if (dados.t === 'MESSAGE_REACTION_REMOVE') {
       if (dados.d.emoji.id === '547392151043178506') {
-        if (membro.roles.has(cargo)) return
+        if (membro.roles.cache.get(cargo)) return
         membro.roles.remove(cargo)
       }
     }
