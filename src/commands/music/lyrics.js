@@ -32,15 +32,16 @@ module.exports = class Lyrics extends Command {
 
     if (search || author.presence.activities.map(a => a.name) == 'Spotify') {
       const hit = await this.client.apis.geniusapi.loadLyrics(title, artist)
+      const Art = await this.client.apis.geniusapi.loadArt(title, artist)
 
       if (hit) {
         let inPage = 0
-        const body = this.splitLyric(hit.Lyric);
+        const body = await this.splitLyric(hit);
 
         (embed
           .setTitle(`${title} - ${artist}`)
         // .setURL(`http://genius.com${path}`)
-          .setThumbnail(hit.Art)
+          .setThumbnail(Art)
           .setDescription(body[0])
           .setFooter(t('commands:lyrics.footer', {
             page: 1,
