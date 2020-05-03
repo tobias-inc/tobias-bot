@@ -25,6 +25,7 @@
     "commandDescription": "Mostra a letra da musica que o usuario inserir.",
     "commandUsage": "<cor>",
     "noSong": "por favor insira o nome da **música** desejada!",
+    "songNotFound": "não foi possivel encontrar uma letra para esta musica",
     "footer": "Página {{page}} de {{total}}."
 },
   "serverinfo": {

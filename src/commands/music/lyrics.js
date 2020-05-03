@@ -1,4 +1,5 @@
-const { Command, ClientEmbed } = require('../../')
+/* eslint-disable eqeqeq */
+const { Command, ClientEmbed, Constants } = require('../../')
 
 const msgTimeOut = async (msg, time) => {
   await new Promise(function (resolve, reject) {
@@ -24,23 +25,22 @@ module.exports = class Lyrics extends Command {
   async run ({ channel, author, t, args }) {
     const embed = new ClientEmbed(author)
 
-    const search = args[0] ? args.join(' ')
-      : author.presence.game &&
-      author.presence.game.name === 'Spotify' && `${author.presence.game.details} - ${author.presence.game.state.split(';')[0]}`
+    const search = args[0] ? args.join(' ') : args.join(' ')
 
-    if (search) {
-      const { hits: [hit] } = await this.client.apis.GeniusApi.findTrack(search)
+    const title = search.split('-')[0] || author.presence.activities.map(a => a.details)
+    const artist = search.split('-')[1] || author.presence.activities.map(a => a.state.split(';')[0])
+
+    if (search || author.presence.activities.map(a => a.name) == 'Spotify') {
+      const hit = await this.client.apis.geniusapi.loadLyrics(title, artist)
 
       if (hit) {
-        const { thumbnailUrl, title, artist, id, path } = hit
-
         let inPage = 0
-        const body = this.splitLyric(await this.client.apis.GeniusApi.loadLyrics(id));
+        const body = this.splitLyric(hit.Lyric);
 
         (embed
           .setTitle(`${title} - ${artist}`)
-          .setURL(`http://genius.com${path}`)
-          .setThumbnail(thumbnailUrl)
+        // .setURL(`http://genius.com${path}`)
+          .setThumbnail(hit.Art)
           .setDescription(body[0])
           .setFooter(t('commands:lyrics.footer', {
             page: 1,
@@ -53,15 +53,15 @@ module.exports = class Lyrics extends Command {
             await msg.react('◀️')
             await msg.react('▶️')
             const initializeCollector = (msg.createReactionCollector(
-              (reaction, user) => ['♻', '◀️', '▶️'].includes(reaction.emoji.name) &&
+              (reaction, user) => ['◀️', '▶️'].includes(reaction.emoji.name) &&
                 user.id === author.id,
               { time: 120000 })
             )
 
             msgTimeOut(msg, 120000)
             return initializeCollector.on('collect', async (r) => {
-              await r.remove(author.id).catch(() => { })
-              if (r.emoji.id === '▶️') {
+              // await r.remove(author.id).catch(() => { })
+              if (r.emoji.name == '▶️') {
                 if ((inPage + 1) === body.length) {
                   inPage = 0
                   msg.edit(embed.setDescription(body[inPage]).setFooter(t('commands:lyrics.footer', {
@@ -75,7 +75,7 @@ module.exports = class Lyrics extends Command {
                     total: body.length
                   }), author.displayAvatarURL))
                 }
-              } else if (r.emoji.id === '◀️') {
+              } else if (r.emoji.name == '◀️') {
                 if ((inPage - 1) === body.length) {
                   inPage = 0
                   msg.edit(embed.setDescription(body[inPage]).setFooter(t('commands:lyrics.footer', {
@@ -89,32 +89,20 @@ module.exports = class Lyrics extends Command {
                     total: body.length
                   }), author.displayAvatarURL))
                 }
-              } else if (r.emoji.name === '♻') {
-                inPage = 0
-                msg.edit(embed.setDescription(body[inPage]).setFooter(t('commands:lyrics.footer', {
-                  page: (inPage + 1),
-                  total: body.length
-                }), author.displayAvatarURL))
               }
-
-              if (inPage === 0) {
-                msg.reactions.get('♻') &&
-                  msg.reactions.get('♻')
-                    .remove(msg.reactions.get('♻').users.last().id).catch(() => { })
-              } else if (inPage === 1) msg.react('♻')
             })
           }
         })
       } else {
         return channel.send(embed
-          .setDescription(`❌ **${author.username}**, ${t('commands:lyrics:noSong')}`)
-          .setColor(process.env.ERROR_COLOR)
+          .setDescription(`:frowning: **${author.username}**, ${t('commands:lyrics:songNotFound')}`)
+          .setColor(Constants.ERROR_COLOR)
         )
       }
     } else {
       return channel.send(embed
         .setDescription(`❌ **${author.username}**, ${t('commands:lyrics:noSong')}`)
-        .setColor(process.env.ERROR_COLOR)
+        .setColor(Constants.ERROR_COLOR)
       )
     }
   }
