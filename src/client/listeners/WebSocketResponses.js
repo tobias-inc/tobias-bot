@@ -20,8 +20,8 @@ module.exports = class WebSocketResponses extends Listener {
   replaceInformations (expr = '@{client} help') {
     const { guilds, users, user, playerManager } = this.client
     return expr
-      .replace('{guilds}', guilds.size)
-      .replace('{users}', users.size)
+      .replace('{guilds}', guilds.cache.size)
+      .replace('{users}', users.cache.size)
       .replace('{client}', user.username)
       .replace('{prefix}', Constants.DEFAULT_PREFIX)
       .replace('{musicServers}', playerManager ? playerManager.size : 0)
