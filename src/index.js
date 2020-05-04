@@ -22,6 +22,7 @@ module.exports = {
   FileUtils: require('./utils/FileUtils.js'),
   MiscUtils: require('./utils/MiscUtils.js'),
   Prototype: require('./utils/Prototype.js'),
+  Emojis: require('./utils/Emojis'),
 
   // Music
   PlayerManager: require('./music/PlayerManager.js'),
