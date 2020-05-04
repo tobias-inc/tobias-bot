@@ -37,7 +37,7 @@ module.exports = class UserParameter extends Parameter {
     )
 
     const user =
-      this.client.users.fetch(id) ||
+      client.users.fetch(id) ||
       (!!findMember && findMember.user) ||
       (id && this.fetchAll && client.fetchUser(id))
     if (!user) throw new CommandError(t(this.errors.invalidUser))
