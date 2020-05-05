@@ -5,7 +5,7 @@ const {
   ClientEmbed,
   Utils
 } = require('../../')
-const { Song, Playlist } = require('../../music/structures')
+const { Song, Playlist } = require('../../music/musicStructures')
 
 module.exports = class Play extends Command {
   constructor (client, path) {

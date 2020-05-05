@@ -4,7 +4,7 @@ const moment = require('moment')
 const loaders = require('./loaders')
 const { Loader } = require('./')
 
-const getDate = () => moment.locale('pt-BR') && moment().format('L LTS')
+const getDate = () => moment.locale('pt-BR') && moment().format('lll')
 
 module.exports = class TobiasClient extends Client {
   constructor (config) {
@@ -13,9 +13,6 @@ module.exports = class TobiasClient extends Client {
     this.commands = []
     this.database = null
     this.language = null
-
-    Object.defineProperty(this, 'express', { writable: true })
-    Object.defineProperty(this, 'routes', { writable: true })
 
     this.loadSystem()
   }

@@ -1,5 +1,5 @@
 const SocialUtils = require('../utils/SocialUtils.js')
-const { CommandContext, Listener } = require('../../')
+const { CommandContext, Listener, ClientEmbed, Emojis, Constants } = require('../../')
 
 const getPrefix = (m, p) => p.find(pr => m.content.startsWith(pr))
 
@@ -36,6 +36,15 @@ module.exports = class MessageResponses extends Listener {
     const now = Date.now()
     const guildId = message.guild && message.guild.id
 
+    const language = await this.modules.language.retrieveValue(
+      guildId,
+      'language'
+    )
+    if (message.content === `<@${this.client.user.id}>` || message.content === `<@!${this.client.user.id}>`) {
+      return message.channel.send(new ClientEmbed(message.author)
+        .setDescription(`${Emojis.Certo} **${message.author.username}**, ${this.client.language.i18next.getFixedT(language)('client:mentionBot', { prefix: Constants.DEFAULT_PREFIX })}`)
+      ).catch(() => { })
+    }
     const {
       prefix,
       spacePrefix
@@ -43,10 +52,6 @@ module.exports = class MessageResponses extends Listener {
       'prefix',
       'spacePrefix'
     ])
-    const language = await this.modules.language.retrieveValue(
-      guildId,
-      'language'
-    )
     const usedPrefix = getPrefix(message, [
       prefix,
       `<@!${this.client.user.id}>`,

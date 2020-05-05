@@ -1,10 +1,11 @@
-const { Command, ClientEmbed } = require('../../')
+/* eslint-disable eqeqeq */
+const { Command, ClientEmbed, Constants } = require('../../')
 
 const msgTimeOut = async (msg, time) => {
   await new Promise(function (resolve, reject) {
     setTimeout(resolve, time)
   })
-  return msg.clearReactions().catch(() => { })
+  return msg.reactions.removeAll().catch(() => { })
 }
 
 module.exports = class Lyrics extends Command {
@@ -24,23 +25,28 @@ module.exports = class Lyrics extends Command {
   async run ({ channel, author, t, args }) {
     const embed = new ClientEmbed(author)
 
-    const search = args[0] ? args.join(' ')
-      : author.presence.game &&
-      author.presence.game.name === 'Spotify' && `${author.presence.game.details} - ${author.presence.game.state.split(';')[0]}`
+    const search = args[0] ? args.join(' ') : args.join(' ')
+    const AUTHOR = author.presence.activities
+    var i = 0
+    for (; i < AUTHOR.length; i++) {
+      if (AUTHOR[i].name === 'Spotify') { break }
+      var Pressen = AUTHOR[i + 1]
+    }
+    const title = search.split('-')[0] || Pressen.details
+    const artist = search.split('-')[1] || Pressen.state.split(';')[0]
 
-    if (search) {
-      const { hits: [hit] } = await this.client.apis.GeniusApi.findTrack(search)
+    if (search || Pressen.name === 'Spotify') {
+      const hit = await this.client.apis.geniusapi.loadLyrics(title, artist)
+      const Art = await this.client.apis.geniusapi.loadArt(title, artist)
 
       if (hit) {
-        const { thumbnailUrl, title, artist, id, path } = hit
-
         let inPage = 0
-        const body = this.splitLyric(await this.client.apis.GeniusApi.loadLyrics(id));
+        const body = await this.splitLyric(hit);
 
         (embed
           .setTitle(`${title} - ${artist}`)
-          .setURL(`http://genius.com${path}`)
-          .setThumbnail(thumbnailUrl)
+        // .setURL(`http://genius.com${path}`)
+          .setThumbnail(Art)
           .setDescription(body[0])
           .setFooter(t('commands:lyrics.footer', {
             page: 1,
@@ -53,15 +59,15 @@ module.exports = class Lyrics extends Command {
             await msg.react('◀️')
             await msg.react('▶️')
             const initializeCollector = (msg.createReactionCollector(
-              (reaction, user) => ['♻', '◀️', '▶️'].includes(reaction.emoji.name) &&
+              (reaction, user) => ['◀️', '▶️'].includes(reaction.emoji.name) &&
                 user.id === author.id,
               { time: 120000 })
             )
 
             msgTimeOut(msg, 120000)
             return initializeCollector.on('collect', async (r) => {
-              await r.remove(author.id).catch(() => { })
-              if (r.emoji.id === '▶️') {
+              // await r.remove(author.id).catch(() => { })
+              if (r.emoji.name == '▶️') {
                 if ((inPage + 1) === body.length) {
                   inPage = 0
                   msg.edit(embed.setDescription(body[inPage]).setFooter(t('commands:lyrics.footer', {
@@ -75,7 +81,7 @@ module.exports = class Lyrics extends Command {
                     total: body.length
                   }), author.displayAvatarURL))
                 }
-              } else if (r.emoji.id === '◀️') {
+              } else if (r.emoji.name == '◀️') {
                 if ((inPage - 1) === body.length) {
                   inPage = 0
                   msg.edit(embed.setDescription(body[inPage]).setFooter(t('commands:lyrics.footer', {
@@ -89,32 +95,20 @@ module.exports = class Lyrics extends Command {
                     total: body.length
                   }), author.displayAvatarURL))
                 }
-              } else if (r.emoji.name === '♻') {
-                inPage = 0
-                msg.edit(embed.setDescription(body[inPage]).setFooter(t('commands:lyrics.footer', {
-                  page: (inPage + 1),
-                  total: body.length
-                }), author.displayAvatarURL))
               }
-
-              if (inPage === 0) {
-                msg.reactions.get('♻') &&
-                  msg.reactions.get('♻')
-                    .remove(msg.reactions.get('♻').users.last().id).catch(() => { })
-              } else if (inPage === 1) msg.react('♻')
             })
           }
         })
       } else {
         return channel.send(embed
-          .setDescription(`❌ **${author.username}**, ${t('commands:lyrics:noSong')}`)
-          .setColor(process.env.ERROR_COLOR)
+          .setDescription(`:frowning: **${author.username}**, ${t('commands:lyrics:songNotFound')}`)
+          .setColor(Constants.ERROR_COLOR)
         )
       }
     } else {
       return channel.send(embed
         .setDescription(`❌ **${author.username}**, ${t('commands:lyrics:noSong')}`)
-        .setColor(process.env.ERROR_COLOR)
+        .setColor(Constants.ERROR_COLOR)
       )
     }
   }

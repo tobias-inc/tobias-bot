@@ -1,5 +1,10 @@
 {
-  "clear": "O chat foi limpo por {{USER}}, e tambem foram excluidas {{COUNT}} mensagens!",
+  "clear": {
+    "commandDescription": "Apaga muitas mensagens.",
+    "commandUsage": "<number>",
+    "cleared":"O chat foi limpo por {{USER}}, e tambem foram excluidas {{COUNT}} mensagens!",
+    "noNumber": "Você precisa me dizer o numero de mensagens que vo^ce deseja apagar"
+  },
   "dragracing":{
     "commandDescription": "Faz uma corrida com outro usuario.",
     "commandUsage": "<@usuario>",
@@ -20,6 +25,7 @@
     "commandDescription": "Mostra a letra da musica que o usuario inserir.",
     "commandUsage": "<cor>",
     "noSong": "por favor insira o nome da **música** desejada!",
+    "songNotFound": "não foi possivel encontrar uma letra para esta musica",
     "footer": "Página {{page}} de {{total}}."
 },
   "serverinfo": {
@@ -60,7 +66,10 @@
     "name": "Nome",
     "id": "Identificação",
     "createdAt": "Data de Criação",
-    "joinedAt": "Entrou no servidor em",
+    "joinedAt": { 
+      "ctx": "Entrou no servidor em",
+      "NotInThisServer": "Não faz parte desse servidor"
+    },
     "permissions": "Permissões",
     "nickname": {
       "ctx": "Apelido",

@@ -1,19 +1,16 @@
+/* eslint-disable no-unused-vars */
 const { PlayerManager, Status, Listener, Constants } = require('../../')
 
 const PRESENCE_TYPES = Object.keys(Status)
 const PRESENCE_INTERVAL = 60 * 1000
 
-const parseStatus = (type, status) => {
+const parseStatus = (type, name) => {
   return {
     status: 'online',
-    game: {
-      name: status,
-      url: 'https://www.twitch.tv/monstercat',
-      type: type.toUpperCase()
-    }
+    userID: '539853186572222464',
+    activity: { name, url: 'https://www.twitch.tv/asynchronous301', type }
   }
 }
-
 module.exports = class WebSocketResponses extends Listener {
   constructor (client) {
     super(client)
@@ -23,8 +20,8 @@ module.exports = class WebSocketResponses extends Listener {
   replaceInformations (expr = '@{client} help') {
     const { guilds, users, user, playerManager } = this.client
     return expr
-      .replace('{guilds}', guilds.size)
-      .replace('{users}', users.size)
+      .replace('{guilds}', guilds.cache.size)
+      .replace('{users}', users.cache.size)
       .replace('{client}', user.username)
       .replace('{prefix}', Constants.DEFAULT_PREFIX)
       .replace('{musicServers}', playerManager ? playerManager.size : 0)
@@ -66,7 +63,7 @@ module.exports = class WebSocketResponses extends Listener {
         true,
         'Failed to establish Lavalink connection - Failed to parse LAVALINK_NODES environment variable',
         'Ready',
-        'Music'
+        'No Music'
       )
     }
 

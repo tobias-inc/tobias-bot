@@ -1,4 +1,4 @@
-const { FileUtils, Wrapper, Loader } = require('../')
+const { FileUtils, Wrapper, Loader } = require('..')
 
 module.exports = class WrappersLoader extends Loader {
   constructor (client) {

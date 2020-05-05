@@ -5,7 +5,7 @@ const msgTimeOut = async (msg, time) => {
   await new Promise(resolve => {
     setTimeout(resolve, time)
   })
-  return msg.clearReactions().catch(() => {})
+  return msg.reactions.removeAll().catch(() => {})
 }
 
 module.exports = class UserInfo extends Command {
@@ -47,6 +47,8 @@ module.exports = class UserInfo extends Command {
       Status = '<:b_stream:438399396963418131> '
     }
 
+    const URolesSize = channel.permissionsFor(user.id) ? Number(guild.member(user.id).roles.cache.size - 1).localeNumber(language) : 0
+
     channel
       .send(
         embed
@@ -65,8 +67,8 @@ module.exports = class UserInfo extends Command {
             false
           )
           .addField(
-            t('commands:userinfo.joinedAt'),
-            await this.Time(guild.member(user.id).joinedAt, language),
+            t('commands:userinfo.joinedAt.ctx'),
+            channel.permissionsFor(user.id) ? await this.Time(guild.member(user.id).joinedAt, language) : t('commands:userinfo:joinedAt.NotInThisServer'),
             false
           )
           .addField(
@@ -81,15 +83,14 @@ module.exports = class UserInfo extends Command {
           )
           .addField(
             t('commands:userinfo.role.ctx', {
-              size: Number(guild.member(user.id).roles.size - 1).localeNumber(
-                language
-              )
+              size: URolesSize
             }),
-            await this.Roles(user, guild, t, language),
+            channel.permissionsFor(user.id) ? await this.Roles(user, guild, t, language) : t('commands:userinfo:joinedAt.NotInThisServer'),
             false
           )
       )
       .then(msg => {
+        if (!channel.permissionsFor(user.id)) return
         msg.react('▶️')
         return ((N = 0) => {
           const initializeCollector = msg.createReactionCollector(
@@ -108,7 +109,7 @@ module.exports = class UserInfo extends Command {
                   .permissionsFor(this.client.user.id)
                   .has('MANAGE_MESSAGES')
               ) {
-                await msg.clearReactions()
+                await msg.reactions.removeAll()
               } else r.remove(this.client.user.id)
 
               // eslint-disable-next-line eqeqeq
@@ -130,7 +131,7 @@ module.exports = class UserInfo extends Command {
                   .permissionsFor(this.client.user.id)
                   .has('MANAGE_MESSAGES')
               ) {
-                await msg.clearReactions()
+                await msg.reactions.removeAll()
               } else msg.user.reaction.remove(this.client.user.id)
 
               msg.edit(embed.setColor(process.env.ERROR_COLOR))
@@ -144,7 +145,8 @@ module.exports = class UserInfo extends Command {
   Roles (user, guild, t, lang) {
     const ROLES = guild
       .member(user.id)
-      .roles.map(role => role)
+      .roles
+      .cache.map(role => role)
       .slice(1)
     if (!ROLES.length) return t('commands:userinfo.role.none')
     return [

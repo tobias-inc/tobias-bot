@@ -1,4 +1,4 @@
-const MongoRepository = require('../MongoRepository.js')
+const MongoRepository = require('../MongoRepo.js')
 const Constants = require('../../utils/Constants.js')
 const Utils = require('../../utils')
 

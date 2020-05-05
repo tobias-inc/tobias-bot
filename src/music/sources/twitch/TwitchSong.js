@@ -1,4 +1,4 @@
-const { Song } = require('../../structures')
+const { Song } = require('../../musicStructures')
 const MusicUtils = require('../../MusicUtils.js')
 const Constants = require('../../../utils/Constants.js')
 

@@ -1,20 +1,18 @@
 const Constants = require('./Constants.js')
 
 module.exports = class PermissionUtils {
-  static isDeveloper (client, user) {
-    const botGuild = client.guilds.get(Constants.BOT_GUILD)
-    const developerRole =
-      botGuild && botGuild.roles.get(Constants.DEVELOPER_ROLE)
-    const isDeveloper =
-      (developerRole && developerRole.members.has(user.id)) ||
-      (Constants.DEVELOPER_USERS &&
-        Constants.DEVELOPER_USERS.split(',').includes(user.id))
+  static async isDeveloper (client, member) {
+    // const botGuild = await client.guilds.resolve(Constants.BOT_GUILD)
+    // console.log(member)
+    const hasRole = await member.roles.cache.has(Constants.DEVELOPER_ROLE)
+    // const developerRole = await botGuild.roles.fetch(Constants.DEVELOPER_ROLE)
+    const isDeveloper = hasRole
     return isDeveloper
   }
 
-  static specialRole (client, user) {
-    const botGuild = client.guilds.get(Constants.BOT_GUILD)
-    const member = botGuild && botGuild.members.get(user.id)
+  static async specialRole (client, user) {
+    const botGuild = await client.guilds.resolve(Constants.BOT_GUILD)
+    const member = await botGuild && botGuild.members.fetch(user.id)
     if (member) {
       return member.roles
         .filter(r => r.hoist)

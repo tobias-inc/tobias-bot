@@ -9,7 +9,6 @@ module.exports = {
   // Structures
   Controller: require('./structures/Controller.js'),
   Wrapper: require('./structures/Wrapper.js'),
-  Router: require('./structures/Router.js'),
   Loader: require('./structures/Loader.js'),
   Module: require('./structures/Module.js'),
   Listener: require('./structures/Listener.js'),
@@ -23,6 +22,7 @@ module.exports = {
   FileUtils: require('./utils/FileUtils.js'),
   MiscUtils: require('./utils/MiscUtils.js'),
   Prototype: require('./utils/Prototype.js'),
+  Emojis: require('./utils/Emojis'),
 
   // Music
   PlayerManager: require('./music/PlayerManager.js'),

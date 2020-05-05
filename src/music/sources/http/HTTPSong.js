@@ -1,4 +1,4 @@
-const { Song } = require('../../structures')
+const { Song } = require('../../musicStructures')
 const Constants = require('../../../utils/Constants.js')
 
 module.exports = class HTTPSong extends Song {

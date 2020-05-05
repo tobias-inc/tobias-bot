@@ -33,7 +33,7 @@ module.exports = class Clear extends Command {
     const toDeleteCount = parseInt(parts[1])
 
     channel.bulkDelete(toDeleteCount + 1, true)
-    channel.send(`${t('commands:clear', { USER: author.tag, COUNT: toDeleteCount })}`).then(message => {
+    channel.send(`${t('commands:cleared', { USER: author.tag, COUNT: toDeleteCount })}`).then(message => {
       setTimeout(() => { message.delete() }, 5000)
     })
   }

@@ -39,7 +39,7 @@ module.exports = class CommandRequirements {
   }
 
   static handle (
-    { t, author, channel, client, command, guild, voiceChannel, member },
+    { t, author, channel, client, command, guild, voiceChannel, member, message },
     options
   ) {
     const opts = this.parseOptions(options)
@@ -53,7 +53,7 @@ module.exports = class CommandRequirements {
       }
     }
 
-    if (opts.devOnly && !PermissionUtils.isDeveloper(client, author)) {
+    if (opts.devOnly && !PermissionUtils.isDeveloper(client, message.member)) {
       throw new CommandError(t(opts.errors.devOnly))
     }
 

@@ -13,7 +13,7 @@ module.exports = class Ping extends Command {
     channel.send(
       `🏓 Pong! **${parseInt(
         now - instancedTimestamp
-      )} ms** | API \`${Math.trunc(this.client.ping)}ms\``
+      )} ms** | API \`${Math.trunc(this.client.ws.ping)}ms\``
     )
   }
 }
