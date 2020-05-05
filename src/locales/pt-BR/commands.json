@@ -127,7 +127,7 @@
         "info": "**Para alterar o idioma do servidor**:",
         "noCode": "Você tem que me dar um código de idioma!",
         "availableLanguages": "Idiomas disponíveis",
-        "changedSuccessfully": "Idioma alterado para **{{lang}}**"
+        "changedSuccessfully": "Idioma alterado para **{{language}}**"
       },
       "prefix": {
         "commandDescription": "Altera o prefixo do servidor atual.",
