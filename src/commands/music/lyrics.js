@@ -26,11 +26,16 @@ module.exports = class Lyrics extends Command {
     const embed = new ClientEmbed(author)
 
     const search = args[0] ? args.join(' ') : args.join(' ')
+    const AUTHOR = author.presence.activities
+    var i = 0
+    for (; i < AUTHOR.length; i++) {
+      if (AUTHOR[i].name === 'Spotify') { break }
+      var Pressen = AUTHOR[i + 1]
+    }
+    const title = search.split('-')[0] || Pressen.details
+    const artist = search.split('-')[1] || Pressen.state.split(';')[0]
 
-    const title = search.split('-')[0] || author.presence.activities.map(a => a.details)
-    const artist = search.split('-')[1] || author.presence.activities.map(a => a.state.split(';')[0])
-
-    if (search || author.presence.activities.map(a => a.name) == 'Spotify') {
+    if (search || Pressen.name === 'Spotify') {
       const hit = await this.client.apis.geniusapi.loadLyrics(title, artist)
       const Art = await this.client.apis.geniusapi.loadArt(title, artist)
 

@@ -42,7 +42,7 @@ module.exports = class MessageResponses extends Listener {
     )
     if (message.content === `<@${this.client.user.id}>` || message.content === `<@!${this.client.user.id}>`) {
       return message.channel.send(new ClientEmbed(message.author)
-        .setDescription(`${Emojis.Certo} **${message.author.username}**, ` + this.client.language.i18next.getFixedT(language)('client:mentionBot', { prefix: Constants.DEFAULT_PREFIX }))
+        .setDescription(`${Emojis.Certo} **${message.author.username}**, ${this.client.language.i18next.getFixedT(language)('client:mentionBot', { prefix: Constants.DEFAULT_PREFIX })}`)
       ).catch(() => { })
     }
     const {
