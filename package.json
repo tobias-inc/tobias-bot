@@ -45,7 +45,7 @@
     "events": "^3.1.0",
     "express": "^4.17.1",
     "figlet": "^1.4.0",
-    "file-type": "^14.3.0",
+    "file-type": "^14.6.1",
     "genius-lyrics-api": "^2.0.1",
     "i18next": "^19.4.4",
     "i18next-node-fs-backend": "^2.1.3",
