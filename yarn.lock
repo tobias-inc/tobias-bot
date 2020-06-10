@@ -1629,10 +1629,10 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
-genius-lyrics-api@^2.0.1:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/genius-lyrics-api/-/genius-lyrics-api-2.0.3.tgz#67c68dddf14ba5f73e1964955f513f97968e52e7"
-  integrity sha512-+TPtLlwxkSaqFlVnOrgTIvrOxzaLBXqL1x+Yr7HLYPfEArtH5Tae3s/s8+l9EMCL5rciF0tuZSS/b7VAMWpATw==
+genius-lyrics-api@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/genius-lyrics-api/-/genius-lyrics-api-3.0.0.tgz#9255a876ce2c3f9a0ffcefda4dbe83a55f95b1a2"
+  integrity sha512-J2xMWwCwFa4VPMQKc8W6fIFnUT4HHMWVa9PnuCtgtgTFKyOfajgwpZET38ViNYtZqiVK/OeI5mRB7I/YTix8Vg==
   dependencies:
     axios "^0.19.0"
     cheerio-without-node-native "0.20.2"
