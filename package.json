@@ -52,7 +52,7 @@
     "icecast-parser": "^3.2.1",
     "intl": "^1.2.5",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "lyricist": "^2.2.2",
     "moment": "^2.27.0",
     "moment-duration-format": "^2.3.2",
