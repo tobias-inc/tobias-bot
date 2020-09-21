@@ -1980,10 +1980,10 @@ i18next@^19.6.3:
   dependencies:
     "@babel/runtime" "^7.10.1"
 
-icecast-parser@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/icecast-parser/-/icecast-parser-3.2.1.tgz#2e479a36d6b4f42a471cfd3e02eab4ff88b6f272"
-  integrity sha512-NSXavbdJ+SMam3iJt+652qvNEb/zUx4dDCGZeD3Hx5PCzBTXgTeuLQe5K5Z5N8SWqmhQOIeyzk7XD9wrKpIo+A==
+icecast-parser@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/icecast-parser/-/icecast-parser-4.0.2.tgz#4da4d08520dc6ef7fb0fceecd04b460338def451"
+  integrity sha512-oJpscMyPYtoxXHLrMnt0vhiZ0sbAdAMkFFFYDqXnbQmYfDHMnLM/Ac+OBU9qzSuoLry7qrGO8NrdGwhUA/nfww==
 
 iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4, iconv-lite@~0.4.13:
   version "0.4.24"
